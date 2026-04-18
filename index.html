@@ -209,7 +209,6 @@
         .problem-card h4 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
         .problem-card p { font-size: 14px; color: var(--text-sub); line-height: 1.65; }
         .cta-strip {
-            background: var(--navy);
             border-radius: 24px;
             padding: 40px 48px;
             display: flex;
@@ -218,25 +217,37 @@
             margin-top: 48px;
             position: relative;
             overflow: hidden;
+            isolation: isolate;
         }
-        .cta-strip::after {
-            content: '';
+        .cta-strip-bg {
             position: absolute;
-            right: -60px; top: -60px;
-            width: 240px; height: 240px;
-            border-radius: 50%;
-            background: var(--amber);
-            opacity: 0.07;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80');
+            background-size: cover;
+            background-position: center 35%;
+            filter: brightness(0.28) saturate(0.7);
+            z-index: 0;
+            transform: scale(1.04);
+            transition: transform 8s ease;
         }
+        .cta-strip:hover .cta-strip-bg { transform: scale(1.0); }
+        .cta-strip-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(15,23,42,0.65) 0%, rgba(15,23,42,0.4) 100%);
+            z-index: 1;
+        }
+        .cta-strip > *:not(.cta-strip-bg):not(.cta-strip-overlay) { position: relative; z-index: 2; }
         .cta-strip-icon {
             width: 56px; height: 56px; flex-shrink: 0;
             background: var(--amber);
             border-radius: 16px;
             display: flex; align-items: center; justify-content: center;
             font-size: 24px; color: var(--navy);
+            box-shadow: 0 4px 16px rgba(245,158,11,.4);
         }
-        .cta-strip h4 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-        .cta-strip p { font-size: 14px; color: #94A3B8; line-height: 1.65; }
+        .cta-strip h4 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
+        .cta-strip p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.65; }
         .cta-strip strong { color: #fff; }
 
         /* FEATURES SECTION */
@@ -862,6 +873,8 @@
             </div>
         </div>
         <div class="cta-strip reveal">
+            <div class="cta-strip-bg"></div>
+            <div class="cta-strip-overlay"></div>
             <div class="cta-strip-icon"><i class="fa-solid fa-chart-line"></i></div>
             <div>
                 <h4>Saatnya Bisnis Anda Naik Level!</h4>

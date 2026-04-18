@@ -1,248 +1,113 @@
-<!-- HERO -->
-<section id="hero">
-    <style>
-        #hero {
-            background: #FAFAF9;
-            padding: 96px 0 80px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        #hero::before {
-            content: '';
-            position: absolute;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(245,158,11,0.15), transparent 70%);
-            top: -200px;
-            right: -200px;
-        }
+  <title>Acosys V8 Online | Kelola Bisnis Lebih Mudah</title>
+  <meta name="description" content="Software akuntansi berbasis cloud untuk berbagai jenis bisnis yang membantu mengelola keuangan, stok, dan operasional bisnis secara efisien.">
 
-        .hero-title {
-            font-size: clamp(42px, 6vw, 68px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            color: #0F172A;
-            margin-bottom: 24px;
-        }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
 
-        .hero-title .accent {
-            color: #F59E0B;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .hero-sub {
-            font-size: 18px;
-            color: #78716C;
-            max-width: 520px;
-            margin: 0 auto 32px;
-            line-height: 1.7;
-        }
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        .btn-primary {
-            background: #F59E0B;
-            color: #0F172A;
-            font-weight: 800;
-            font-size: 17px;
-            padding: 18px 42px;
-            border-radius: 100px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 28px rgba(245,158,11,0.35);
-            transition: all 0.2s ease;
-        }
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --amber: #F59E0B;
+      --amber-light: #FEF3C7;
+      --amber-dark: #D97706;
+      --navy: #0F172A;
+      --navy-mid: #1E293B;
+      --green: #059669;
+      --green-light: #ECFDF5;
+      --surface: #FAFAF9;
+      --border: #E7E5E4;
+      --text-main: #1C1917;
+      --text-sub: #78716C;
+      --text-muted: #A8A29E;
+    }
 
-        .btn-primary:hover {
-            background: #D97706;
-            transform: translateY(-2px);
-        }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      background: #fff;
+    }
+  </style>
+</head>
 
-        .btn-secondary {
-            font-size: 14px;
-            font-weight: 600;
-            color: #78716C;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
+<body>
 
-        .pill-group {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
+  <!-- URGENCY BANNER -->
+  <div id="urgency-bar">
+    <img src="acosys.png"
+         alt="Acosys"
+         style="height:22px;"
+         onerror="this.style.display='none'">
 
-        .pill {
-            background: #fff;
-            border: 1px solid #E7E5E4;
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #57534E;
-        }
+    <span>
+      <i class="fa-solid fa-fire" style="color: var(--amber);"></i>
+      <strong>Promo Terbatas:</strong>
+      Diskon 20% untuk Langganan Tahunan — Berlaku Hari Ini
+    </span>
+  </div>
 
-        .pill i {
-            color: #059669;
-            margin-right: 4px;
-        }
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container text-center reveal active">
 
-        .hero-visual {
-            margin-top: 56px;
-            position: relative;
-        }
+      <div style="margin-bottom:28px;">
+        <img src="acosys.png"
+             alt="Logo Acosys V8"
+             style="height:48px;"
+             onerror="this.style.display='none'">
+      </div>
 
-        .hero-visual img {
-            max-width: 720px;
-            width: 100%;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            position: relative;
-            z-index: 2;
-        }
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Software Akuntansi Cloud #1 untuk UMKM & Retail
+      </div>
 
-        .hero-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(245,158,11,0.25), transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            filter: blur(40px);
-            z-index: 1;
-        }
+      <h1 class="hero-title">
+        Kelola Bisnis Anda<br>
+        <span class="display-italic accent">Tanpa Pusing</span> Lagi
+      </h1>
 
-        .hero-brand {
-            margin-top: 40px;
-            opacity: 0.8;
-        }
+      <p class="hero-sub">
+        Dari kasir, stok, hingga laporan keuangan — semua otomatis,
+        akurat, dan bisa dipantau kapan saja dari mana saja.
+      </p>
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #fff;
-            border: 1px solid #E7E5E4;
-            border-radius: 999px;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #D97706;
-            margin-top: 10px;
-        }
+      <div class="pill-group">
+        <span class="pill">
+          <i class="fa-solid fa-check"></i> Tanpa Instalasi
+        </span>
+        <span class="pill">
+          <i class="fa-solid fa-check"></i> Gratis Setup
+        </span>
+        <span class="pill">
+          <i class="fa-solid fa-check"></i> Support Langsung
+        </span>
+      </div>
 
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            background: #F59E0B;
-            border-radius: 50%;
-        }
-
-        @media (max-width: 640px) {
-            #hero {
-                padding: 64px 0;
-            }
-        }
-    </style>
-
-    <div class="container">
-
-        <!-- HEADLINE -->
-        <h1 class="hero-title">
-            Semua Operasional Bisnis,<br>
-            <span class="accent">Otomatis dalam Satu Dashboard</span>
-        </h1>
-
-        <!-- SUBTEXT -->
-        <p class="hero-sub">
-            Kelola kasir, stok, hingga laporan keuangan tanpa ribet.
-            Lebih rapi, lebih cepat, dan minim kesalahan.
-        </p>
-
-        <!-- CTA -->
-        <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
-            <button class="btn-primary">
-                Coba Gratis Sekarang →
-            </button>
-
-            <button class="btn-secondary">
-                Lihat Demo Dulu
-            </button>
-        </div>
-
-        <!-- TRUST -->
-        <div class="pill-group">
-            <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Gratis Setup</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Support Cepat</span>
-        </div>
-
-        <!-- SOCIAL PROOF -->
-        <p style="font-size:12px; color:#A8A29E; margin-top:12px;">
-            Dipercaya 1000+ UMKM di Indonesia
-        </p>
-
-        <!-- VISUAL -->
-        <div class="hero-visual">
-            <img src="dashboard.png" alt="Dashboard Acosys">
-            <div class="hero-glow"></div>
-        </div>
-
-        <!-- BRAND -->
-        <div class="hero-brand">
-            <img src="acosys.png" style="height:36px;">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Software Akuntansi Cloud #1 untuk UMKM & Retail
-            </div>
-        </div>
+      <button class="btn-primary"
+        onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})">
+        Mulai Sekarang
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
 
     </div>
-</section>
-<!-- PROBLEM SECTION -->
-<section id="masalah">
-    <div class="container">
-        <div class="text-center reveal" style="margin-bottom: 56px;">
-            <span class="section-label">Masalah Umum Bisnis</span>
-            <h2 class="section-title">Masih Pusing Urusan<br>Pembukuan?</h2>
-            <p class="section-sub">Jangan biarkan energi terkuras untuk urusan administrasi yang berantakan.</p>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;" class="reveal">
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-                <h4>Pembukuan Manual</h4>
-                <p>Mencatat di buku atau Excel memakan waktu berjam-jam dan sangat rawan <em>human error</em> yang merugikan.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                <h4>Stok Tidak Terkontrol</h4>
-                <p>Sering selisih barang fisik dan catatan. Sulit melacak pergerakan inventory dan barang hilang dari gudang.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                <h4>Laporan Berantakan</h4>
-                <p>Pengambilan keputusan lambat karena data keuangan tidak akurat dan tidak tersedia secara <em>real-time</em>.</p>
-            </div>
-        </div>
-        <div class="cta-strip reveal">
-            <div class="cta-strip-bg"></div>
-            <div class="cta-strip-overlay"></div>
-            <div class="cta-strip-icon"><i class="fa-solid fa-chart-line"></i></div>
-            <div>
-                <h4>Saatnya Bisnis Anda Naik Level!</h4>
-                <p>Pembukuan tidak sistematis bukan hanya membuang waktu produktif, tapi juga jadi sumber utama <strong>kebocoran dana, piutang tak tertagih, dan barang hilang di gudang.</strong> Saatnya beralih ke ekosistem yang terintegrasi penuh.</p>
-            </div>
-        </div>
-    </div>
-</section>
+  </section>
 
+</body>
+</html>
 <!-- FEATURES SECTION -->
 <section id="fitur">
     <div class="container">

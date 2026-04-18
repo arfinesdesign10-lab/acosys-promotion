@@ -5,1413 +5,827 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acosys V8 Online | Kelola Bisnis Lebih Mudah</title>
     <meta name="description" content="Software akuntansi berbasis cloud untuk berbagai jenis bisnis yang membantu mengelola keuangan, stok, dan operasional bisnis secara efisien.">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
-
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                colors: {
+                    brand: {
+                        50: '#fafafa',
+                        100: '#fff8e1',
+                        500: '#FFB300',
+                        600: '#e6a100',
+                        700: '#cc8f00',
+                        900: '#7a5600',
+                    },
+                    accent: {
+                        400: '#FFD54F',
+                        500: '#FFB300',
+                    },
+                    navy: {
+                        800: '#1e293b',
+                        900: '#0f172a',
+                    },
+                    // Warna hijau khusus untuk form checkout
+                    checkout: {
+                        500: '#10b981',
+                        600: '#059669',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --amber: #F59E0B;
-            --amber-light: #FEF3C7;
-            --amber-dark: #D97706;
-            --navy: #0F172A;
-            --navy-mid: #1E293B;
-            --green: #059669;
-            --green-light: #ECFDF5;
-            --surface: #FAFAF9;
-            --border: #E7E5E4;
-            --text-main: #1C1917;
-            --text-sub: #78716C;
-            --text-muted: #A8A29E;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--text-main);
-            background: #fff;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* ── TYPOGRAPHY ── */
-        .display-italic {
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            font-weight: 900;
-        }
-
-        /* ── REVEAL ANIMATION ── */
-        .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .float-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .float-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(240, 67, 10, 0.15), 0 10px 10px -5px rgba(240, 67, 10, 0.05); }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ── URGENCY BANNER ── */
-        #urgency-bar {
-            background: var(--navy);
-            border-bottom: 2px solid var(--amber);
-            color: #fff;
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: 0.01em;
-        }
-        #urgency-bar strong { color: var(--amber); }
-
-        /* ── HERO ── */
-        #hero {
-            background: var(--surface);
-            padding: 96px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        #hero::before {
-            content: '';
-            position: absolute;
-            width: 700px; height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #FEF3C7 0%, transparent 70%);
-            top: -200px; right: -200px;
-            pointer-events: none;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--amber-dark);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 28px;
-            box-shadow: 0 1px 4px rgba(0,0,0,.06);
-        }
-        .hero-badge .dot {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: var(--amber);
-            animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.4); }
-        }
-        h1.hero-title {
-            font-size: clamp(40px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.08;
-            letter-spacing: -0.03em;
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
-        h1.hero-title .accent { color: var(--amber); }
-        .hero-sub {
-            font-size: 17px;
-            color: var(--text-sub);
-            max-width: 480px;
-            margin: 0 auto 36px;
-            line-height: 1.7;
-        }
-        .pill-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 36px;
-        }
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #57534E;
-            box-shadow: 0 1px 3px rgba(0,0,0,.05);
-        }
-        .pill i { color: var(--green); font-size: 10px; }
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--amber);
-            color: var(--navy);
-            font-weight: 800;
-            font-size: 16px;
-            padding: 16px 36px;
-            border-radius: 100px;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(245,158,11,.35);
-            letter-spacing: -0.01em;
-        }
-        .btn-primary:hover { background: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,158,11,.45); }
-
-        /* ── SECTION LABELS ── */
-        .section-label {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--amber-dark);
-            margin-bottom: 12px;
-            display: block;
-        }
-        .section-title {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.025em;
-            color: var(--navy);
-            margin-bottom: 16px;
-        }
-        .section-sub {
-            font-size: 16px;
-            color: var(--text-sub);
-            max-width: 560px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        /* ── PROBLEM SECTION ── */
-        #masalah { padding: 96px 0; background: #fff; }
-        .problem-card {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            text-align: left;
-            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-        .problem-card:hover { border-color: var(--amber); box-shadow: 0 8px 32px rgba(245,158,11,.12); transform: translateY(-4px); }
-        .problem-icon {
-            width: 48px; height: 48px;
-            background: var(--amber-light);
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
-            color: var(--amber-dark);
-            margin-bottom: 20px;
-        }
-        .problem-card h4 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
-        .problem-card p { font-size: 14px; color: var(--text-sub); line-height: 1.65; }
-        .cta-strip {
-            background: var(--navy);
-            border-radius: 24px;
-            padding: 40px 48px;
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            margin-top: 48px;
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-strip::after {
-            content: '';
-            position: absolute;
-            right: -60px; top: -60px;
-            width: 240px; height: 240px;
-            border-radius: 50%;
-            background: var(--amber);
-            opacity: 0.07;
-        }
-        .cta-strip-icon {
-            width: 56px; height: 56px; flex-shrink: 0;
-            background: var(--amber);
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px; color: var(--navy);
-        }
-        .cta-strip h4 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-        .cta-strip p { font-size: 14px; color: #94A3B8; line-height: 1.65; }
-        .cta-strip strong { color: #fff; }
-
-        /* ── FEATURES SECTION ── */
-        #fitur { padding: 96px 0; background: var(--surface); }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 16px;
-        }
-        .feature-card {
-            background: #fff;
-            border: 1.5px solid var(--border);
-            border-radius: 18px;
-            padding: 24px;
-            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-        .feature-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(245,158,11,.1); }
-        .feature-icon {
-            width: 42px; height: 42px;
-            background: var(--amber-light);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; color: var(--amber-dark);
-            margin-bottom: 16px;
-        }
-        .feature-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-        .feature-card p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
-
-        /* ── PRICING SECTION ── */
-        #harga { padding: 96px 0; background: #fff; overflow: hidden; }
-
-        /* Carousel */
-        #carousel-track { display: flex; gap: 20px; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .carousel-slide { flex-shrink: 0; transition: opacity 0.35s, transform 0.35s; }
-        .carousel-slide.inactive { opacity: 0.3; transform: scale(0.94); pointer-events: none; }
-        #carousel-overflow {
-            mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-        }
-
-        /* Pricing Card */
-        .pricing-card {
-            background: #fff;
-            border: 2px solid var(--border);
-            border-radius: 24px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); }
-        .pricing-card.featured { border-color: var(--amber); box-shadow: 0 8px 32px rgba(245,158,11,.15); }
-
-        .badge-popular {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--amber);
-            color: var(--navy);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 100px;
-            margin-bottom: 20px;
-        }
-
-        .pkg-tag {
-            display: inline-block;
-            background: var(--amber-light);
-            color: var(--amber-dark);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 6px;
-        }
-        .pkg-name {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--navy);
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1.5px solid var(--border);
-        }
-
-        .price-main { font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; }
-        .price-main sup { font-size: 16px; font-weight: 700; vertical-align: super; margin-right: 2px; }
-        .price-main span.unit { font-size: 14px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
-        .price-annual { font-size: 12px; font-weight: 600; color: var(--green); margin-top: 6px; margin-bottom: 20px; }
-
-        .spec-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 12px;
-            background: var(--surface);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-        .spec-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); font-weight: 500; }
-        .spec-item i { color: var(--amber-dark); font-size: 9px; }
-
-        .addon-box {
-            background: var(--amber-light);
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 600; }
-        .addon-box .price { font-size: 15px; font-weight: 800; color: var(--amber-dark); }
-        .addon-box .sub { font-size: 10px; color: #92400E; }
-
-        .feature-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-        .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
-        .feature-list li i { color: var(--green); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
-
-        .btn-pick {
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            border: none;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-            letter-spacing: -0.01em;
-        }
-        .btn-pick.primary { background: var(--amber); color: var(--navy); }
-        .btn-pick.primary:hover { background: var(--amber-dark); transform: translateY(-1px); }
-        .btn-pick.secondary { background: var(--surface); color: var(--navy); border: 1.5px solid var(--border); }
-        .btn-pick.secondary:hover { border-color: var(--amber); background: var(--amber-light); transform: translateY(-1px); }
-
-        /* Carousel nav */
-        .carousel-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 30;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: #fff;
-            border: 1.5px solid var(--border);
-            color: var(--text-sub);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
-        }
-        .carousel-nav-btn:hover { border-color: var(--amber); color: var(--amber-dark); box-shadow: 0 4px 16px rgba(245,158,11,.2); }
-        .carousel-nav-btn:disabled { opacity: 0; pointer-events: none; }
-
-        /* Dots */
-        .carousel-dot {
-            padding: 5px 14px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: var(--surface);
-            color: var(--text-muted);
-            border: 1.5px solid var(--border);
-        }
-        .carousel-dot.active { background: var(--amber); color: var(--navy); border-color: var(--amber); }
-
-        /* Info box */
-        .info-box {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 18px;
-            padding: 24px 28px;
-            max-width: 640px;
-            margin: 48px auto 0;
-            font-size: 13px;
-            color: var(--text-sub);
-        }
-        .info-box h5 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .info-box h5 i { color: var(--amber); }
-        .info-box ul { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
-        .info-box li { line-height: 1.6; }
-
-        /* ── CTA FINAL ── */
-        #cta-final {
-            background: var(--navy);
-            padding: 96px 0;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        #cta-final::before {
-            content: '';
-            position: absolute;
-            width: 500px; height: 500px;
-            border-radius: 50%;
-            background: var(--amber);
-            opacity: 0.06;
-            bottom: -200px; right: -200px;
-        }
-        #cta-final h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 800; color: #fff; letter-spacing: -0.025em; margin-bottom: 16px; }
-        #cta-final p { font-size: 17px; color: #94A3B8; max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
-
-        /* ── FOOTER ── */
-        footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); padding: 48px 0; text-align: center; }
-        footer p { font-size: 13px; color: #64748B; margin-top: 16px; }
-
-        /* ── WHATSAPP FLOAT ── */
-        #wa-float {
-            position: fixed;
-            bottom: 24px; right: 24px;
-            width: 56px; height: 56px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px; color: #fff;
-            box-shadow: 0 4px 20px rgba(37,211,102,.4);
-            z-index: 40;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.55); }
-
-        /* ── MODAL ── */
-        #order-modal {
-            position: fixed; inset: 0;
-            z-index: 60;
-            background: rgba(15,23,42,.85);
-            backdrop-filter: blur(6px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        #order-modal.open { display: flex; opacity: 1; }
-
-        #modal-box {
-            background: #fff;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 880px;
-            max-height: 90vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 32px 80px rgba(0,0,0,.3);
-            transform: scale(0.96) translateY(12px);
-            transition: transform 0.3s;
-        }
-        #order-modal.open #modal-box { transform: scale(1) translateY(0); }
-
-        .modal-inner { display: flex; flex: 1; overflow: hidden; }
-
-        /* Left panel */
-        .modal-left {
-            width: 45%;
-            background: var(--surface);
-            border-right: 1.5px solid var(--border);
-            padding: 36px 32px;
-            overflow-y: auto;
-            display: none;
-        }
-        @media (min-width: 768px) { .modal-left { display: flex; flex-direction: column; } }
-        .modal-left h3 { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.3; margin-bottom: 12px; letter-spacing: -0.02em; }
-        .modal-left h3 span { color: var(--amber-dark); }
-        .modal-left > p { font-size: 13px; color: var(--text-sub); line-height: 1.65; margin-bottom: 32px; }
-        .review-card { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 12px; }
-        .review-card p { font-size: 12px; color: var(--text-sub); font-style: italic; line-height: 1.65; margin-bottom: 12px; }
-        .reviewer { display: flex; align-items: center; gap: 10px; }
-        .reviewer-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
-        .reviewer-name { font-size: 12px; font-weight: 700; color: var(--navy); }
-        .reviewer-role { font-size: 11px; color: var(--text-muted); }
-
-        /* Right panel */
-        .modal-right {
-            flex: 1;
-            padding: 32px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* Stepper */
-        .stepper {
-            display: flex;
-            align-items: center;
-            margin-bottom: 32px;
-            position: relative;
-        }
-        .stepper-line {
-            position: absolute;
-            left: 18px; right: 18px;
-            top: 18px;
-            height: 2px;
-            background: var(--border);
-            z-index: 0;
-        }
-        .stepper-line-fill {
-            height: 100%;
-            background: var(--green);
-            width: 0%;
-            transition: width 0.4s;
-        }
-        .stepper-step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
-        .step-circle {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            transition: all 0.3s;
-        }
-        .step-circle.active { border-color: var(--green); background: var(--green); color: #fff; }
-        .step-circle.done { border-color: var(--green); background: var(--green); color: #fff; }
-        .step-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: center; }
-        .step-label.active { color: var(--green); }
-
-        /* Form fields */
-        .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-        .form-label span { color: #EF4444; }
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            font-size: 14px;
-            font-family: inherit;
-            color: var(--text-main);
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-        }
-        .form-input:focus { border-color: var(--green); background: #fff; box-shadow: 0 0 0 3px rgba(5,150,105,.1); }
-        .form-input::placeholder { color: var(--text-muted); }
-
-        /* Summary box */
-        .summary-box {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 10px; }
-        .summary-row .label { color: var(--text-sub); }
-        .summary-row .value { font-weight: 600; color: var(--navy); }
-        .summary-row.total { border-top: 1.5px solid var(--border); padding-top: 12px; margin-top: 4px; }
-        .summary-row.total .label { font-weight: 700; color: var(--navy); font-size: 15px; }
-        .summary-row.total .value { font-size: 20px; font-weight: 800; color: var(--green); }
-        .summary-row.discount .value { color: #EF4444; }
-
-        /* Voucher */
-        .voucher-box {
-            background: #ECFDF5;
-            border: 1.5px dashed #6EE7B7;
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-        .voucher-box label { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 8px; display: flex; align-items: center; gap-6px; }
-        .voucher-box label i { margin-right: 6px; }
-        .voucher-input-row { display: flex; gap: 8px; }
-        .voucher-input-row input {
-            flex: 1; padding: 10px 14px;
-            background: #fff; border: 1.5px solid #A7F3D0;
-            border-radius: 10px; font-size: 13px; font-family: inherit;
-            text-transform: uppercase; outline: none; color: var(--navy);
-            transition: border-color 0.2s;
-        }
-        .voucher-input-row input:focus { border-color: var(--green); }
-        .btn-voucher {
-            padding: 10px 18px;
-            background: var(--green);
-            color: #fff; border: none;
-            border-radius: 10px;
-            font-size: 13px; font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-voucher:hover { background: #047857; }
-        #voucher-msg { font-size: 12px; font-weight: 600; margin-top: 8px; }
-
-        /* Payment method */
-        .payment-method {
-            border: 2px solid var(--green);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: #fff;
-            margin-bottom: 24px;
-        }
-        .pm-icon { width: 42px; height: 42px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--green); }
-        .pm-name { font-size: 14px; font-weight: 700; color: var(--navy); }
-        .pm-sub { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
-        .pm-check { margin-left: auto; width: 22px; height: 22px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .pm-check i { font-size: 10px; color: #fff; }
-
-        /* Buttons */
-        .btn-step {
-            padding: 14px;
-            border-radius: 14px;
-            border: none;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-step.cta { background: var(--green); color: #fff; box-shadow: 0 4px 16px rgba(5,150,105,.3); }
-        .btn-step.cta:hover { background: #047857; transform: translateY(-1px); }
-        .btn-step.back { background: var(--surface); color: var(--text-sub); border: 1.5px solid var(--border); }
-        .btn-step.back:hover { border-color: var(--text-muted); color: var(--navy); }
-        .btn-step.amber { background: var(--amber); color: var(--navy); box-shadow: 0 4px 16px rgba(245,158,11,.3); }
-        .btn-step.amber:hover { background: var(--amber-dark); transform: translateY(-1px); }
-
-        /* QRIS step */
-        .qris-wrap {
-            display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; justify-content: center;
-        }
-        .qris-wrap h4 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
-        .qris-wrap p { font-size: 13px; color: var(--text-sub); line-height: 1.65; margin-bottom: 24px; max-width: 340px; }
-        .qris-frame {
-            background: #fff;
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 24px rgba(0,0,0,.06);
-            margin-bottom: 16px;
-        }
-        .qris-frame img { width: 200px; height: 200px; object-fit: contain; display: block; }
-        .qris-download {
-            display: flex; align-items: center; gap: 8px;
-            padding: 10px 20px;
-            border: 1.5px dashed #6EE7B7;
-            border-radius: 10px;
-            font-size: 13px; font-weight: 600;
-            color: var(--green);
-            text-decoration: none;
-            transition: background 0.2s;
-            margin-bottom: 20px;
-        }
-        .qris-download:hover { background: var(--green-light); }
-        .qris-total-label { font-size: 13px; color: var(--text-sub); margin-bottom: 6px; }
-        .qris-total-value { font-size: 24px; font-weight: 800; color: var(--green); background: var(--green-light); padding: 10px 28px; border-radius: 100px; margin-bottom: 28px; }
-
-        /* Modal close */
-        .modal-close {
-            position: absolute; top: 16px; right: 16px;
-            width: 32px; height: 32px;
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-sub); font-size: 13px;
-            transition: background 0.2s, color 0.2s;
-        }
-        .modal-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            #hero { padding: 64px 0 56px; }
-            #masalah, #fitur, #harga, #cta-final { padding: 64px 0; }
-            .cta-strip { flex-direction: column; padding: 28px 24px; gap: 20px; }
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .text-center { text-align: center; }
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar { width: 6px; }
+        .modal-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body>
+<body class="font-sans text-gray-800 bg-white antialiased overflow-x-hidden">
 
-<!-- URGENCY BANNER -->
-<div id="urgency-bar">
-    <i class="fa-solid fa-fire" style="color: var(--amber); margin-right: 8px;"></i>
-    <strong>Promo Terbatas:</strong> Diskon 20% untuk Langganan Tahunan — Berlaku Hari Ini
+    <!-- URGENCY BANNER -->
+    <div class="bg-navy-900 border-b border-brand-500 text-white text-center py-2.5 px-4 text-xs sm:text-sm font-medium flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 z-50 relative shadow-md">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-fire animate-pulse text-accent-500"></i>
+            <strong>Promo Terbatas:</strong> Diskon 20% Langganan Tahunan!
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-brand-100 blur-3xl opacity-60"></div>
+            <div class="absolute top-1/2 -left-24 w-72 h-72 rounded-full bg-accent-400 blur-3xl opacity-20"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center reveal active">
+            
+            <div class="flex justify-center items-center mb-6">
+    <img 
+        src="acosys.png" 
+        alt="Logo Acosys V8"
+        class="h-10 md:h-14 w-auto object-contain hover:scale-105 transition duration-300"
+        onerror="this.style.display='none'"
+    >
 </div>
 
-<!-- HERO -->
-<section id="hero">
-    <div class="container text-center reveal active">
-        <div class="hero-badge">
-            <span class="dot"></span>
-            Software Akuntansi Cloud #1 untuk UMKM & Retail
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 border border-brand-200 text-brand-700 font-semibold text-xs mb-8 animate-fade-in-up">
+    <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+    </span>
+    Software Akuntansi Cloud #1 untuk UMKM & Retail
+</div>
+
+<h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-gray-900 tracking-tight leading-[1.1] mb-4 max-w-4xl mx-auto">
+    Kelola Bisnis<br/>
+    <span class="text-gray-900">Tanpa</span>
+  <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;" class="text-brand-500">Pusing</span>
+    Lagi
+</h1>
+
+<p class="text-lg sm:text-xl text-gray-500 max-w-xl mx-auto mb-4 leading-relaxed mt-6">
+    Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja.
+</p>
+
+<div class="flex flex-col sm:flex-row justify-center gap-2 mb-6 text-xs text-gray-500">
+    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
+        <i class="fa-solid fa-check text-checkout-500"></i> Tanpa Instalasi
+    </span>
+    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
+        <i class="fa-solid fa-check text-checkout-500"></i> Gratis Setup
+    </span>
+    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
+        <i class="fa-solid fa-check text-checkout-500"></i> Support Langsung
+    </span>
+</div>
+
+<button onclick="document.getElementById('harga').scrollIntoView({behavior: 'smooth'})" 
+    class="bg-brand-500 hover:bg-brand-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 inline-flex items-center gap-3">
+    Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
+</button>
+
+<!-- <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16 px-4 sm:px-0">
+                <button onclick="document.getElementById('harga').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-600/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                    Lihat Paket Harga <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div> -->
         </div>
-        <h1 class="hero-title">
-            Kelola Bisnis Anda<br>
-            <span class="display-italic accent">Tanpa Pusing</span> Lagi
-        </h1>
-        <p class="hero-sub">
-            Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja dari mana saja.
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section id="masalah" class="py-16 md:py-24 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-brand-600 font-bold tracking-wider uppercase text-xs md:text-sm mb-3">Masalah Umum Bisnis</h2>
+                <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4">Masih Pusing Urusan Pembukuan?</h3>
+                <p class="text-base md:text-lg text-gray-600">Jangan biarkan energi terkuras untuk urusan administrasi yang berantakan.</p>
+            </div>
+
+            <!-- Grid 3 Kartu Masalah -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-book-journal-whills"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Pembukuan Manual</h4>
+                    <p class="text-gray-600 leading-relaxed text-sm">Mencatat di buku atau Excel memakan waktu berjam-jam dan sangat rawan <em>human error</em>.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Stok Tidak Terkontrol</h4>
+                    <p class="text-gray-600 leading-relaxed text-sm">Sering selisih barang fisik dan catatan. Sulit melacak pergerakan inventory dan barang hilang.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Laporan Berantakan</h4>
+                    <p class="text-gray-600 leading-relaxed text-sm">Pengambilan keputusan lambat karena data keuangan tidak akurat dan tidak <em>real-time</em>.</p>
+                </div>
+            </div>
+
+            <!-- MATERI TAMBAHAN: Dampak Masalah -->
+            <div class="mt-12 bg-navy-900 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 reveal overflow-hidden relative">
+    <!-- Background decoration -->
+    <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-brand-500 opacity-10 blur-2xl"></div>
+    <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-brand-500 opacity-5 blur-2xl"></div>
+
+    <div class="w-16 h-16 bg-brand-500 rounded-2xl flex items-center justify-center text-white text-3xl flex-shrink-0 shadow-lg">
+        <i class="fa-solid fa-chart-line"></i>
+    </div>
+    <div class="relative z-10">
+        <h4 class="text-xl md:text-2xl font-bold text-white mb-2">Saatnya Bisnis Anda Naik Level!</h4>
+        <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+            Pembukuan yang tidak sistematis bukan hanya membuang waktu produktif Anda, tetapi juga menjadi sumber utama <strong class="text-white">kebocoran dana tak kasat mata, piutang tak tertagih, dan hilangnya barang di gudang.</strong> Saatnya beralih ke ekosistem yang terintegrasi penuh.
         </p>
-        <div class="pill-group">
-            <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Gratis Setup</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Support Langsung</span>
-        </div>
-        <button class="btn-primary" onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})">
-            Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-</section>
-
-<!-- PROBLEM SECTION -->
-<section id="masalah">
-    <div class="container">
-        <div class="text-center reveal" style="margin-bottom: 56px;">
-            <span class="section-label">Masalah Umum Bisnis</span>
-            <h2 class="section-title">Masih Pusing Urusan<br>Pembukuan?</h2>
-            <p class="section-sub">Jangan biarkan energi terkuras untuk urusan administrasi yang berantakan.</p>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;" class="reveal">
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-                <h4>Pembukuan Manual</h4>
-                <p>Mencatat di buku atau Excel memakan waktu berjam-jam dan sangat rawan <em>human error</em> yang merugikan.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                <h4>Stok Tidak Terkontrol</h4>
-                <p>Sering selisih barang fisik dan catatan. Sulit melacak pergerakan inventory dan barang hilang dari gudang.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                <h4>Laporan Berantakan</h4>
-                <p>Pengambilan keputusan lambat karena data keuangan tidak akurat dan tidak tersedia secara <em>real-time</em>.</p>
-            </div>
-        </div>
-        <div class="cta-strip reveal">
-            <div class="cta-strip-icon"><i class="fa-solid fa-chart-line"></i></div>
-            <div>
-                <h4>Saatnya Bisnis Anda Naik Level!</h4>
-                <p>Pembukuan tidak sistematis bukan hanya membuang waktu produktif, tapi juga jadi sumber utama <strong>kebocoran dana, piutang tak tertagih, dan barang hilang di gudang.</strong> Saatnya beralih ke ekosistem yang terintegrasi penuh.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FEATURES SECTION -->
-<section id="fitur">
-    <div class="container">
-        <div class="text-center reveal" style="margin-bottom: 56px;">
-            <span class="section-label">Solusi Cerdas</span>
-            <h2 class="section-title">Semua Fitur dalam<br>Satu Aplikasi</h2>
-            <p class="section-sub">Acosys V8 Online dirancang untuk mempercepat alur kerja dan mengamankan data bisnis Anda.</p>
-        </div>
-        <div class="feature-grid reveal">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-cloud"></i></div>
-                <h4>100% Cloud Base</h4>
-                <p>Akses data bisnis dari mana saja dan perangkat apa saja secara real-time.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-cash-register"></i></div>
-                <h4>Kasir (POS) Pintar</h4>
-                <p>Transaksi cepat, support barcode, dan langsung memotong stok gudang otomatis.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                <h4>Laporan Instan</h4>
-                <p>Buku besar, neraca, hingga laba rugi tersusun otomatis tanpa perlu entry dua kali.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-network-wired"></i></div>
-                <h4>Multi Cabang</h4>
-                <p>Kelola banyak toko atau gudang dalam satu dashboard. Pantau stok antar cabang.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                <h4>Hutang & Piutang</h4>
-                <p>Catat dan pantau jatuh tempo tagihan pelanggan maupun supplier agar arus kas tetap aman.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
-                <h4>Hak Akses Fleksibel</h4>
-                <p>Atur batasan menu untuk setiap karyawan (kasir, admin, manajer) demi keamanan data.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                <h4>Multi Device</h4>
-                <p>Gunakan Acosys dengan lancar dari Laptop, PC, Tablet, hingga Smartphone Anda.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
-                <h4>Keamanan Terjamin</h4>
-                <p>Data dienkripsi dan di-backup harian secara otomatis di server berspesifikasi tinggi.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PRICING SECTION -->
-<section id="harga">
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
-        <div class="text-center reveal" style="margin-bottom: 56px;">
-            <span class="section-label">Pilihan Paket Acosys V8</span>
-            <h2 class="section-title">Pilih Sesuai<br>Kebutuhan Anda</h2>
-            <p class="section-sub">Solusi akuntansi untuk segala jenis bisnis dengan harga yang transparan dan tanpa biaya tersembunyi.</p>
-        </div>
-
-        <div class="relative reveal" id="pricing-carousel-wrapper">
-
-            <!-- Nav -->
-            <button id="carousel-prev" class="carousel-nav-btn" style="left: 8px;" onclick="carouselPrev()" disabled>
-                <i class="fa-solid fa-chevron-left" style="font-size: 12px;"></i>
-            </button>
-            <button id="carousel-next" class="carousel-nav-btn" style="right: 8px;" onclick="carouselNext()">
-                <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
-            </button>
-
-            <div id="carousel-overflow" class="overflow-hidden" style="padding: 16px 64px 32px;">
-                <div id="carousel-track">
-
-                    <!-- LITE -->
-                    <div class="carousel-slide">
-                        <div class="pricing-card featured">
-                            <div class="badge-popular"><i class="fa-solid fa-star" style="font-size: 9px;"></i> Paling Populer</div>
-                            <div class="pkg-tag">ABD</div>
-                            <div class="pkg-name">LITE</div>
-                            <div class="price-main"><sup>Rp</sup>149.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right: 4px;"></i>Rp1.500.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div>
-                                    <div class="label">Tambah User</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                            </ul>
-                            <button class="btn-pick primary" onclick="openModal('LITE')">Pilih Paket LITE</button>
-                        </div>
-                    </div>
-
-                    <!-- BASIC -->
-                    <div class="carousel-slide inactive">
-                        <div class="pricing-card">
-                            <div style="height: 26px;"></div><!-- spacer for badge alignment -->
-                            <div class="pkg-tag">ABCDEFG</div>
-                            <div class="pkg-name">BASIC</div>
-                            <div class="price-main"><sup>Rp</sup>199.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right: 4px;"></i>Rp2.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div>
-                                    <div class="label">Tambah User</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('BASIC')">Pilih Paket BASIC</button>
-                        </div>
-                    </div>
-
-                    <!-- PRO -->
-                    <div class="carousel-slide inactive">
-                        <div class="pricing-card">
-                            <div style="height: 26px;"></div>
-                            <div class="pkg-tag">ABCDEGIV</div>
-                            <div class="pkg-name">PRO</div>
-                            <div class="price-main"><sup>Rp</sup>399.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right: 4px;"></i>Rp4.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div>
-                                    <div class="label">Tambah User</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Divisi</li>
-                                <li><i class="fa-solid fa-check"></i> Analisa Data</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('PRO')">Pilih Paket PRO</button>
-                        </div>
-                    </div>
-
-                    <!-- EXPERT -->
-                    <div class="carousel-slide inactive">
-                        <div class="pricing-card">
-                            <div style="height: 26px;"></div>
-                            <div class="pkg-tag">ABCDEGIJV</div>
-                            <div class="pkg-name">EXPERT</div>
-                            <div class="price-main"><sup>Rp</sup>599.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right: 4px;"></i>Rp6.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div>
-                                    <div class="label">Tambah User</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Divisi</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Departemen</li>
-                                <li><i class="fa-solid fa-check"></i> Analisa Data</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('EXPERT')">Pilih Paket EXPERT</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Dots -->
-            <div style="display: flex; justify-content: center; gap: 8px; margin-top: 8px;">
-                <button class="carousel-dot active" onclick="carouselGoTo(0)">LITE</button>
-                <button class="carousel-dot" onclick="carouselGoTo(1)">BASIC</button>
-                <button class="carousel-dot" onclick="carouselGoTo(2)">PRO</button>
-                <button class="carousel-dot" onclick="carouselGoTo(3)">EXPERT</button>
-            </div>
-        </div>
-
-        <!-- Info box -->
-        <div class="info-box reveal">
-            <h5><i class="fa-solid fa-circle-info"></i> Informasi Penting</h5>
-            <ul>
-                <li>Semua paket bisa ditambah user dengan biaya <strong>Rp25.000/user/bulan</strong> atau <strong>Rp300.000/user/tahun</strong>.</li>
-                <li>Harga di atas merupakan biaya per-aktivasi aplikasi (belum termasuk biaya pelatihan, instalasi, konversi data, dan akomodasi).</li>
-                <li><em>Upgrade</em> dari Acosys V4 ke V8 mendapatkan diskon 25% dari total harga.</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- CTA FINAL -->
-<section id="cta-final">
-    <div class="container reveal">
-        <h2>Jangan Tunda Kesuksesan<br>Bisnis Anda</h2>
-        <p>Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
-        <button class="btn-primary" onclick="openModal('BASIC')">
-            Pesan Sekarang <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-    <div class="container">
-        <p>Solusi Cerdas Manajemen Bisnis & Keuangan Era Digital.</p>
-        <p>&copy; 2026 Acosys V8 Online. Hak Cipta Dilindungi.</p>
-    </div>
-</footer>
-
-<!-- WA FLOAT -->
-<a id="wa-float" href="https://wa.me/62811791078?text=Halo%20Tim%20Acosys,%20saya%20ingin%20konsultasi" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
-
-<!-- ORDER MODAL -->
-<div id="order-modal">
-    <div id="modal-box">
-        <div class="modal-inner">
-
-            <!-- LEFT -->
-            <div class="modal-left">
-                <h3>Akses <span>Acosys V8 Online</span> Sekarang</h3>
-                <p>Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.</p>
-
-                <h4 style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">Apa Kata Mereka?</h4>
-
-                <div class="review-card">
-                    <p>"Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya. Sangat rekomen!"</p>
-                    <div class="reviewer">
-                        <div class="reviewer-avatar" style="background: #DBEAFE; color: #1D4ED8;">BS</div>
-                        <div>
-                            <div class="reviewer-name">Budi Santoso</div>
-                            <div class="reviewer-role">UMKM Owner</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="review-card">
-                    <p>"Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time. Laporan akhir bulan jadi dalam hitungan detik."</p>
-                    <div class="reviewer">
-                        <div class="reviewer-avatar" style="background: #FCE7F3; color: #BE185D;">SA</div>
-                        <div>
-                            <div class="reviewer-name">Siti Aisyah</div>
-                            <div class="reviewer-role">Owner Retail Hijab</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT -->
-            <div class="modal-right">
-                <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
-
-                <!-- Stepper -->
-                <div class="stepper">
-                    <div class="stepper-line"><div class="stepper-line-fill" id="step-line-fill"></div></div>
-                    <div class="stepper-step">
-                        <div class="step-circle active" id="s1-circle">1</div>
-                        <div class="step-label active" id="s1-label">Detail Pemesan</div>
-                    </div>
-                    <div class="stepper-step">
-                        <div class="step-circle" id="s2-circle">2</div>
-                        <div class="step-label" id="s2-label">Pembayaran</div>
-                    </div>
-                </div>
-
-                <!-- STEP 1 -->
-                <div id="step-1" style="display: flex; flex-direction: column; flex: 1;">
-                    <h4 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Detail Pemesan</h4>
-                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1.5px solid var(--border);">Pastikan data yang Anda masukkan sudah benar.</p>
-
-                    <div class="form-group">
-                        <label class="form-label">Nama Lengkap <span>*</span></label>
-                        <input class="form-input" type="text" id="customer-name" placeholder="Contoh: Budi Santoso">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Alamat Email <span>*</span></label>
-                        <input class="form-input" type="email" id="customer-email" placeholder="email@bisnis.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Nomor WhatsApp <span>*</span></label>
-                        <input class="form-input" type="tel" id="customer-wa" placeholder="08xxxxxxxxxx">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Kode Referral <span style="color: var(--text-muted); font-weight: 500;">(Opsional)</span></label>
-                        <input class="form-input" type="text" id="customer-ref" placeholder="Kosongkan jika tidak ada">
-                    </div>
-
-                    <div style="flex: 1;"></div>
-                    <button class="btn-step cta" onclick="goToStep2()" style="margin-top: 24px;">
-                        Lanjutkan ke Pembayaran <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-
-                <!-- STEP 2 -->
-                <div id="step-2" style="display: none; flex-direction: column; flex: 1;">
-                    <h4 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Pembayaran</h4>
-                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1.5px solid var(--border);">Selesaikan pembayaran untuk mengaktifkan paket.</p>
-
-                    <div class="summary-box">
-                        <div class="summary-row">
-                            <span class="label">Acosys Paket <strong id="summary-pkg-name" style="color: var(--amber-dark);">LITE</strong></span>
-                            <span class="value" id="summary-base-price">Rp149.000</span>
-                        </div>
-                        <div class="summary-row discount" id="discount-row" style="display: none;">
-                            <span class="label">Diskon Voucher</span>
-                            <span class="value" id="summary-discount">-Rp0</span>
-                        </div>
-                        <div class="summary-row total">
-                            <span class="label">Total Tagihan</span>
-                            <span class="value" id="summary-final-total">Rp149.000</span>
-                        </div>
-                    </div>
-
-                    <div class="voucher-box">
-                        <label><i class="fa-solid fa-gift"></i> Punya Kode Voucher?</label>
-                        <div class="voucher-input-row">
-                            <input type="text" id="voucher-code" placeholder="Masukkan kode">
-                            <button class="btn-voucher" onclick="applyVoucher()">Gunakan</button>
-                        </div>
-                        <p id="voucher-msg" style="display:none;"></p>
-                    </div>
-
-                    <div class="payment-method">
-                        <div class="pm-icon"><i class="fa-solid fa-qrcode"></i></div>
-                        <div>
-                            <div class="pm-name">QRIS (Otomatis)</div>
-                            <div class="pm-sub">Gopay, OVO, Dana, m-BCA, dll.</div>
-                        </div>
-                        <div class="pm-check"><i class="fa-solid fa-check"></i></div>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; margin-top: auto;">
-                        <button class="btn-step back" style="width: 35%;" onclick="goToStep1()">
-                            <i class="fa-solid fa-arrow-left"></i> Kembali
-                        </button>
-                        <button class="btn-step cta" style="flex: 1;" onclick="goToStep3()">
-                            <i class="fa-solid fa-lock"></i> Bayar Sekarang
-                        </button>
-                    </div>
-                </div>
-
-                <!-- STEP 3 -->
-                <div id="step-3" style="display: none; flex-direction: column; flex: 1;">
-                    <div class="qris-wrap">
-                        <h4>Scan QRIS untuk Bayar</h4>
-                        <p>Buka aplikasi E-Wallet atau M-Banking Anda (BCA, Mandiri, Gopay, OVO, dll), lalu scan QR di bawah ini.</p>
-                        <div class="qris-frame">
-                            <img src="qris.png" alt="QRIS Barcode" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg'">
-                        </div>
-                        <a href="qris.png" download="QRIS-Acosys.png" class="qris-download">
-                            <i class="fa-solid fa-download" style="font-size: 12px;"></i> Unduh QR Code
-                        </a>
-                        <p class="qris-total-label">Total yang harus dibayar</p>
-                        <div class="qris-total-value" id="qris-final-total">Rp149.000</div>
-                        <button class="btn-step amber" style="width: 100%;" onclick="submitFinalOrder(event)" id="btn-konfirmasi">
-                            <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Konfirmasi Pembayaran via WhatsApp
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
+        </div>
+    </section>
 
-<script>
-/* ── CAROUSEL ── */
-(function() {
-    var track   = document.getElementById('carousel-track');
-    var slides  = document.querySelectorAll('.carousel-slide');
-    var dots    = document.querySelectorAll('.carousel-dot');
-    var btnPrev = document.getElementById('carousel-prev');
-    var btnNext = document.getElementById('carousel-next');
-    var total   = slides.length;
-    var current = 0;
-    var gap     = 20;
+    <!-- SOLUTION & FEATURES SECTION -->
+    <section id="fitur" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-brand-600 font-bold tracking-wider uppercase text-xs md:text-sm mb-3">Solusi Cerdas</h2>
+                <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4">Semua Fitur dalam Satu Aplikasi</h3>
+                <p class="text-base md:text-lg text-gray-600">Acosys V8 Online dirancang untuk mempercepat alur kerja dan mengamankan data bisnis Anda.</p>
+            </div>
 
-    function getCardW() {
-        var w = window.innerWidth;
-        if (w >= 1024) return Math.min(380, w * 0.32);
-        if (w >= 640)  return Math.min(360, w * 0.52);
-        return w * 0.78;
-    }
+            <!-- Menambahkan 4 Fitur Baru sehingga total 8 (Baris 1 dan Baris 2) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+                <!-- Fitur 1 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">100% Cloud Base</h4>
+                    <p class="text-sm text-gray-600">Akses data bisnis Anda dari mana saja dan perangkat apa saja secara real-time.</p>
+                </div>
+                <!-- Fitur 2 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-cash-register"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Kasir (POS) Pintar</h4>
+                    <p class="text-sm text-gray-600">Transaksi cepat, support barcode, dan langsung memotong stok gudang otomatis.</p>
+                </div>
+                <!-- Fitur 3 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Laporan Instan</h4>
+                    <p class="text-sm text-gray-600">Buku besar, neraca, hingga laba rugi tersusun otomatis tanpa perlu entry dua kali.</p>
+                </div>
+                <!-- Fitur 4 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Multi Cabang</h4>
+                    <p class="text-sm text-gray-600">Kelola banyak toko atau gudang dalam satu dashboard. Pantau stok antar cabang.</p>
+                </div>
+                
+                <!-- ================== 4 FITUR TAMBAHAN BARU ================== -->
+                <!-- Fitur 5 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Hutang & Piutang</h4>
+                    <p class="text-sm text-gray-600">Catat dan pantau jatuh tempo tagihan pelanggan maupun supplier agar arus kas tetap aman.</p>
+                </div>
+                <!-- Fitur 6 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Hak Akses Fleksibel</h4>
+                    <p class="text-sm text-gray-600">Atur batasan menu untuk setiap karyawan (kasir, admin, manajer) demi keamanan data.</p>
+                </div>
+                <!-- Fitur 7 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Multi Device</h4>
+                    <p class="text-sm text-gray-600">Gunakan sistem Acosys dengan lancar dari Laptop, PC, Tablet, hingga Smartphone Anda.</p>
+                </div>
+                <!-- Fitur 8 -->
+                <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Keamanan Terjamin</h4>
+                    <p class="text-sm text-gray-600">Data Anda dienkripsi dan di-backup harian secara otomatis di server berspesifikasi tinggi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function setWidths() {
-        var w = getCardW();
-        slides.forEach(function(s) { s.style.width = w + 'px'; });
-    }
+    <!-- PRICING SECTION -->
+    <section id="harga" class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-brand-600 font-bold tracking-wider uppercase text-xs md:text-sm mb-3">Pilihan Paket Acosys V8</h2>
+                <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4">Pilih Sesuai Kebutuhan Anda</h3>
+                <p class="text-base md:text-lg text-gray-600">Solusi cerdas akuntansi untuk segala jenis bisnis dengan harga yang transparan.</p>
+            </div>
 
-    function goTo(idx) {
-        current = Math.max(0, Math.min(idx, total - 1));
-        var cardW = slides[0].offsetWidth + gap;
-        var containerW = track.parentElement.offsetWidth;
-        var offset = current * cardW - (containerW / 2) + slides[0].offsetWidth / 2;
-        track.style.transform = 'translateX(-' + Math.max(0, offset) + 'px)';
+            <!-- Pricing Grid (LITE Only) -->
+                <div class="flex justify-center reveal">
+                    
+                    <!-- Paket LITE -->
+                    <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-2xl border-2 border-brand-500 relative z-10 flex flex-col w-full max-w-md">
+                        
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent-400 to-accent-500 text-navy-900 px-6 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-lg flex items-center gap-2 whitespace-nowrap">
+                            <i class="fa-solid fa-star animate-pulse"></i> Paling Populer
+                        </div>
+                        
+                        <div class="text-center mb-4 mt-2 border-b border-gray-100 pb-6">
+                            <h4 class="text-2xl font-black text-brand-600 mb-1">LITE</h4>
+                        </div>
+                        
+                        <!-- Harga -->
+                        <div class="text-center mb-0.5">
+                            <span class="text-base font-bold text-gray-400 line-through decoration-red-500 decoration-2">Rp 300.000</span>
+                        </div>
+                        <div class="mb-2 text-center">
+                            <span class="text-4xl font-extrabold text-brand-600">Rp100.000</span><span class="text-gray-500 text-sm font-semibold">/bln</span>
+                        </div>
+                        <p class="text-sm text-green-600 font-bold mb-6 text-center">Atau Rp1.500.000/tahun</p>
+                        
+                        <!-- Fitur -->
+                        <ul class="space-y-3 mb-8 text-sm text-gray-700 flex-1">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span><strong>2 User</strong> Acosys</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Server: 2GB SSD, 1GB RAM, 1 Core CPU, 1 DB</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Kontrol Stok Barang</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Point Of Sale</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Accounting</span></li>
+                        </ul>
+                        
+                        <!-- Button -->
+                        <button onclick="openModal('LITE')" class="w-full mt-auto py-3.5 rounded-xl bg-brand-600 text-white font-bold text-base shadow-lg shadow-brand-500/40 hover:bg-brand-700 transition transform hover:-translate-y-1">
+                            Pilih Paket LITE
+                        </button>
+                
+                    </div>
+                
+                </div>
 
-        slides.forEach(function(s, i) { s.classList.toggle('inactive', i !== current); });
+            <div class="mt-12 text-center reveal">
+                <div class="inline-block bg-white p-6 rounded-2xl shadow-sm border border-brand-100 max-w-3xl text-sm text-gray-500 text-left">
+                    <h5 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-circle-info text-brand-500"></i> Informasi Penting:</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Semua paket bisa ditambah user dengan biaya <strong>Rp25.000/user/bulan</strong> atau <strong>Rp300.000/user/tahun</strong>.</li>
+                        <li>Harga di atas merupakan biaya per-aktivasi aplikasi (belum termasuk biaya pelatihan, instalasi, konversi data, dan akomodasi).</li>
+                        <li><em>Upgrade</em> dari Acosys V4 ke V8 mendapatkan diskon 25% dari total harga.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        btnPrev.disabled = current === 0;
-        btnNext.disabled = current >= total - 1;
+    <!-- FINAL CTA SECTION -->
+    <section class="py-16 md:py-20 bg-navy-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-brand-500 blur-3xl"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">Jangan Tunda Kesuksesan Bisnis Anda</h2>
+            <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
+            <button onclick="openModal('LITE')" class="bg-brand-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-brand-500/50 hover:bg-brand-500 transition transform hover:-translate-y-1">
+                Pesan Sekarang
+            </button>
+        </div>
+    </section>
 
-        dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
-    }
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-sm text-center border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-center items-center mb-6">
+                <img 
+                    src="acosys.png" 
+                    alt="Logo Acosys"
+                    class="h-10 w-auto object-contain opacity-75 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
+                    onerror="this.style.display='none'"
+                >
+            </div>
+            <p class="mb-4">Solusi Cerdas Manajemen Bisnis & Keuangan Era Digital.</p>
+            <p>&copy; 2026 Acosys V8 Online. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
 
-    window.carouselPrev = function() { goTo(current - 1); };
-    window.carouselNext = function() { goTo(current + 1); };
-    window.carouselGoTo = function(i) { goTo(i); };
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/62811791078?text=Halo%20Tim%20Acosys,%20saya%20ingin%20konsultasi" target="_blank" 
+       class="fixed bottom-6 right-6 bg-checkout-500 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-2xl md:text-3xl shadow-2xl hover:bg-checkout-600 transition-colors z-40 animate-pulse-slow group">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-    function init() { setWidths(); goTo(0); }
-    window.addEventListener('resize', function() { setWidths(); goTo(current); });
+    <!-- NEW ORDER MODAL (2-COLUMN CHECKOUT) -->
+    <div id="order-modal" class="fixed inset-0 z-[60] bg-navy-900/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        
+        <!-- Header Logo (SantaiScale style) -->
+        <div id="modal-header" class="mb-6 flex items-center justify-center gap-3 transform scale-95 opacity-0 transition-all duration-300">
+            <div class="bg-white p-1.5 sm:p-2 rounded-xl shadow-md">
+                <img src="acosys.png" alt="Acosys Icon" class="h-6 sm:h-8 w-auto object-contain" onerror="this.style.display='none'">
+            </div>
+            <span class="text-white font-bold text-xl sm:text-2xl tracking-tight">Acosys V8 Online</span>
+        </div>
 
-    var tx = 0;
-    track.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, {passive:true});
-    track.addEventListener('touchend', function(e) {
-        var diff = tx - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) { diff > 0 ? carouselNext() : carouselPrev(); }
-    }, {passive:true});
+        <!-- Main Form Container -->
+        <div class="bg-white rounded-3xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 max-h-[85vh] modal-scroll" id="modal-content">
+            
+            <button onclick="closeModal()" class="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition text-gray-600 shadow-sm" aria-label="Tutup Form">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else init();
-})();
+            <!-- LEFT SIDE -->
+            <div class="bg-gray-50 md:w-1/2 hidden md:flex flex-col border-r border-gray-200 overflow-y-auto modal-scroll p-8">
+                <div class="mb-8">
+                    <h3 class="text-3xl font-extrabold text-gray-900 leading-tight mb-3">Akses <span class="text-brand-600">Acosys V8 Online</span> Sekarang</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.
+                    </p>
+                </div>
 
-/* ── MODAL ── */
-var packagePrices = { LITE: 149000, BASIC: 199000, PRO: 399000, EXPERT: 599000 };
-var selectedPkg = '', basePrice = 0, discount = 0, finalTotal = 0;
+                <div class="mb-8">
+                    <h4 class="font-bold text-gray-900 mb-4 text-lg">Apa Kata Mereka?</h4>
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 relative">
+                        <i class="fa-solid fa-quote-left absolute top-4 right-4 text-gray-100 text-3xl"></i>
+                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">
+                            "Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya berapa. Sangat rekomen!"
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">BS</div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-900">Budi Santoso</p>
+                                <p class="text-[10px] text-gray-500">UMKM Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 relative">
+                        <i class="fa-solid fa-quote-left absolute top-4 right-4 text-gray-100 text-3xl"></i>
+                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">
+                            "Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time pakai Acosys. Laporan akhir bulan jadi dalam hitungan detik."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold text-xs">SA</div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-900">Siti Aisyah</p>
+                                <p class="text-[10px] text-gray-500">Owner Retail Hijab</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-function fmt(n) { return 'Rp' + n.toLocaleString('id-ID'); }
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-3 text-sm">Cocok Untuk Anda Jika...</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-checkout-100 rounded-full flex items-center justify-center text-checkout-600 mt-0.5 flex-shrink-0 text-[10px]"><i class="fa-solid fa-store"></i></div>
+                            <p class="text-xs text-gray-600"><strong class="text-gray-800">Pengusaha Retail & Grosir</strong> yang butuh rekap stok dan penjualan sinkron otomatis.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-checkout-100 rounded-full flex items-center justify-center text-checkout-600 mt-0.5 flex-shrink-0 text-[10px]"><i class="fa-solid fa-box-open"></i></div>
+                            <p class="text-xs text-gray-600"><strong class="text-gray-800">Distributor</strong> untuk memastikan kontrol gudang, HPP, dan performa salesman rapi.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-function openModal(pkg) {
-    selectedPkg = pkg;
-    basePrice = packagePrices[pkg];
-    discount = 0;
-    finalTotal = basePrice;
-    document.getElementById('summary-pkg-name').innerText = pkg;
-    document.getElementById('summary-base-price').innerText = fmt(basePrice);
-    document.getElementById('summary-final-total').innerText = fmt(finalTotal);
-    document.getElementById('discount-row').style.display = 'none';
-    document.getElementById('voucher-msg').style.display = 'none';
-    document.getElementById('voucher-code').value = '';
-    ['customer-name','customer-email','customer-wa','customer-ref'].forEach(function(id) {
-        document.getElementById(id).value = '';
-    });
-    goToStep1(true);
-    var modal = document.getElementById('order-modal');
-    modal.style.display = 'flex';
-    setTimeout(function() { modal.classList.add('open'); }, 10);
-    document.body.style.overflow = 'hidden';
-}
+            <!-- RIGHT SIDE: Stepper Form Checkout -->
+            <div class="md:w-1/2 w-full p-6 md:p-8 relative bg-white flex flex-col h-[90vh] md:h-auto overflow-y-auto modal-scroll">
+                
+                <button onclick="closeModal()" class="hidden md:flex absolute top-4 right-4 w-8 h-8 items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition text-gray-500" aria-label="Tutup Form">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
 
-function closeModal() {
-    var modal = document.getElementById('order-modal');
-    modal.classList.remove('open');
-    setTimeout(function() { modal.style.display = 'none'; }, 300);
-    document.body.style.overflow = '';
-}
+                <!-- STEPPER HEADER -->
+                <div class="flex items-center justify-center mb-8 px-2 md:px-8 mt-4 md:mt-0 relative">
+                    <div class="absolute left-[20%] right-[20%] top-4 h-0.5 bg-gray-200 -z-10" id="step-line"></div>
+                    
+                    <div class="flex flex-col items-center flex-1 z-10 bg-white">
+                        <div class="w-8 h-8 rounded-full bg-checkout-500 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm" id="step-1-circle">
+                            1
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-semibold text-checkout-500 mt-2 text-center" id="step-1-text">Detail Pemesan</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center flex-1 z-10 bg-white">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm border-2 border-white" id="step-2-circle">
+                            2
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-semibold text-gray-400 mt-2 text-center" id="step-2-text">Pembayaran</span>
+                    </div>
+                </div>
 
-document.getElementById('order-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-});
+                <form id="order-form" class="flex-1 flex flex-col">
+                    
+                    <!-- STEP 1 CONTENT -->
+                    <div id="step-1-content" class="flex-1 flex flex-col transition-opacity duration-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-1">Detail Pemesan</h4>
+                        <p class="text-sm text-gray-500 mb-6 border-b border-gray-100 pb-4">Pastikan data yang Anda masukkan sudah benar.</p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Lengkap <span class="text-red-500">*</span></label>
+                                <input type="text" id="customer-name" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-checkout-500 focus:bg-white focus:border-checkout-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Alamat Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="customer-email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-checkout-500 focus:bg-white focus:border-checkout-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nomor WhatsApp <span class="text-red-500">*</span></label>
+                                <input type="tel" id="customer-wa" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-checkout-500 focus:bg-white focus:border-checkout-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Kode Referral (Opsional)</label>
+                                <input type="text" id="customer-ref" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-checkout-500 focus:bg-white focus:border-checkout-500 outline-none transition text-sm" placeholder="Kosongkan jika tidak ada">
+                            </div>
+                        </div>
+                        
+                        <button type="button" onclick="goToStep2()" class="w-full mt-auto bg-checkout-500 hover:bg-checkout-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-checkout-500/30 transition transform hover:-translate-y-0.5">
+                            Lanjutkan ke Pembayaran
+                        </button>
+                    </div>
 
-function setStep(n) {
-    [1,2,3].forEach(function(i) {
-        var el = document.getElementById('step-' + i);
-        el.style.display = i === n ? 'flex' : 'none';
-    });
+                    <!-- STEP 2 CONTENT -->
+                    <div id="step-2-content" class="hidden flex-1 flex flex-col transition-opacity duration-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-1">Pembayaran</h4>
+                        <p class="text-sm text-gray-500 mb-6 border-b border-gray-100 pb-4">Selesaikan pembayaran untuk mengaktifkan paket.</p>
+                        
+                        <!-- Order Summary -->
+                        <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 mb-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-gray-600 text-sm">Acosys Paket <span id="summary-pkg-name" class="font-bold text-brand-600 uppercase">LITE</span></span>
+                                <span class="font-semibold text-gray-900 text-sm" id="summary-base-price">Rp 100.000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-4 text-red-500 hidden" id="discount-row">
+                                <span class="text-sm">Diskon Voucher</span>
+                                <span class="font-semibold text-sm" id="summary-discount">- Rp 0</span>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4 flex justify-between items-center">
+                                <span class="font-bold text-gray-900">Total Harga</span>
+                                <span class="text-xl font-black text-checkout-600" id="summary-final-total">Rp 100.000</span>
+                            </div>
+                        </div>
 
-    var s1c = document.getElementById('s1-circle');
-    var s1l = document.getElementById('s1-label');
-    var s2c = document.getElementById('s2-circle');
-    var s2l = document.getElementById('s2-label');
-    var fill = document.getElementById('step-line-fill');
+                        <!-- Voucher Box -->
+                        <div class="mb-6 bg-checkout-50 border border-dashed border-checkout-400 rounded-2xl p-4">
+                            <h5 class="text-xs font-bold text-checkout-600 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-gift"></i> Punya Kode Voucher?
+                            </h5>
+                            <div class="flex gap-2">
+                                <input type="text" id="voucher-code" class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-checkout-500 outline-none text-sm uppercase" placeholder="Masukkan kode">
+                                <button type="button" onclick="applyVoucher()" class="bg-checkout-500 hover:bg-checkout-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition">
+                                    Gunakan
+                                </button>
+                            </div>
+                            <p id="voucher-msg" class="text-xs font-medium mt-2 hidden"></p>
+                        </div>
 
-    if (n === 1) {
-        s1c.className = 'step-circle active'; s1c.innerHTML = '1'; s1l.className = 'step-label active';
-        s2c.className = 'step-circle'; s2c.innerHTML = '2'; s2l.className = 'step-label';
-        fill.style.width = '0%';
-    } else {
-        s1c.className = 'step-circle done'; s1c.innerHTML = '<i class="fa-solid fa-check" style="font-size:11px;"></i>'; s1l.className = 'step-label active';
-        s2c.className = 'step-circle active'; s2c.innerHTML = '2'; s2l.className = 'step-label active';
-        fill.style.width = '100%';
-    }
-}
+                        <!-- Payment Method -->
+                        <div class="mb-8">
+                        <label class="block text-xs font-semibold text-gray-700 mb-2">Metode Pembayaran</label>
+                            <div class="border-2 border-checkout-500 bg-white rounded-xl p-4 flex items-center justify-between cursor-pointer shadow-sm">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-checkout-50 rounded-lg flex items-center justify-center text-checkout-600 text-xl">
+                                        <i class="fa-solid fa-qrcode"></i>
+                                        </div>
+                                    <div>
+                                        <span class="block font-bold text-gray-900 text-sm">QRIS (Otomatis)</span>
+                                            <span class="block text-xs text-gray-500 mt-0.5">Gopay, OVO, Dana, m-BCA, dll.</span>
+                                                </div>
+                                                </div>
+                                                    <div class="w-5 h-5 rounded-full bg-checkout-500 text-white flex items-center justify-center text-[10px]">
+                                                        <i class="fa-solid fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                        <div class="flex gap-3 mt-auto pt-4 border-t border-gray-100">
+                            <button type="button" onclick="goToStep1()" class="w-1/3 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition text-sm">
+                                Kembali
+                            </button>
+                            <button type="button" onclick="goToStep3()" class="w-2/3 py-3.5 bg-checkout-500 hover:bg-checkout-600 text-white font-bold rounded-xl shadow-lg transition flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-lock"></i> Bayar Sekarang
+                            </button>
+                        </div>
+                    </div>
 
-function goToStep1(reset) { setStep(1); }
+                   <!-- STEP 3 CONTENT (QRIS) -->
+<div id="step-3-content" class="hidden flex-1 flex flex-col justify-center items-center text-center transition-opacity duration-300">
+    <h4 class="font-bold text-2xl text-gray-900 mb-2">Scan Barcode QRIS</h4>
+    <p class="text-sm text-gray-500 mb-6">Buka aplikasi E-Wallet atau M-Banking Anda (BCA, Mandiri, Gopay, OVO, dll), lalu scan QR di bawah ini.</p>
+    
+    <!-- QR Image Box -->
+    <div class="p-4 sm:p-6 bg-white border border-gray-200 rounded-3xl shadow-sm mb-4 inline-block">
+        <div class="w-48 h-48 sm:w-56 sm:h-56 bg-white border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden p-2">
+            <img src="qris.png" alt="QRIS Barcode" class="w-full h-full object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg'">
+        </div>
+    </div>
 
-function goToStep2() {
-    var name  = document.getElementById('customer-name').value.trim();
-    var email = document.getElementById('customer-email').value.trim();
-    var wa    = document.getElementById('customer-wa').value.trim();
-    if (!name || !email || !wa) {
-        alert('Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.');
-        return;
-    }
-    setStep(2);
-}
+    <!-- TOMBOL DOWNLOAD DI SINI -->
+    <a href="qris.png" download="QRIS-Acosys.png" class="mb-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border-2 border-dashed border-checkout-400 text-checkout-600 text-sm font-semibold hover:bg-checkout-50 active:bg-checkout-100 transition-colors duration-150">
+        <i class="fa-solid fa-download text-xs"></i>
+        Unduh QR Code
+    </a>
+    
+    <div class="mb-8">
+        <p class="text-sm text-gray-500 mb-1">Total yang harus dibayar</p>
+        <div class="text-2xl font-black text-checkout-600 bg-checkout-50 px-6 py-2 rounded-full inline-block" id="qris-final-total">Rp 100.000</div>
+    </div>
 
-function goToStep3() {
-    document.getElementById('qris-final-total').innerText = fmt(finalTotal);
-    setStep(3);
-}
+    <!-- Final Action to WhatsApp / Google Sheets -->
+    <button type="button" onclick="submitFinalOrder(event)" id="btn-konfirmasi" class="w-full mt-auto py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex justify-center items-center gap-2">
+        <i class="fa-brands fa-whatsapp text-xl"></i> Konfirmasi Pembayaran
+    </button>
+</div>
 
-function applyVoucher() {
-    var code = document.getElementById('voucher-code').value.trim().toUpperCase();
-    var msg  = document.getElementById('voucher-msg');
-    var row  = document.getElementById('discount-row');
-    if (code === 'PROMO20') {
-        discount = 20000;
-        msg.style.display = 'block';
-        msg.style.color = 'var(--green)';
-        msg.innerText = '✓ Voucher berhasil! Potongan Rp20.000 diterapkan.';
-        document.getElementById('summary-discount').innerText = '-' + fmt(discount);
-        row.style.display = 'flex';
-    } else {
-        discount = 0;
-        msg.style.display = 'block';
-        msg.style.color = '#EF4444';
-        msg.innerText = 'Kode voucher tidak ditemukan atau tidak valid.';
-        row.style.display = 'none';
-    }
-    finalTotal = basePrice - discount;
-    document.getElementById('summary-final-total').innerText = fmt(finalTotal);
-}
+                </form>
+            </div>
+        </div>
+    </div>
 
-function submitFinalOrder(e) {
-    e.preventDefault();
-    var name  = document.getElementById('customer-name').value;
-    var email = document.getElementById('customer-email').value;
-    var wa    = document.getElementById('customer-wa').value;
-    var ref   = document.getElementById('customer-ref').value;
-    var msg   = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPkg + '\n*Total Tagihan:* ' + fmt(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref || '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
+    <!-- SCRIPT LOGIKA CHECKOUT & HARGA -->
+    <script>
+        // Data Harga Paket Acosys (Diubah LITE menjadi 100000)
+        const packagePrices = {
+            'LITE': 100000,
+            'BASIC': 199000,
+            'PRO': 399000,
+            'EXPERT': 599000
+        };
 
-    var formData = new FormData();
-    formData.append('paket', selectedPkg);
-    formData.append('nama', name);
-    formData.append('email', email);
-    formData.append('wa', wa);
-    formData.append('referral', ref);
-    formData.append('total', finalTotal);
-    formData.append('waktu', new Date().toLocaleString('id-ID'));
+        let selectedPackage = '';
+        let basePrice = 0;
+        let discount = 0;
+        let finalTotal = 0;
 
-    var btn = document.getElementById('btn-konfirmasi');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
+        const modal = document.getElementById('order-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalHeader = document.getElementById('modal-header');
 
-    fetch('https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec', {
-        method: 'POST', body: formData, mode: 'no-cors'
-    }).finally(function() {
-        window.open('https://wa.me/62811791078?text=' + encodeURIComponent(msg), '_blank');
-        closeModal();
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-brands fa-whatsapp" style="font-size:18px;"></i> Konfirmasi Pembayaran via WhatsApp';
-    });
-}
+        // Form elements
+        const step1Content = document.getElementById('step-1-content');
+        const step2Content = document.getElementById('step-2-content');
+        const step3Content = document.getElementById('step-3-content');
+        const stepLine = document.getElementById('step-line');
+        const s1Circle = document.getElementById('step-1-circle');
+        const s1Text = document.getElementById('step-1-text');
+        const s2Circle = document.getElementById('step-2-circle');
+        const s2Text = document.getElementById('step-2-text');
 
-/* ── SCROLL REVEAL ── */
-document.addEventListener('DOMContentLoaded', function() {
-    var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(function(r) { obs.observe(r); });
-});
-</script>
+        const formatRp = (num) => 'Rp ' + num.toLocaleString('id-ID');
+
+        function openModal(pkg) {
+            selectedPackage = pkg;
+            basePrice = packagePrices[pkg];
+            discount = 0;
+            finalTotal = basePrice;
+            
+            document.getElementById('summary-pkg-name').innerText = pkg;
+            document.getElementById('summary-base-price').innerText = formatRp(basePrice);
+            updateTotalDisplay();
+            
+            document.getElementById('order-form').reset();
+            document.getElementById('voucher-msg').classList.add('hidden');
+            document.getElementById('discount-row').classList.add('hidden');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalHeader.classList.remove('scale-95', 'opacity-0');
+                modalHeader.classList.add('scale-100', 'opacity-100');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+
+            goToStep1(true);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            
+            modalHeader.classList.remove('scale-100', 'opacity-100');
+            modalHeader.classList.add('scale-95', 'opacity-0');
+            
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+
+        function goToStep1(isReset = false) {
+            step2Content.classList.add('hidden');
+            step3Content.classList.add('hidden');
+            step1Content.classList.remove('hidden');
+
+            stepLine.classList.replace('bg-checkout-500', 'bg-gray-200');
+            
+            s1Circle.classList.replace('bg-checkout-600', 'bg-checkout-500');
+            s1Circle.innerHTML = '1';
+            
+            s2Circle.classList.replace('bg-checkout-500', 'bg-gray-200');
+            s2Circle.classList.replace('text-white', 'text-gray-500');
+            s2Circle.classList.replace('border-checkout-500', 'border-white');
+            s2Text.classList.replace('text-checkout-500', 'text-gray-400');
+        }
+
+        function goToStep2() {
+            const name = document.getElementById('customer-name').value.trim();
+            const email = document.getElementById('customer-email').value.trim();
+            const wa = document.getElementById('customer-wa').value.trim();
+
+            if(!name || !email || !wa) {
+                alert('Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.');
+                return;
+            }
+
+            step1Content.classList.add('hidden');
+            step3Content.classList.add('hidden');
+            step2Content.classList.remove('hidden');
+
+            stepLine.classList.replace('bg-gray-200', 'bg-checkout-500');
+            
+            s1Circle.classList.replace('bg-checkout-500', 'bg-checkout-600');
+            s1Circle.innerHTML = '<i class="fa-solid fa-check"></i>';
+            
+            s2Circle.classList.replace('bg-gray-200', 'bg-checkout-500');
+            s2Circle.classList.replace('text-gray-500', 'text-white');
+            s2Text.classList.replace('text-gray-400', 'text-checkout-500');
+        }
+
+        function goToStep3() {
+            step1Content.classList.add('hidden');
+            step2Content.classList.add('hidden');
+            step3Content.classList.remove('hidden');
+
+            document.getElementById('qris-final-total').innerText = formatRp(finalTotal);
+        }
+
+        function applyVoucher() {
+            const code = document.getElementById('voucher-code').value.trim().toUpperCase();
+            const msgEl = document.getElementById('voucher-msg');
+            const discRow = document.getElementById('discount-row');
+
+            if(code === 'PROMO20') {
+                discount = 20000;
+                msgEl.innerText = "Voucher berhasil! Anda mendapat potongan Rp 20.000";
+                msgEl.className = "text-xs font-medium mt-2 text-checkout-600 block";
+                
+                document.getElementById('summary-discount').innerText = "- " + formatRp(discount);
+                discRow.classList.remove('hidden');
+            } else {
+                discount = 0;
+                msgEl.innerText = "Kode voucher tidak ditemukan atau tidak valid.";
+                msgEl.className = "text-xs font-medium mt-2 text-red-500 block";
+                discRow.classList.add('hidden');
+            }
+            updateTotalDisplay();
+        }
+
+        function updateTotalDisplay() {
+            finalTotal = basePrice - discount;
+            document.getElementById('summary-final-total').innerText = formatRp(finalTotal);
+        }
+
+        function submitFinalOrder(event) {
+            event.preventDefault(); 
+            
+            const name = document.getElementById('customer-name').value;
+            const email = document.getElementById('customer-email').value;
+            const wa = document.getElementById('customer-wa').value;
+            const ref = document.getElementById('customer-ref').value;
+
+            const message = `Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ${selectedPackage}\n*Total Tagihan:* ${formatRp(finalTotal)}\n\n*Data Pemesan:*\n- Nama: ${name}\n- Email: ${email}\n- WA: ${wa}\n- Referral: ${ref ? ref : '-'}\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS saya. Mohon segera diproses.`;
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec'; 
+            
+            const formData = new FormData();
+            formData.append('paket', selectedPackage);
+            formData.append('nama', name);
+            formData.append('email', email);
+            formData.append('wa', wa);
+            formData.append('referral', ref);
+            formData.append('total', finalTotal);
+            formData.append('waktu', new Date().toLocaleString('id-ID'));
+
+            const btnKonfirm = document.getElementById('btn-konfirmasi');
+            const originalBtnText = btnKonfirm.innerHTML;
+            
+            btnKonfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xl"></i> <span>Meneruskan ke WhatsApp...</span>';
+            btnKonfirm.disabled = true;
+
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                .then(() => {
+                    window.open(`https://wa.me/62811791078?text=${encodeURIComponent(message)}`, '_blank');
+                    closeModal();
+                    btnKonfirm.innerHTML = originalBtnText;
+                    btnKonfirm.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error saat menyimpan ke sheet!', error.message);
+                    window.open(`https://wa.me/62811791078?text=${encodeURIComponent(message)}`, '_blank');
+                    closeModal();
+                    btnKonfirm.innerHTML = originalBtnText;
+                    btnKonfirm.disabled = false;
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.1 
+            };
+
+            const revealObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(function(reveal) {
+                revealObserver.observe(reveal);
+            });
+        });
+    </script>
 </body>
 </html>

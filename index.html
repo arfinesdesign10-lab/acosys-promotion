@@ -9,37 +9,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                colors: {
-                    brand: {
-                        50: '#fafafa',
-                        100: '#fff8e1',
-                        500: '#FFB300',
-                        600: '#e6a100',
-                        700: '#cc8f00',
-                        900: '#7a5600',
-                    },
-                    accent: {
-                        400: '#FFD54F',
-                        500: '#FFB300',
-                    },
-                    navy: {
-                        800: '#1e293b',
-                        900: '#0f172a',
-                    },
-                    // Warna hijau khusus untuk form checkout
-                    checkout: {
-                        500: '#10b981',
-                        600: '#059669',
-                        }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#fafafa',
+                            100: '#fff8e1',
+                            500: '#FFB300',
+                            600: '#e6a100',
+                            700: '#cc8f00',
+                            900: '#7a5600',
+                        },
+                        accent: { 400: '#FFD54F', 500: '#FFB300' },
+                        navy: { 800: '#1e293b', 900: '#0f172a' },
+                        checkout: { 500: '#10b981', 600: '#059669' }
                     },
                     animation: {
                         'float': 'float 3s ease-in-out infinite',
@@ -47,14 +35,8 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -62,16 +44,18 @@
     </script>
     <style>
         .float-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .float-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(240, 67, 10, 0.15), 0 10px 10px -5px rgba(240, 67, 10, 0.05); }
-        
+        .float-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(240,67,10,0.15), 0 10px 10px -5px rgba(240,67,10,0.05); }
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Custom Scrollbar for Modal */
         .modal-scroll::-webkit-scrollbar { width: 6px; }
         .modal-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px; }
         .modal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
         .modal-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Carousel */
+        #carousel-track { display: flex; gap: 24px; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .carousel-slide { flex-shrink: 0; }
+        #carousel-prev:disabled, #carousel-next:disabled { opacity: 0.3; cursor: not-allowed; }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-white antialiased overflow-x-hidden">
@@ -90,59 +74,34 @@
             <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-brand-100 blur-3xl opacity-60"></div>
             <div class="absolute top-1/2 -left-24 w-72 h-72 rounded-full bg-accent-400 blur-3xl opacity-20"></div>
         </div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center reveal active">
-            
             <div class="flex justify-center items-center mb-6">
-    <img 
-        src="acosys.png" 
-        alt="Logo Acosys V8"
-        class="h-10 md:h-14 w-auto object-contain hover:scale-105 transition duration-300"
-        onerror="this.style.display='none'"
-    >
-</div>
-
-<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 border border-brand-200 text-brand-700 font-semibold text-xs mb-8 animate-fade-in-up">
-    <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
-    </span>
-    Software Akuntansi Cloud #1 untuk UMKM & Retail
-</div>
-
-<h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-gray-900 tracking-tight leading-[1.1] mb-4 max-w-4xl mx-auto">
-    Kelola Bisnis<br/>
-    <span class="text-gray-900">Tanpa</span>
-  <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;" class="text-brand-500">Pusing</span>
-    Lagi
-</h1>
-
-<p class="text-lg sm:text-xl text-gray-500 max-w-xl mx-auto mb-4 leading-relaxed mt-6">
-    Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja.
-</p>
-
-<div class="flex flex-col sm:flex-row justify-center gap-2 mb-6 text-xs text-gray-500">
-    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
-        <i class="fa-solid fa-check text-checkout-500"></i> Tanpa Instalasi
-    </span>
-    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
-        <i class="fa-solid fa-check text-checkout-500"></i> Gratis Setup
-    </span>
-    <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
-        <i class="fa-solid fa-check text-checkout-500"></i> Support Langsung
-    </span>
-</div>
-
-<button onclick="document.getElementById('harga').scrollIntoView({behavior: 'smooth'})" 
-    class="bg-brand-500 hover:bg-brand-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 inline-flex items-center gap-3">
-    Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
-</button>
-
-<!-- <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16 px-4 sm:px-0">
-                <button onclick="document.getElementById('harga').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-600/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                    Lihat Paket Harga <i class="fa-solid fa-arrow-down"></i>
-                </button>
-            </div> -->
+                <img src="acosys.png" alt="Logo Acosys V8" class="h-10 md:h-14 w-auto object-contain hover:scale-105 transition duration-300" onerror="this.style.display='none'">
+            </div>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 border border-brand-200 text-brand-700 font-semibold text-xs mb-8 animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+                </span>
+                Software Akuntansi Cloud #1 untuk UMKM & Retail
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-gray-900 tracking-tight leading-[1.1] mb-4 max-w-4xl mx-auto">
+                Kelola Bisnis<br/>
+                <span class="text-gray-900">Tanpa</span>
+                <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;" class="text-brand-500">Pusing</span>
+                Lagi
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-500 max-w-xl mx-auto mb-4 leading-relaxed mt-6">
+                Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-2 mb-6 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm"><i class="fa-solid fa-check text-checkout-500"></i> Tanpa Instalasi</span>
+                <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm"><i class="fa-solid fa-check text-checkout-500"></i> Gratis Setup</span>
+                <span class="flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm"><i class="fa-solid fa-check text-checkout-500"></i> Support Langsung</span>
+            </div>
+            <button onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})" class="bg-brand-500 hover:bg-brand-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 inline-flex items-center gap-3">
+                Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
     </section>
 
@@ -154,52 +113,36 @@
                 <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4">Masih Pusing Urusan Pembukuan?</h3>
                 <p class="text-base md:text-lg text-gray-600">Jangan biarkan energi terkuras untuk urusan administrasi yang berantakan.</p>
             </div>
-
-            <!-- Grid 3 Kartu Masalah -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
-                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-book-journal-whills"></i>
-                    </div>
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-book-journal-whills"></i></div>
                     <h4 class="text-xl font-bold text-gray-900 mb-3">Pembukuan Manual</h4>
                     <p class="text-gray-600 leading-relaxed text-sm">Mencatat di buku atau Excel memakan waktu berjam-jam dan sangat rawan <em>human error</em>.</p>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
-                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-boxes-stacked"></i>
-                    </div>
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-boxes-stacked"></i></div>
                     <h4 class="text-xl font-bold text-gray-900 mb-3">Stok Tidak Terkontrol</h4>
                     <p class="text-gray-600 leading-relaxed text-sm">Sering selisih barang fisik dan catatan. Sulit melacak pergerakan inventory dan barang hilang.</p>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 float-hover group text-center">
-                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
+                    <div class="mx-auto w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-chart-pie"></i></div>
                     <h4 class="text-xl font-bold text-gray-900 mb-3">Laporan Berantakan</h4>
                     <p class="text-gray-600 leading-relaxed text-sm">Pengambilan keputusan lambat karena data keuangan tidak akurat dan tidak <em>real-time</em>.</p>
                 </div>
             </div>
-
-            <!-- MATERI TAMBAHAN: Dampak Masalah -->
             <div class="mt-12 bg-navy-900 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 reveal overflow-hidden relative">
-    <!-- Background decoration -->
-    <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-brand-500 opacity-10 blur-2xl"></div>
-    <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-brand-500 opacity-5 blur-2xl"></div>
-
-    <div class="w-16 h-16 bg-brand-500 rounded-2xl flex items-center justify-center text-white text-3xl flex-shrink-0 shadow-lg">
-        <i class="fa-solid fa-chart-line"></i>
-    </div>
-    <div class="relative z-10">
-        <h4 class="text-xl md:text-2xl font-bold text-white mb-2">Saatnya Bisnis Anda Naik Level!</h4>
-        <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-            Pembukuan yang tidak sistematis bukan hanya membuang waktu produktif Anda, tetapi juga menjadi sumber utama <strong class="text-white">kebocoran dana tak kasat mata, piutang tak tertagih, dan hilangnya barang di gudang.</strong> Saatnya beralih ke ekosistem yang terintegrasi penuh.
-        </p>
-    </div>
-</div>
+                <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-brand-500 opacity-10 blur-2xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-brand-500 opacity-5 blur-2xl"></div>
+                <div class="w-16 h-16 bg-brand-500 rounded-2xl flex items-center justify-center text-white text-3xl flex-shrink-0 shadow-lg"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="relative z-10">
+                    <h4 class="text-xl md:text-2xl font-bold text-white mb-2">Saatnya Bisnis Anda Naik Level!</h4>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">Pembukuan yang tidak sistematis bukan hanya membuang waktu produktif Anda, tetapi juga menjadi sumber utama <strong class="text-white">kebocoran dana tak kasat mata, piutang tak tertagih, dan hilangnya barang di gudang.</strong> Saatnya beralih ke ekosistem yang terintegrasi penuh.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- SOLUTION & FEATURES SECTION -->
+    <!-- FEATURES SECTION -->
     <section id="fitur" class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
@@ -207,72 +150,44 @@
                 <h3 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4">Semua Fitur dalam Satu Aplikasi</h3>
                 <p class="text-base md:text-lg text-gray-600">Acosys V8 Online dirancang untuk mempercepat alur kerja dan mengamankan data bisnis Anda.</p>
             </div>
-
-            <!-- Menambahkan 4 Fitur Baru sehingga total 8 (Baris 1 dan Baris 2) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
-                <!-- Fitur 1 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-cloud"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-cloud"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">100% Cloud Base</h4>
                     <p class="text-sm text-gray-600">Akses data bisnis Anda dari mana saja dan perangkat apa saja secara real-time.</p>
                 </div>
-                <!-- Fitur 2 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-cash-register"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-cash-register"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Kasir (POS) Pintar</h4>
                     <p class="text-sm text-gray-600">Transaksi cepat, support barcode, dan langsung memotong stok gudang otomatis.</p>
                 </div>
-                <!-- Fitur 3 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Laporan Instan</h4>
                     <p class="text-sm text-gray-600">Buku besar, neraca, hingga laba rugi tersusun otomatis tanpa perlu entry dua kali.</p>
                 </div>
-                <!-- Fitur 4 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-network-wired"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-network-wired"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Multi Cabang</h4>
                     <p class="text-sm text-gray-600">Kelola banyak toko atau gudang dalam satu dashboard. Pantau stok antar cabang.</p>
                 </div>
-                
-                <!-- ================== 4 FITUR TAMBAHAN BARU ================== -->
-                <!-- Fitur 5 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Hutang & Piutang</h4>
                     <p class="text-sm text-gray-600">Catat dan pantau jatuh tempo tagihan pelanggan maupun supplier agar arus kas tetap aman.</p>
                 </div>
-                <!-- Fitur 6 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-user-shield"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Hak Akses Fleksibel</h4>
                     <p class="text-sm text-gray-600">Atur batasan menu untuk setiap karyawan (kasir, admin, manajer) demi keamanan data.</p>
                 </div>
-                <!-- Fitur 7 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-mobile-screen"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Multi Device</h4>
                     <p class="text-sm text-gray-600">Gunakan sistem Acosys dengan lancar dari Laptop, PC, Tablet, hingga Smartphone Anda.</p>
                 </div>
-                <!-- Fitur 8 -->
                 <div class="p-6 rounded-3xl bg-brand-50 border border-brand-100 hover:bg-brand-100 transition-colors text-center">
-                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
+                    <div class="mx-auto w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent-500 text-xl mb-4"><i class="fa-solid fa-lock"></i></div>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Keamanan Terjamin</h4>
                     <p class="text-sm text-gray-600">Data Anda dienkripsi dan di-backup harian secara otomatis di server berspesifikasi tinggi.</p>
                 </div>
@@ -280,8 +195,8 @@
         </div>
     </section>
 
-    <!-- PRICING SECTION -->
-    <section id="harga" class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
+    <!-- ==================== PRICING SECTION (CAROUSEL) ==================== -->
+    <section id="harga" class="py-16 md:py-24 bg-gray-50 border-t border-gray-200 overflow-hidden">
         <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                 <h2 class="text-brand-600 font-bold tracking-wider uppercase text-xs md:text-sm mb-3">Pilihan Paket Acosys V8</h2>
@@ -289,47 +204,191 @@
                 <p class="text-base md:text-lg text-gray-600">Solusi cerdas akuntansi untuk segala jenis bisnis dengan harga yang transparan.</p>
             </div>
 
-            <!-- Pricing Grid (LITE Only) -->
-                <div class="flex justify-center reveal">
-                    
-                    <!-- Paket LITE -->
-                    <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-2xl border-2 border-brand-500 relative z-10 flex flex-col w-full max-w-md">
-                        
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent-400 to-accent-500 text-navy-900 px-6 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-lg flex items-center gap-2 whitespace-nowrap">
-                            <i class="fa-solid fa-star animate-pulse"></i> Paling Populer
+            <!-- CAROUSEL WRAPPER -->
+            <div class="relative reveal" id="pricing-carousel-wrapper">
+
+                <!-- Panah Kiri -->
+                <button id="carousel-prev" onclick="carouselPrev()" aria-label="Paket Sebelumnya"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 md:-translate-x-5 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/20 backdrop-blur-sm border border-white/40 text-gray-600 rounded-full flex items-center justify-center hover:bg-white/60 hover:text-brand-600 transition-all duration-200 focus:outline-none">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+
+                <!-- Panah Kanan -->
+                <button id="carousel-next" onclick="carouselNext()" aria-label="Paket Berikutnya"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 md:translate-x-5 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/20 backdrop-blur-sm border border-white/40 text-gray-600 rounded-full flex items-center justify-center hover:bg-white/60 hover:text-brand-600 transition-all duration-200 focus:outline-none">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+
+                <!-- Track Overflow Container -->
+                <div class="overflow-hidden mx-6 md:mx-8">
+                    <div id="carousel-track">
+
+                        <!-- ===== PAKET LITE ===== -->
+                        <div class="carousel-slide">
+                            <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-2xl border-2 border-brand-500 flex flex-col h-full relative hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-accent-400 to-accent-500 text-navy-900 px-5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+                                    <i class="fa-solid fa-star animate-pulse"></i> Paling Populer
+                                </div>
+                                <div class="text-center mb-5 pb-5 border-b border-gray-100 mt-2">
+                                    <span class="inline-block bg-brand-50 text-brand-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">ABD</span>
+                                    <h4 class="text-2xl font-black text-brand-600">LITE</h4>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="text-3xl font-extrabold text-gray-900">Rp149.000<span class="text-sm font-semibold text-gray-400">/bln</span></div>
+                                    <p class="text-xs text-green-600 font-bold mt-1">Rp1.500.000/tahun</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs text-gray-600 bg-gray-50 rounded-2xl p-4 mb-4">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-brand-400 text-[9px]"></i> 2 GB SSD</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-server text-brand-400 text-[9px]"></i> 1 User Server</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-memory text-brand-400 text-[9px]"></i> 1 GB RAM</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-database text-brand-400 text-[9px]"></i> 1 Database</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-microchip text-brand-400 text-[9px]"></i> 1 Core CPU</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-brand-400 text-[9px]"></i> 2 User Acosys</span>
+                                </div>
+                                <div class="bg-brand-50 rounded-2xl p-3 mb-5 text-center">
+                                    <p class="text-[10px] text-gray-500 mb-0.5">Tambah User</p>
+                                    <p class="text-base font-extrabold text-brand-600">Rp25.000<span class="text-xs font-semibold text-gray-400">/user/bln</span></p>
+                                    <p class="text-[10px] text-green-600 font-semibold">Rp300.000/user/tahun</p>
+                                </div>
+                                <ul class="space-y-2 mb-6 text-sm text-gray-700 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Kontrol Stok Barang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point Of Sale</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Accounting</li>
+                                </ul>
+                                <button onclick="openModal('LITE')" class="w-full mt-auto py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-md hover:bg-brand-700 transition transform hover:-translate-y-0.5">Pilih Paket LITE</button>
+                            </div>
                         </div>
-                        
-                        <div class="text-center mb-4 mt-2 border-b border-gray-100 pb-6">
-                            <h4 class="text-2xl font-black text-brand-600 mb-1">LITE</h4>
+
+                        <!-- ===== PAKET BASIC ===== -->
+                        <div class="carousel-slide">
+                            <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-md border border-gray-100 flex flex-col h-full relative hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <div class="text-center mb-5 pb-5 border-b border-gray-100">
+                                    <span class="inline-block bg-brand-50 text-brand-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">ABCDEFG</span>
+                                    <h4 class="text-2xl font-black text-brand-600">BASIC</h4>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="text-3xl font-extrabold text-gray-900">Rp199.000<span class="text-sm font-semibold text-gray-400">/bln</span></div>
+                                    <p class="text-xs text-green-600 font-bold mt-1">Rp2.000.000/tahun</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs text-gray-600 bg-gray-50 rounded-2xl p-4 mb-4">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-brand-400 text-[9px]"></i> 2 GB SSD</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-server text-brand-400 text-[9px]"></i> 1 User Server</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-memory text-brand-400 text-[9px]"></i> 1 GB RAM</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-database text-brand-400 text-[9px]"></i> 1 Database</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-microchip text-brand-400 text-[9px]"></i> 1 Core CPU</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-brand-400 text-[9px]"></i> 2 User Acosys</span>
+                                </div>
+                                <div class="bg-brand-50 rounded-2xl p-3 mb-5 text-center">
+                                    <p class="text-[10px] text-gray-500 mb-0.5">Tambah User</p>
+                                    <p class="text-base font-extrabold text-brand-600">Rp25.000<span class="text-xs font-semibold text-gray-400">/user/bln</span></p>
+                                    <p class="text-[10px] text-green-600 font-semibold">Rp300.000/user/tahun</p>
+                                </div>
+                                <ul class="space-y-2 mb-6 text-sm text-gray-700 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Kontrol Stok Barang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point Of Sale</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Hutang Piutang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Aturan Level Harga</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Accounting</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Salesman</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point & Hadiah</li>
+                                </ul>
+                                <button onclick="openModal('BASIC')" class="w-full mt-auto py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-md hover:bg-brand-700 transition transform hover:-translate-y-0.5">Pilih Paket BASIC</button>
+                            </div>
                         </div>
-                        
-                        <!-- Harga -->
-                        <div class="text-center mb-0.5">
-                            <span class="text-base font-bold text-gray-400 line-through decoration-red-500 decoration-2">Rp 300.000</span>
+
+                        <!-- ===== PAKET PRO ===== -->
+                        <div class="carousel-slide">
+                            <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-md border border-gray-100 flex flex-col h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <div class="text-center mb-5 pb-5 border-b border-gray-100">
+                                    <span class="inline-block bg-brand-50 text-brand-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">ABCDEGIV</span>
+                                    <h4 class="text-2xl font-black text-brand-600">PRO</h4>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="text-3xl font-extrabold text-gray-900">Rp399.000<span class="text-sm font-semibold text-gray-400">/bln</span></div>
+                                    <p class="text-xs text-green-600 font-bold mt-1">Rp4.000.000/tahun</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs text-gray-600 bg-gray-50 rounded-2xl p-4 mb-4">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-brand-400 text-[9px]"></i> 2 GB SSD</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-server text-brand-400 text-[9px]"></i> 1 User Server</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-memory text-brand-400 text-[9px]"></i> 1 GB RAM</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-database text-brand-400 text-[9px]"></i> 1 Database</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-microchip text-brand-400 text-[9px]"></i> 1 Core CPU</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-brand-400 text-[9px]"></i> 2 User Acosys</span>
+                                </div>
+                                <div class="bg-brand-50 rounded-2xl p-3 mb-5 text-center">
+                                    <p class="text-[10px] text-gray-500 mb-0.5">Tambah User</p>
+                                    <p class="text-base font-extrabold text-brand-600">Rp25.000<span class="text-xs font-semibold text-gray-400">/user/bln</span></p>
+                                    <p class="text-[10px] text-green-600 font-semibold">Rp300.000/user/tahun</p>
+                                </div>
+                                <ul class="space-y-2 mb-6 text-sm text-gray-700 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Kontrol Stok Barang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point Of Sale</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Hutang Piutang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Aturan Level Harga</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Accounting</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Salesman</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point & Hadiah</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Multi Divisi</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Analisa Data</li>
+                                </ul>
+                                <button onclick="openModal('PRO')" class="w-full mt-auto py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-md hover:bg-brand-700 transition transform hover:-translate-y-0.5">Pilih Paket PRO</button>
+                            </div>
                         </div>
-                        <div class="mb-2 text-center">
-                            <span class="text-4xl font-extrabold text-brand-600">Rp100.000</span><span class="text-gray-500 text-sm font-semibold">/bln</span>
+
+                        <!-- ===== PAKET EXPERT ===== -->
+                        <div class="carousel-slide">
+                            <div class="bg-white rounded-3xl p-6 xl:p-8 shadow-md border border-gray-100 flex flex-col h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <div class="text-center mb-5 pb-5 border-b border-gray-100">
+                                    <span class="inline-block bg-brand-50 text-brand-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">ABCDEGIJV</span>
+                                    <h4 class="text-2xl font-black text-brand-600">EXPERT</h4>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="text-3xl font-extrabold text-gray-900">Rp599.000<span class="text-sm font-semibold text-gray-400">/bln</span></div>
+                                    <p class="text-xs text-green-600 font-bold mt-1">Rp6.000.000/tahun</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs text-gray-600 bg-gray-50 rounded-2xl p-4 mb-4">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-brand-400 text-[9px]"></i> 2 GB SSD</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-server text-brand-400 text-[9px]"></i> 1 User Server</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-memory text-brand-400 text-[9px]"></i> 1 GB RAM</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-database text-brand-400 text-[9px]"></i> 1 Database</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-microchip text-brand-400 text-[9px]"></i> 1 Core CPU</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-brand-400 text-[9px]"></i> 2 User Acosys</span>
+                                </div>
+                                <div class="bg-brand-50 rounded-2xl p-3 mb-5 text-center">
+                                    <p class="text-[10px] text-gray-500 mb-0.5">Tambah User</p>
+                                    <p class="text-base font-extrabold text-brand-600">Rp25.000<span class="text-xs font-semibold text-gray-400">/user/bln</span></p>
+                                    <p class="text-[10px] text-green-600 font-semibold">Rp300.000/user/tahun</p>
+                                </div>
+                                <ul class="space-y-2 mb-6 text-sm text-gray-700 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Kontrol Stok Barang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point Of Sale</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Hutang Piutang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Aturan Level Harga</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Accounting</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Salesman</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Point & Hadiah</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Multi Divisi</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Multi Departemen</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500 text-xs w-3"></i> Analisa Data</li>
+                                </ul>
+                                <button onclick="openModal('EXPERT')" class="w-full mt-auto py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-md hover:bg-brand-700 transition transform hover:-translate-y-0.5">Pilih Paket EXPERT</button>
+                            </div>
                         </div>
-                        <p class="text-sm text-green-600 font-bold mb-6 text-center">Atau Rp1.500.000/tahun</p>
-                        
-                        <!-- Fitur -->
-                        <ul class="space-y-3 mb-8 text-sm text-gray-700 flex-1">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span><strong>2 User</strong> Acosys</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Server: 2GB SSD, 1GB RAM, 1 Core CPU, 1 DB</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Kontrol Stok Barang</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Point Of Sale</span></li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i> <span>Accounting</span></li>
-                        </ul>
-                        
-                        <!-- Button -->
-                        <button onclick="openModal('LITE')" class="w-full mt-auto py-3.5 rounded-xl bg-brand-600 text-white font-bold text-base shadow-lg shadow-brand-500/40 hover:bg-brand-700 transition transform hover:-translate-y-1">
-                            Pilih Paket LITE
-                        </button>
-                
-                    </div>
-                
+
+                    </div><!-- end track -->
+                </div><!-- end overflow-hidden -->
+
+                <!-- Label Indikator -->
+                <div class="flex justify-center gap-2 mt-8" id="carousel-indicators">
+                    <button onclick="carouselGoTo(0)" class="carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200" data-index="0">LITE</button>
+                    <button onclick="carouselGoTo(1)" class="carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200" data-index="1">BASIC</button>
+                    <button onclick="carouselGoTo(2)" class="carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200" data-index="2">PRO</button>
+                    <button onclick="carouselGoTo(3)" class="carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200" data-index="3">EXPERT</button>
                 </div>
 
+            </div><!-- end carousel-wrapper -->
+
+            <!-- Info Penting -->
             <div class="mt-12 text-center reveal">
                 <div class="inline-block bg-white p-6 rounded-2xl shadow-sm border border-brand-100 max-w-3xl text-sm text-gray-500 text-left">
                     <h5 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-circle-info text-brand-500"></i> Informasi Penting:</h5>
@@ -352,7 +411,7 @@
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
             <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">Jangan Tunda Kesuksesan Bisnis Anda</h2>
             <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
-            <button onclick="openModal('LITE')" class="bg-brand-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-brand-500/50 hover:bg-brand-500 transition transform hover:-translate-y-1">
+            <button onclick="openModal('BASIC')" class="bg-brand-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-brand-500/50 hover:bg-brand-500 transition transform hover:-translate-y-1">
                 Pesan Sekarang
             </button>
         </div>
@@ -362,12 +421,7 @@
     <footer class="bg-gray-900 text-gray-400 py-12 text-sm text-center border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-center items-center mb-6">
-                <img 
-                    src="acosys.png" 
-                    alt="Logo Acosys"
-                    class="h-10 w-auto object-contain opacity-75 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
-                    onerror="this.style.display='none'"
-                >
+                <img src="acosys.png" alt="Logo Acosys" class="h-10 w-auto object-contain opacity-75 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0" onerror="this.style.display='none'">
             </div>
             <p class="mb-4">Solusi Cerdas Manajemen Bisnis & Keuangan Era Digital.</p>
             <p>&copy; 2026 Acosys V8 Online. Hak Cipta Dilindungi.</p>
@@ -375,70 +429,47 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/62811791078?text=Halo%20Tim%20Acosys,%20saya%20ingin%20konsultasi" target="_blank" 
-       class="fixed bottom-6 right-6 bg-checkout-500 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-2xl md:text-3xl shadow-2xl hover:bg-checkout-600 transition-colors z-40 animate-pulse-slow group">
+    <a href="https://wa.me/62811791078?text=Halo%20Tim%20Acosys,%20saya%20ingin%20konsultasi" target="_blank"
+       class="fixed bottom-6 right-6 bg-checkout-500 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-2xl md:text-3xl shadow-2xl hover:bg-checkout-600 transition-colors z-40 animate-pulse-slow">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- NEW ORDER MODAL (2-COLUMN CHECKOUT) -->
+    <!-- ORDER MODAL -->
     <div id="order-modal" class="fixed inset-0 z-[60] bg-navy-900/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        
-        <!-- Header Logo (SantaiScale style) -->
         <div id="modal-header" class="mb-6 flex items-center justify-center gap-3 transform scale-95 opacity-0 transition-all duration-300">
             <div class="bg-white p-1.5 sm:p-2 rounded-xl shadow-md">
                 <img src="acosys.png" alt="Acosys Icon" class="h-6 sm:h-8 w-auto object-contain" onerror="this.style.display='none'">
             </div>
             <span class="text-white font-bold text-xl sm:text-2xl tracking-tight">Acosys V8 Online</span>
         </div>
-
-        <!-- Main Form Container -->
         <div class="bg-white rounded-3xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 max-h-[85vh] modal-scroll" id="modal-content">
-            
-            <button onclick="closeModal()" class="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition text-gray-600 shadow-sm" aria-label="Tutup Form">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button onclick="closeModal()" class="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition text-gray-600 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
 
             <!-- LEFT SIDE -->
             <div class="bg-gray-50 md:w-1/2 hidden md:flex flex-col border-r border-gray-200 overflow-y-auto modal-scroll p-8">
                 <div class="mb-8">
                     <h3 class="text-3xl font-extrabold text-gray-900 leading-tight mb-3">Akses <span class="text-brand-600">Acosys V8 Online</span> Sekarang</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.
-                    </p>
+                    <p class="text-gray-600 text-sm leading-relaxed">Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.</p>
                 </div>
-
                 <div class="mb-8">
                     <h4 class="font-bold text-gray-900 mb-4 text-lg">Apa Kata Mereka?</h4>
-                    <!-- Testimonial 1 -->
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 relative">
                         <i class="fa-solid fa-quote-left absolute top-4 right-4 text-gray-100 text-3xl"></i>
-                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">
-                            "Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya berapa. Sangat rekomen!"
-                        </p>
+                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">"Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya berapa. Sangat rekomen!"</p>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">BS</div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-900">Budi Santoso</p>
-                                <p class="text-[10px] text-gray-500">UMKM Owner</p>
-                            </div>
+                            <div><p class="text-xs font-bold text-gray-900">Budi Santoso</p><p class="text-[10px] text-gray-500">UMKM Owner</p></div>
                         </div>
                     </div>
-                    <!-- Testimonial 2 -->
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 relative">
                         <i class="fa-solid fa-quote-left absolute top-4 right-4 text-gray-100 text-3xl"></i>
-                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">
-                            "Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time pakai Acosys. Laporan akhir bulan jadi dalam hitungan detik."
-                        </p>
+                        <p class="text-gray-600 text-xs italic leading-relaxed mb-3">"Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time pakai Acosys. Laporan akhir bulan jadi dalam hitungan detik."</p>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold text-xs">SA</div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-900">Siti Aisyah</p>
-                                <p class="text-[10px] text-gray-500">Owner Retail Hijab</p>
-                            </div>
+                            <div><p class="text-xs font-bold text-gray-900">Siti Aisyah</p><p class="text-[10px] text-gray-500">Owner Retail Hijab</p></div>
                         </div>
                     </div>
                 </div>
-
                 <div>
                     <h4 class="font-bold text-gray-900 mb-3 text-sm">Cocok Untuk Anda Jika...</h4>
                     <ul class="space-y-3">
@@ -454,39 +485,28 @@
                 </div>
             </div>
 
-            <!-- RIGHT SIDE: Stepper Form Checkout -->
+            <!-- RIGHT SIDE -->
             <div class="md:w-1/2 w-full p-6 md:p-8 relative bg-white flex flex-col h-[90vh] md:h-auto overflow-y-auto modal-scroll">
-                
-                <button onclick="closeModal()" class="hidden md:flex absolute top-4 right-4 w-8 h-8 items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition text-gray-500" aria-label="Tutup Form">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <button onclick="closeModal()" class="hidden md:flex absolute top-4 right-4 w-8 h-8 items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition text-gray-500"><i class="fa-solid fa-xmark"></i></button>
 
                 <!-- STEPPER HEADER -->
                 <div class="flex items-center justify-center mb-8 px-2 md:px-8 mt-4 md:mt-0 relative">
                     <div class="absolute left-[20%] right-[20%] top-4 h-0.5 bg-gray-200 -z-10" id="step-line"></div>
-                    
                     <div class="flex flex-col items-center flex-1 z-10 bg-white">
-                        <div class="w-8 h-8 rounded-full bg-checkout-500 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm" id="step-1-circle">
-                            1
-                        </div>
+                        <div class="w-8 h-8 rounded-full bg-checkout-500 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm" id="step-1-circle">1</div>
                         <span class="text-[10px] sm:text-xs font-semibold text-checkout-500 mt-2 text-center" id="step-1-text">Detail Pemesan</span>
                     </div>
-                    
                     <div class="flex flex-col items-center flex-1 z-10 bg-white">
-                        <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm border-2 border-white" id="step-2-circle">
-                            2
-                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm border-2 border-white" id="step-2-circle">2</div>
                         <span class="text-[10px] sm:text-xs font-semibold text-gray-400 mt-2 text-center" id="step-2-text">Pembayaran</span>
                     </div>
                 </div>
 
                 <form id="order-form" class="flex-1 flex flex-col">
-                    
-                    <!-- STEP 1 CONTENT -->
-                    <div id="step-1-content" class="flex-1 flex flex-col transition-opacity duration-300">
+                    <!-- STEP 1 -->
+                    <div id="step-1-content" class="flex-1 flex flex-col">
                         <h4 class="font-bold text-xl text-gray-900 mb-1">Detail Pemesan</h4>
                         <p class="text-sm text-gray-500 mb-6 border-b border-gray-100 pb-4">Pastikan data yang Anda masukkan sudah benar.</p>
-                        
                         <div class="space-y-4 mb-8">
                             <div>
                                 <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -505,22 +525,17 @@
                                 <input type="text" id="customer-ref" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-checkout-500 focus:bg-white focus:border-checkout-500 outline-none transition text-sm" placeholder="Kosongkan jika tidak ada">
                             </div>
                         </div>
-                        
-                        <button type="button" onclick="goToStep2()" class="w-full mt-auto bg-checkout-500 hover:bg-checkout-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-checkout-500/30 transition transform hover:-translate-y-0.5">
-                            Lanjutkan ke Pembayaran
-                        </button>
+                        <button type="button" onclick="goToStep2()" class="w-full mt-auto bg-checkout-500 hover:bg-checkout-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-checkout-500/30 transition transform hover:-translate-y-0.5">Lanjutkan ke Pembayaran</button>
                     </div>
 
-                    <!-- STEP 2 CONTENT -->
-                    <div id="step-2-content" class="hidden flex-1 flex flex-col transition-opacity duration-300">
+                    <!-- STEP 2 -->
+                    <div id="step-2-content" class="hidden flex-1 flex flex-col">
                         <h4 class="font-bold text-xl text-gray-900 mb-1">Pembayaran</h4>
                         <p class="text-sm text-gray-500 mb-6 border-b border-gray-100 pb-4">Selesaikan pembayaran untuk mengaktifkan paket.</p>
-                        
-                        <!-- Order Summary -->
                         <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 mb-6">
                             <div class="flex justify-between items-center mb-3">
                                 <span class="text-gray-600 text-sm">Acosys Paket <span id="summary-pkg-name" class="font-bold text-brand-600 uppercase">LITE</span></span>
-                                <span class="font-semibold text-gray-900 text-sm" id="summary-base-price">Rp 100.000</span>
+                                <span class="font-semibold text-gray-900 text-sm" id="summary-base-price">Rp 149.000</span>
                             </div>
                             <div class="flex justify-between items-center mb-4 text-red-500 hidden" id="discount-row">
                                 <span class="text-sm">Diskon Voucher</span>
@@ -528,304 +543,297 @@
                             </div>
                             <div class="border-t border-gray-200 pt-4 flex justify-between items-center">
                                 <span class="font-bold text-gray-900">Total Harga</span>
-                                <span class="text-xl font-black text-checkout-600" id="summary-final-total">Rp 100.000</span>
+                                <span class="text-xl font-black text-checkout-600" id="summary-final-total">Rp 149.000</span>
                             </div>
                         </div>
-
-                        <!-- Voucher Box -->
                         <div class="mb-6 bg-checkout-50 border border-dashed border-checkout-400 rounded-2xl p-4">
-                            <h5 class="text-xs font-bold text-checkout-600 mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-gift"></i> Punya Kode Voucher?
-                            </h5>
+                            <h5 class="text-xs font-bold text-checkout-600 mb-2 flex items-center gap-2"><i class="fa-solid fa-gift"></i> Punya Kode Voucher?</h5>
                             <div class="flex gap-2">
                                 <input type="text" id="voucher-code" class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-checkout-500 outline-none text-sm uppercase" placeholder="Masukkan kode">
-                                <button type="button" onclick="applyVoucher()" class="bg-checkout-500 hover:bg-checkout-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition">
-                                    Gunakan
-                                </button>
+                                <button type="button" onclick="applyVoucher()" class="bg-checkout-500 hover:bg-checkout-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition">Gunakan</button>
                             </div>
                             <p id="voucher-msg" class="text-xs font-medium mt-2 hidden"></p>
                         </div>
-
-                        <!-- Payment Method -->
                         <div class="mb-8">
-                        <label class="block text-xs font-semibold text-gray-700 mb-2">Metode Pembayaran</label>
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Metode Pembayaran</label>
                             <div class="border-2 border-checkout-500 bg-white rounded-xl p-4 flex items-center justify-between cursor-pointer shadow-sm">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-checkout-50 rounded-lg flex items-center justify-center text-checkout-600 text-xl">
-                                        <i class="fa-solid fa-qrcode"></i>
-                                        </div>
+                                    <div class="w-10 h-10 bg-checkout-50 rounded-lg flex items-center justify-center text-checkout-600 text-xl"><i class="fa-solid fa-qrcode"></i></div>
                                     <div>
                                         <span class="block font-bold text-gray-900 text-sm">QRIS (Otomatis)</span>
-                                            <span class="block text-xs text-gray-500 mt-0.5">Gopay, OVO, Dana, m-BCA, dll.</span>
-                                                </div>
-                                                </div>
-                                                    <div class="w-5 h-5 rounded-full bg-checkout-500 text-white flex items-center justify-center text-[10px]">
-                                                        <i class="fa-solid fa-check"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        
+                                        <span class="block text-xs text-gray-500 mt-0.5">Gopay, OVO, Dana, m-BCA, dll.</span>
+                                    </div>
+                                </div>
+                                <div class="w-5 h-5 rounded-full bg-checkout-500 text-white flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></div>
+                            </div>
+                        </div>
                         <div class="flex gap-3 mt-auto pt-4 border-t border-gray-100">
-                            <button type="button" onclick="goToStep1()" class="w-1/3 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition text-sm">
-                                Kembali
-                            </button>
-                            <button type="button" onclick="goToStep3()" class="w-2/3 py-3.5 bg-checkout-500 hover:bg-checkout-600 text-white font-bold rounded-xl shadow-lg transition flex justify-center items-center gap-2">
-                                <i class="fa-solid fa-lock"></i> Bayar Sekarang
-                            </button>
+                            <button type="button" onclick="goToStep1()" class="w-1/3 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition text-sm">Kembali</button>
+                            <button type="button" onclick="goToStep3()" class="w-2/3 py-3.5 bg-checkout-500 hover:bg-checkout-600 text-white font-bold rounded-xl shadow-lg transition flex justify-center items-center gap-2"><i class="fa-solid fa-lock"></i> Bayar Sekarang</button>
                         </div>
                     </div>
 
-                   <!-- STEP 3 CONTENT (QRIS) -->
-<div id="step-3-content" class="hidden flex-1 flex flex-col justify-center items-center text-center transition-opacity duration-300">
-    <h4 class="font-bold text-2xl text-gray-900 mb-2">Scan Barcode QRIS</h4>
-    <p class="text-sm text-gray-500 mb-6">Buka aplikasi E-Wallet atau M-Banking Anda (BCA, Mandiri, Gopay, OVO, dll), lalu scan QR di bawah ini.</p>
-    
-    <!-- QR Image Box -->
-    <div class="p-4 sm:p-6 bg-white border border-gray-200 rounded-3xl shadow-sm mb-4 inline-block">
-        <div class="w-48 h-48 sm:w-56 sm:h-56 bg-white border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden p-2">
-            <img src="qris.png" alt="QRIS Barcode" class="w-full h-full object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg'">
-        </div>
-    </div>
-
-    <!-- TOMBOL DOWNLOAD DI SINI -->
-    <a href="qris.png" download="QRIS-Acosys.png" class="mb-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border-2 border-dashed border-checkout-400 text-checkout-600 text-sm font-semibold hover:bg-checkout-50 active:bg-checkout-100 transition-colors duration-150">
-        <i class="fa-solid fa-download text-xs"></i>
-        Unduh QR Code
-    </a>
-    
-    <div class="mb-8">
-        <p class="text-sm text-gray-500 mb-1">Total yang harus dibayar</p>
-        <div class="text-2xl font-black text-checkout-600 bg-checkout-50 px-6 py-2 rounded-full inline-block" id="qris-final-total">Rp 100.000</div>
-    </div>
-
-    <!-- Final Action to WhatsApp / Google Sheets -->
-    <button type="button" onclick="submitFinalOrder(event)" id="btn-konfirmasi" class="w-full mt-auto py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex justify-center items-center gap-2">
-        <i class="fa-brands fa-whatsapp text-xl"></i> Konfirmasi Pembayaran
-    </button>
-</div>
-
+                    <!-- STEP 3 -->
+                    <div id="step-3-content" class="hidden flex-1 flex flex-col justify-center items-center text-center">
+                        <h4 class="font-bold text-2xl text-gray-900 mb-2">Scan Barcode QRIS</h4>
+                        <p class="text-sm text-gray-500 mb-6">Buka aplikasi E-Wallet atau M-Banking Anda (BCA, Mandiri, Gopay, OVO, dll), lalu scan QR di bawah ini.</p>
+                        <div class="p-4 sm:p-6 bg-white border border-gray-200 rounded-3xl shadow-sm mb-4 inline-block">
+                            <div class="w-48 h-48 sm:w-56 sm:h-56 bg-white border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden p-2">
+                                <img src="qris.png" alt="QRIS Barcode" class="w-full h-full object-contain" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg'">
+                            </div>
+                        </div>
+                        <a href="qris.png" download="QRIS-Acosys.png" class="mb-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border-2 border-dashed border-checkout-400 text-checkout-600 text-sm font-semibold hover:bg-checkout-50 transition-colors duration-150">
+                            <i class="fa-solid fa-download text-xs"></i> Unduh QR Code
+                        </a>
+                        <div class="mb-8">
+                            <p class="text-sm text-gray-500 mb-1">Total yang harus dibayar</p>
+                            <div class="text-2xl font-black text-checkout-600 bg-checkout-50 px-6 py-2 rounded-full inline-block" id="qris-final-total">Rp 149.000</div>
+                        </div>
+                        <button type="button" onclick="submitFinalOrder(event)" id="btn-konfirmasi" class="w-full mt-auto py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex justify-center items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Konfirmasi Pembayaran
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT LOGIKA CHECKOUT & HARGA -->
     <script>
-        // Data Harga Paket Acosys (Diubah LITE menjadi 100000)
-        const packagePrices = {
-            'LITE': 100000,
-            'BASIC': 199000,
-            'PRO': 399000,
-            'EXPERT': 599000
-        };
+    /* ============================================================
+       PRICING CAROUSEL
+    ============================================================ */
+    (function() {
+        var track       = document.getElementById('carousel-track');
+        var slides      = document.querySelectorAll('.carousel-slide');
+        var dots        = document.querySelectorAll('.carousel-dot');
+        var btnPrev     = document.getElementById('carousel-prev');
+        var btnNext     = document.getElementById('carousel-next');
+        var total       = slides.length;
+        var current     = 0;
+        var gap         = 24; // px, matches CSS gap-6
 
-        let selectedPackage = '';
-        let basePrice = 0;
-        let discount = 0;
-        let finalTotal = 0;
-
-        const modal = document.getElementById('order-modal');
-        const modalContent = document.getElementById('modal-content');
-        const modalHeader = document.getElementById('modal-header');
-
-        // Form elements
-        const step1Content = document.getElementById('step-1-content');
-        const step2Content = document.getElementById('step-2-content');
-        const step3Content = document.getElementById('step-3-content');
-        const stepLine = document.getElementById('step-line');
-        const s1Circle = document.getElementById('step-1-circle');
-        const s1Text = document.getElementById('step-1-text');
-        const s2Circle = document.getElementById('step-2-circle');
-        const s2Text = document.getElementById('step-2-text');
-
-        const formatRp = (num) => 'Rp ' + num.toLocaleString('id-ID');
-
-        function openModal(pkg) {
-            selectedPackage = pkg;
-            basePrice = packagePrices[pkg];
-            discount = 0;
-            finalTotal = basePrice;
-            
-            document.getElementById('summary-pkg-name').innerText = pkg;
-            document.getElementById('summary-base-price').innerText = formatRp(basePrice);
-            updateTotalDisplay();
-            
-            document.getElementById('order-form').reset();
-            document.getElementById('voucher-msg').classList.add('hidden');
-            document.getElementById('discount-row').classList.add('hidden');
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalHeader.classList.remove('scale-95', 'opacity-0');
-                modalHeader.classList.add('scale-100', 'opacity-100');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-
-            goToStep1(true);
+        function getVisible() {
+            var w = window.innerWidth;
+            if (w >= 1280) return 4;
+            if (w >= 1024) return 3;
+            if (w >= 640)  return 2;
+            return 1;
         }
 
-        function closeModal() {
-            modal.classList.add('opacity-0');
-            
-            modalHeader.classList.remove('scale-100', 'opacity-100');
-            modalHeader.classList.add('scale-95', 'opacity-0');
-            
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-
-        function goToStep1(isReset = false) {
-            step2Content.classList.add('hidden');
-            step3Content.classList.add('hidden');
-            step1Content.classList.remove('hidden');
-
-            stepLine.classList.replace('bg-checkout-500', 'bg-gray-200');
-            
-            s1Circle.classList.replace('bg-checkout-600', 'bg-checkout-500');
-            s1Circle.innerHTML = '1';
-            
-            s2Circle.classList.replace('bg-checkout-500', 'bg-gray-200');
-            s2Circle.classList.replace('text-white', 'text-gray-500');
-            s2Circle.classList.replace('border-checkout-500', 'border-white');
-            s2Text.classList.replace('text-checkout-500', 'text-gray-400');
-        }
-
-        function goToStep2() {
-            const name = document.getElementById('customer-name').value.trim();
-            const email = document.getElementById('customer-email').value.trim();
-            const wa = document.getElementById('customer-wa').value.trim();
-
-            if(!name || !email || !wa) {
-                alert('Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.');
-                return;
+        function setWidths() {
+            var container = track.parentElement.offsetWidth;
+            var vis = getVisible();
+            var totalGap = gap * (vis - 1);
+            var w = (container - totalGap) / vis;
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.width = w + 'px';
             }
-
-            step1Content.classList.add('hidden');
-            step3Content.classList.add('hidden');
-            step2Content.classList.remove('hidden');
-
-            stepLine.classList.replace('bg-gray-200', 'bg-checkout-500');
-            
-            s1Circle.classList.replace('bg-checkout-500', 'bg-checkout-600');
-            s1Circle.innerHTML = '<i class="fa-solid fa-check"></i>';
-            
-            s2Circle.classList.replace('bg-gray-200', 'bg-checkout-500');
-            s2Circle.classList.replace('text-gray-500', 'text-white');
-            s2Text.classList.replace('text-gray-400', 'text-checkout-500');
         }
 
-        function goToStep3() {
-            step1Content.classList.add('hidden');
-            step2Content.classList.add('hidden');
-            step3Content.classList.remove('hidden');
-
-            document.getElementById('qris-final-total').innerText = formatRp(finalTotal);
+        function maxIdx() {
+            return Math.max(0, total - getVisible());
         }
 
-        function applyVoucher() {
-            const code = document.getElementById('voucher-code').value.trim().toUpperCase();
-            const msgEl = document.getElementById('voucher-msg');
-            const discRow = document.getElementById('discount-row');
-
-            if(code === 'PROMO20') {
-                discount = 20000;
-                msgEl.innerText = "Voucher berhasil! Anda mendapat potongan Rp 20.000";
-                msgEl.className = "text-xs font-medium mt-2 text-checkout-600 block";
-                
-                document.getElementById('summary-discount').innerText = "- " + formatRp(discount);
-                discRow.classList.remove('hidden');
-            } else {
-                discount = 0;
-                msgEl.innerText = "Kode voucher tidak ditemukan atau tidak valid.";
-                msgEl.className = "text-xs font-medium mt-2 text-red-500 block";
-                discRow.classList.add('hidden');
-            }
-            updateTotalDisplay();
-        }
-
-        function updateTotalDisplay() {
-            finalTotal = basePrice - discount;
-            document.getElementById('summary-final-total').innerText = formatRp(finalTotal);
-        }
-
-        function submitFinalOrder(event) {
-            event.preventDefault(); 
-            
-            const name = document.getElementById('customer-name').value;
-            const email = document.getElementById('customer-email').value;
-            const wa = document.getElementById('customer-wa').value;
-            const ref = document.getElementById('customer-ref').value;
-
-            const message = `Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ${selectedPackage}\n*Total Tagihan:* ${formatRp(finalTotal)}\n\n*Data Pemesan:*\n- Nama: ${name}\n- Email: ${email}\n- WA: ${wa}\n- Referral: ${ref ? ref : '-'}\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS saya. Mohon segera diproses.`;
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec'; 
-            
-            const formData = new FormData();
-            formData.append('paket', selectedPackage);
-            formData.append('nama', name);
-            formData.append('email', email);
-            formData.append('wa', wa);
-            formData.append('referral', ref);
-            formData.append('total', finalTotal);
-            formData.append('waktu', new Date().toLocaleString('id-ID'));
-
-            const btnKonfirm = document.getElementById('btn-konfirmasi');
-            const originalBtnText = btnKonfirm.innerHTML;
-            
-            btnKonfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xl"></i> <span>Meneruskan ke WhatsApp...</span>';
-            btnKonfirm.disabled = true;
-
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-                .then(() => {
-                    window.open(`https://wa.me/62811791078?text=${encodeURIComponent(message)}`, '_blank');
-                    closeModal();
-                    btnKonfirm.innerHTML = originalBtnText;
-                    btnKonfirm.disabled = false;
-                })
-                .catch(error => {
-                    console.error('Error saat menyimpan ke sheet!', error.message);
-                    window.open(`https://wa.me/62811791078?text=${encodeURIComponent(message)}`, '_blank');
-                    closeModal();
-                    btnKonfirm.innerHTML = originalBtnText;
-                    btnKonfirm.disabled = false;
-                });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const reveals = document.querySelectorAll(".reveal");
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.1 
-            };
-
-            const revealObserver = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                    }
-                });
-            }, observerOptions);
-
-            reveals.forEach(function(reveal) {
-                revealObserver.observe(reveal);
+        function goTo(idx) {
+            current = Math.max(0, Math.min(idx, maxIdx()));
+            var slideW = slides[0].offsetWidth + gap;
+            track.style.transform = 'translateX(-' + (current * slideW) + 'px)';
+            // buttons
+            btnPrev.disabled = current === 0;
+            btnNext.disabled = current >= maxIdx();
+            // dots
+            dots.forEach(function(d, i) {
+                if (i === current) {
+                    d.className = 'carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-brand-500 text-white shadow-md';
+                } else {
+                    d.className = 'carousel-dot px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-gray-200 text-gray-500';
+                }
             });
-        });
+        }
+
+        window.carouselPrev  = function() { goTo(current - 1); };
+        window.carouselNext  = function() { goTo(current + 1); };
+        window.carouselGoTo  = function(i) { goTo(i); };
+
+        function init() {
+            setWidths();
+            goTo(0);
+        }
+
+        window.addEventListener('resize', function() { setWidths(); goTo(Math.min(current, maxIdx())); });
+
+        // Touch swipe
+        var tx = 0;
+        track.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function(e) {
+            var diff = tx - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { diff > 0 ? carouselNext() : carouselPrev(); }
+        }, { passive: true });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+
+    /* ============================================================
+       MODAL & CHECKOUT
+    ============================================================ */
+    var packagePrices = { 'LITE': 149000, 'BASIC': 199000, 'PRO': 399000, 'EXPERT': 599000 };
+    var selectedPackage = '', basePrice = 0, discount = 0, finalTotal = 0;
+
+    var modal        = document.getElementById('order-modal');
+    var modalContent = document.getElementById('modal-content');
+    var modalHeader  = document.getElementById('modal-header');
+    var step1Content = document.getElementById('step-1-content');
+    var step2Content = document.getElementById('step-2-content');
+    var step3Content = document.getElementById('step-3-content');
+    var stepLine     = document.getElementById('step-line');
+    var s1Circle     = document.getElementById('step-1-circle');
+    var s1Text       = document.getElementById('step-1-text');
+    var s2Circle     = document.getElementById('step-2-circle');
+    var s2Text       = document.getElementById('step-2-text');
+
+    function formatRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+    function openModal(pkg) {
+        selectedPackage = pkg;
+        basePrice = packagePrices[pkg];
+        discount = 0;
+        finalTotal = basePrice;
+        document.getElementById('summary-pkg-name').innerText = pkg;
+        document.getElementById('summary-base-price').innerText = formatRp(basePrice);
+        updateTotalDisplay();
+        document.getElementById('order-form').reset();
+        document.getElementById('voucher-msg').classList.add('hidden');
+        document.getElementById('discount-row').classList.add('hidden');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(function() {
+            modal.classList.remove('opacity-0');
+            modalHeader.classList.remove('scale-95','opacity-0');
+            modalHeader.classList.add('scale-100','opacity-100');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+        goToStep1(true);
+    }
+
+    function closeModal() {
+        modal.classList.add('opacity-0');
+        modalHeader.classList.remove('scale-100','opacity-100');
+        modalHeader.classList.add('scale-95','opacity-0');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        setTimeout(function() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+
+    function goToStep1(isReset) {
+        step2Content.classList.add('hidden');
+        step3Content.classList.add('hidden');
+        step1Content.classList.remove('hidden');
+        stepLine.style.background = '#e5e7eb';
+        s1Circle.className = 'w-8 h-8 rounded-full bg-checkout-500 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm';
+        s1Circle.innerHTML = '1';
+        s2Circle.className = 'w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm border-2 border-white';
+        s2Circle.innerHTML = '2';
+        s2Text.className = 'text-[10px] sm:text-xs font-semibold text-gray-400 mt-2 text-center';
+    }
+
+    function goToStep2() {
+        var name = document.getElementById('customer-name').value.trim();
+        var email = document.getElementById('customer-email').value.trim();
+        var wa = document.getElementById('customer-wa').value.trim();
+        if (!name || !email || !wa) { alert('Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.'); return; }
+        step1Content.classList.add('hidden');
+        step3Content.classList.add('hidden');
+        step2Content.classList.remove('hidden');
+        stepLine.style.background = '#10b981';
+        s1Circle.className = 'w-8 h-8 rounded-full bg-checkout-600 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm';
+        s1Circle.innerHTML = '<i class="fa-solid fa-check"></i>';
+        s2Circle.className = 'w-8 h-8 rounded-full bg-checkout-500 text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-sm';
+        s2Circle.innerHTML = '2';
+        s2Text.className = 'text-[10px] sm:text-xs font-semibold text-checkout-500 mt-2 text-center';
+    }
+
+    function goToStep3() {
+        step1Content.classList.add('hidden');
+        step2Content.classList.add('hidden');
+        step3Content.classList.remove('hidden');
+        document.getElementById('qris-final-total').innerText = formatRp(finalTotal);
+    }
+
+    function applyVoucher() {
+        var code = document.getElementById('voucher-code').value.trim().toUpperCase();
+        var msgEl = document.getElementById('voucher-msg');
+        var discRow = document.getElementById('discount-row');
+        if (code === 'PROMO20') {
+            discount = 20000;
+            msgEl.innerText = 'Voucher berhasil! Anda mendapat potongan Rp 20.000';
+            msgEl.className = 'text-xs font-medium mt-2 text-checkout-600 block';
+            document.getElementById('summary-discount').innerText = '- ' + formatRp(discount);
+            discRow.classList.remove('hidden');
+        } else {
+            discount = 0;
+            msgEl.innerText = 'Kode voucher tidak ditemukan atau tidak valid.';
+            msgEl.className = 'text-xs font-medium mt-2 text-red-500 block';
+            discRow.classList.add('hidden');
+        }
+        updateTotalDisplay();
+    }
+
+    function updateTotalDisplay() {
+        finalTotal = basePrice - discount;
+        document.getElementById('summary-final-total').innerText = formatRp(finalTotal);
+    }
+
+    function submitFinalOrder(event) {
+        event.preventDefault();
+        var name  = document.getElementById('customer-name').value;
+        var email = document.getElementById('customer-email').value;
+        var wa    = document.getElementById('customer-wa').value;
+        var ref   = document.getElementById('customer-ref').value;
+        var message = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPackage + '\n*Total Tagihan:* ' + formatRp(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref ? ref : '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS saya. Mohon segera diproses.';
+        var scriptURL = 'https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec';
+        var formData = new FormData();
+        formData.append('paket', selectedPackage);
+        formData.append('nama', name);
+        formData.append('email', email);
+        formData.append('wa', wa);
+        formData.append('referral', ref);
+        formData.append('total', finalTotal);
+        formData.append('waktu', new Date().toLocaleString('id-ID'));
+        var btn = document.getElementById('btn-konfirmasi');
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xl"></i> <span>Meneruskan ke WhatsApp...</span>';
+        btn.disabled = true;
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(function() {
+                window.open('https://wa.me/62811791078?text=' + encodeURIComponent(message), '_blank');
+                closeModal(); btn.innerHTML = orig; btn.disabled = false;
+            })
+            .catch(function() {
+                window.open('https://wa.me/62811791078?text=' + encodeURIComponent(message), '_blank');
+                closeModal(); btn.innerHTML = orig; btn.disabled = false;
+            });
+    }
+
+    /* Scroll reveal */
+    document.addEventListener('DOMContentLoaded', function() {
+        var reveals = document.querySelectorAll('.reveal');
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        reveals.forEach(function(r) { obs.observe(r); });
+    });
     </script>
 </body>
 </html>

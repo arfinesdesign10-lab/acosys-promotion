@@ -193,8 +193,11 @@
             border: 1.5px solid var(--border);
             border-radius: 20px;
             padding: 32px;
-            text-align: left;
+            text-align: center;
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .problem-card:hover { border-color: var(--amber); box-shadow: 0 8px 32px rgba(245,158,11,.12); transform: translateY(-4px); }
         .problem-icon {
@@ -262,6 +265,10 @@
             border: 1.5px solid var(--border);
             border-radius: 18px;
             padding: 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
         .feature-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(245,158,11,.1); }
@@ -348,14 +355,15 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--amber);
-            color: var(--navy);
+            background: #2563EB;
+            color: #fff;
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 100px;
+            box-shadow: 0 4px 16px rgba(37,99,235,.35), 0 1px 4px rgba(0,0,0,.12);
         }
         .badge-spacer { height: 29px; }
 
@@ -499,15 +507,24 @@
         .addon-box {
             background: var(--amber-light);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 12px 14px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
+            min-width: 0;
         }
+        .addon-box .left-group { min-width: 0; flex: 1; }
         .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 600; }
-        .addon-box .price { font-size: 15px; font-weight: 800; color: var(--amber-dark); }
-        .addon-box .sub { font-size: 10px; color: #92400E; }
+        .addon-box .price {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--amber-dark);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .addon-box .sub { font-size: 10px; color: #92400E; white-space: nowrap; }
 
         .feature-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
@@ -978,8 +995,8 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
+                                <div class="left-group"><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
+                                <div class="price">+Rp25.000/user/bln</div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1009,8 +1026,8 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
+                                <div class="left-group"><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
+                                <div class="price">+Rp25.000/user/bln</div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1044,8 +1061,8 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
+                                <div class="left-group"><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
+                                <div class="price">+Rp25.000/user/bln</div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1081,8 +1098,8 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
-                                <div class="price">+Rp25.000<span style="font-size:11px;font-weight:500;">/user/bln</span></div>
+                                <div class="left-group"><div class="label">Tambah User</div><div class="sub">Rp300.000/user/tahun</div></div>
+                                <div class="price">+Rp25.000/user/bln</div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>

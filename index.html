@@ -348,27 +348,125 @@
         }
         .badge-spacer { height: 29px; }
 
-        .pkg-tag {
-            display: inline-block;
-            background: var(--amber-light);
-            color: var(--amber-dark);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 6px;
-        }
-        .pkg-name {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--navy);
-            letter-spacing: -0.02em;
+        .pkg-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1.5px solid var(--border);
         }
+        .pkg-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .pkg-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        /* Per-package themes */
+        .theme-blue  { --pkg-color: #2563EB; --pkg-light: #EFF6FF; --pkg-mid: #BFDBFE; --pkg-dark: #1D4ED8; }
+        .theme-green { --pkg-color: #059669; --pkg-light: #ECFDF5; --pkg-mid: #A7F3D0; --pkg-dark: #047857; }
+        .theme-purple{ --pkg-color: #7C3AED; --pkg-light: #F5F3FF; --pkg-mid: #DDD6FE; --pkg-dark: #6D28D9; }
+        .theme-amber { --pkg-color: #D97706; --pkg-light: #FEF3C7; --pkg-mid: #FDE68A; --pkg-dark: #B45309; }
+
+        .theme-blue .pkg-name,
+        .theme-green .pkg-name,
+        .theme-purple .pkg-name,
+        .theme-amber .pkg-name  { color: var(--pkg-color); }
+
+        .theme-blue .pkg-tag,
+        .theme-green .pkg-tag,
+        .theme-purple .pkg-tag,
+        .theme-amber .pkg-tag   { background: var(--pkg-light); color: var(--pkg-dark); border: 1px solid var(--pkg-mid); }
+
+        .theme-blue .price-main,
+        .theme-green .price-main,
+        .theme-purple .price-main,
+        .theme-amber .price-main { color: var(--pkg-color); }
+
+        .theme-blue .price-main sup,
+        .theme-green .price-main sup,
+        .theme-purple .price-main sup,
+        .theme-amber .price-main sup { color: var(--pkg-color); }
+
+        .theme-blue .addon-box,
+        .theme-green .addon-box,
+        .theme-purple .addon-box,
+        .theme-amber .addon-box  { background: var(--pkg-light); border: 1px solid var(--pkg-mid); }
+
+        .theme-blue .addon-box .label,
+        .theme-blue .addon-box .price,
+        .theme-green .addon-box .label,
+        .theme-green .addon-box .price,
+        .theme-purple .addon-box .label,
+        .theme-purple .addon-box .price,
+        .theme-amber .addon-box .label,
+        .theme-amber .addon-box .price  { color: var(--pkg-dark); }
+
+        .theme-blue .addon-box .sub,
+        .theme-green .addon-box .sub,
+        .theme-purple .addon-box .sub,
+        .theme-amber .addon-box .sub    { color: var(--pkg-color); opacity: 0.75; }
+
+        .theme-blue.pricing-card,
+        .theme-green.pricing-card,
+        .theme-purple.pricing-card,
+        .theme-amber.pricing-card { border-color: var(--pkg-mid); }
+
+        .theme-blue.pricing-card:hover,
+        .theme-green.pricing-card:hover,
+        .theme-purple.pricing-card:hover,
+        .theme-amber.pricing-card:hover { border-color: var(--pkg-color); box-shadow: 0 16px 40px color-mix(in srgb, var(--pkg-color) 12%, transparent); }
+
+        .theme-blue.featured,
+        .theme-green.featured,
+        .theme-purple.featured,
+        .theme-amber.featured { border-color: var(--pkg-color); box-shadow: 0 8px 32px color-mix(in srgb, var(--pkg-color) 15%, transparent); }
+
+        .theme-blue .btn-pick.primary    { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
+        .theme-blue .btn-pick.primary:hover { background: var(--pkg-dark); }
+        .theme-green .btn-pick.primary   { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
+        .theme-green .btn-pick.primary:hover { background: var(--pkg-dark); }
+        .theme-purple .btn-pick.primary  { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
+        .theme-purple .btn-pick.primary:hover { background: var(--pkg-dark); }
+        .theme-amber .btn-pick.primary   { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
+        .theme-amber .btn-pick.primary:hover { background: var(--pkg-dark); }
+
+        .theme-blue .btn-pick.secondary,
+        .theme-green .btn-pick.secondary,
+        .theme-purple .btn-pick.secondary,
+        .theme-amber .btn-pick.secondary { border-color: var(--pkg-mid); }
+        .theme-blue .btn-pick.secondary:hover,
+        .theme-green .btn-pick.secondary:hover,
+        .theme-purple .btn-pick.secondary:hover,
+        .theme-amber .btn-pick.secondary:hover { border-color: var(--pkg-color); background: var(--pkg-light); color: var(--pkg-dark); }
+
+        .theme-blue .spec-item i,
+        .theme-green .spec-item i,
+        .theme-purple .spec-item i,
+        .theme-amber .spec-item i { color: var(--pkg-color); }
+
+        .theme-blue .price-annual,
+        .theme-green .price-annual,
+        .theme-purple .price-annual { color: var(--pkg-color); }
+        .theme-amber .price-annual  { color: var(--pkg-dark); }
 
         .price-main { font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; }
         .price-main sup { font-size: 16px; font-weight: 700; vertical-align: super; margin-right: 2px; }
@@ -450,23 +548,69 @@
 
         /* CTA FINAL */
         #cta-final {
-            background: var(--navy);
-            padding: 96px 0;
+            padding: 0;
             position: relative;
             overflow: hidden;
             text-align: center;
         }
-        #cta-final::before {
-            content: '';
+        #cta-final-bg {
             position: absolute;
-            width: 500px; height: 500px;
-            border-radius: 50%;
-            background: var(--amber);
-            opacity: 0.06;
-            bottom: -200px; right: -200px;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80');
+            background-size: cover;
+            background-position: center 40%;
+            filter: brightness(0.35) saturate(0.8);
+            transform: scale(1.03);
+            transition: transform 8s ease;
         }
-        #cta-final h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 800; color: #fff; letter-spacing: -0.025em; margin-bottom: 16px; }
-        #cta-final p { font-size: 17px; color: #94A3B8; max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
+        #cta-final:hover #cta-final-bg { transform: scale(1.0); }
+        #cta-final-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                160deg,
+                rgba(15,23,42,0.55) 0%,
+                rgba(15,23,42,0.75) 50%,
+                rgba(15,23,42,0.88) 100%
+            );
+        }
+        #cta-final-content {
+            position: relative;
+            z-index: 2;
+            padding: 120px 24px;
+        }
+        #cta-final h2 {
+            font-size: clamp(28px, 4vw, 52px);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        #cta-final p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.75);
+            max-width: 500px;
+            margin: 0 auto 44px;
+            line-height: 1.75;
+        }
+        .cta-trust-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .cta-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+        }
+        .cta-trust-item i { color: var(--amber); font-size: 12px; }
 
         /* FOOTER */
         footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); padding: 48px 0; text-align: center; }
@@ -803,11 +947,13 @@
                     <!-- LITE -->
                     <div class="carousel-slide">
                         <div class="badge-popular-wrap">
-                            <span class="badge-popular"><i class="fa-solid fa-star" style="font-size:9px;"></i> Paling Populer</span>
+                            <span class="badge-popular" style="background: #2563EB; color: #fff;"><i class="fa-solid fa-star" style="font-size:9px;"></i> Paling Populer</span>
                         </div>
-                        <div class="pricing-card featured">
-                            <div class="pkg-tag">ABD</div>
-                            <div class="pkg-name">LITE</div>
+                        <div class="pricing-card featured theme-blue">
+                            <div class="pkg-header">
+                                <div class="pkg-name">LITE</div>
+                                <div class="pkg-tag">ABD</div>
+                            </div>
                             <div class="price-main"><sup>Rp</sup>149.000<span class="unit">/bln</span></div>
                             <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp1.500.000/tahun — hemat 2 bulan</p>
                             <div class="spec-grid">
@@ -834,9 +980,11 @@
                     <!-- BASIC -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
-                        <div class="pricing-card">
-                            <div class="pkg-tag">ABCDEFG</div>
-                            <div class="pkg-name">BASIC</div>
+                        <div class="pricing-card theme-green">
+                            <div class="pkg-header">
+                                <div class="pkg-name">BASIC</div>
+                                <div class="pkg-tag">ABCDEFG</div>
+                            </div>
                             <div class="price-main"><sup>Rp</sup>199.000<span class="unit">/bln</span></div>
                             <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp2.000.000/tahun — hemat 2 bulan</p>
                             <div class="spec-grid">
@@ -867,9 +1015,11 @@
                     <!-- PRO -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
-                        <div class="pricing-card">
-                            <div class="pkg-tag">ABCDEGIV</div>
-                            <div class="pkg-name">PRO</div>
+                        <div class="pricing-card theme-purple">
+                            <div class="pkg-header">
+                                <div class="pkg-name">PRO</div>
+                                <div class="pkg-tag">ABCDEGIV</div>
+                            </div>
                             <div class="price-main"><sup>Rp</sup>399.000<span class="unit">/bln</span></div>
                             <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp4.000.000/tahun — hemat 2 bulan</p>
                             <div class="spec-grid">
@@ -902,9 +1052,11 @@
                     <!-- EXPERT -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
-                        <div class="pricing-card">
-                            <div class="pkg-tag">ABCDEGIJV</div>
-                            <div class="pkg-name">EXPERT</div>
+                        <div class="pricing-card theme-amber">
+                            <div class="pkg-header">
+                                <div class="pkg-name">EXPERT</div>
+                                <div class="pkg-tag">ABCDEGIJV</div>
+                            </div>
                             <div class="price-main"><sup>Rp</sup>599.000<span class="unit">/bln</span></div>
                             <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp6.000.000/tahun — hemat 2 bulan</p>
                             <div class="spec-grid">
@@ -959,12 +1111,22 @@
 
 <!-- CTA FINAL -->
 <section id="cta-final">
-    <div class="container reveal">
-        <h2>Jangan Tunda Kesuksesan<br>Bisnis Anda</h2>
-        <p>Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
-        <button class="btn-primary" onclick="openModal('BASIC')">
-            Pesan Sekarang <i class="fa-solid fa-arrow-right"></i>
-        </button>
+    <div id="cta-final-bg"></div>
+    <div id="cta-final-overlay"></div>
+    <div id="cta-final-content">
+        <div class="container reveal">
+            <span class="section-label" style="color: var(--amber);">Mulai Hari Ini</span>
+            <h2>Jangan Tunda Kesuksesan<br>Bisnis Anda</h2>
+            <p>Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
+            <button class="btn-primary" onclick="openModal('BASIC')">
+                Pesan Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div class="cta-trust-row">
+                <div class="cta-trust-item"><i class="fa-solid fa-check-circle"></i> Tanpa kontrak jangka panjang</div>
+                <div class="cta-trust-item"><i class="fa-solid fa-check-circle"></i> Setup gratis</div>
+                <div class="cta-trust-item"><i class="fa-solid fa-check-circle"></i> Support responsif</div>
+            </div>
+        </div>
     </div>
 </section>
 

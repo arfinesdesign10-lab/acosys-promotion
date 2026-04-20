@@ -198,6 +198,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex: 1 1 260px;
+            max-width: 340px;
         }
         .problem-card:hover { border-color: var(--amber); box-shadow: 0 8px 32px rgba(245,158,11,.12); transform: translateY(-4px); }
         .problem-icon {
@@ -888,7 +890,7 @@
             <h2 class="section-title">Masih Pusing Urusan<br>Pembukuan?</h2>
             <p class="section-sub">Jangan biarkan energi terkuras untuk urusan administrasi yang berantakan.</p>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;" class="reveal">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;" class="reveal">
             <div class="problem-card">
                 <div class="problem-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
                 <h4>Pembukuan Manual</h4>

@@ -258,9 +258,6 @@
         /* FEATURES SECTION */
         #fitur { padding: 96px 0; background: var(--surface); }
 
-        /* =============================================
-           PERBAIKAN UTAMA: Feature Grid — terpusat & responsive
-           ============================================= */
         .feature-grid {
             display: flex;
             flex-wrap: wrap;
@@ -277,7 +274,6 @@
             flex-direction: column;
             align-items: center;
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-            /* Responsive: min 200px, max ~260px, bertambah sesuai ruang */
             flex: 1 1 200px;
             max-width: 260px;
         }
@@ -294,7 +290,6 @@
         .feature-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
         .feature-card p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
 
-        /* Pada layar kecil, kartu memenuhi lebar penuh */
         @media (max-width: 480px) {
             .feature-card {
                 flex: 1 1 calc(50% - 8px);
@@ -443,15 +438,11 @@
         .theme-purple .price-main sup,
         .theme-amber .price-main sup { color: var(--pkg-color); }
 
+        /* ADDON BOX THEME - hanya background & border, tanpa ::after */
         .theme-blue .addon-box,
         .theme-green .addon-box,
         .theme-purple .addon-box,
         .theme-amber .addon-box  { background: var(--pkg-light); border: 1px solid var(--pkg-mid); }
-
-        .theme-blue .addon-box::after  { color: var(--pkg-color); }
-        .theme-green .addon-box::after { color: var(--pkg-color); }
-        .theme-purple .addon-box::after{ color: var(--pkg-color); }
-        .theme-amber .addon-box::after { color: var(--pkg-color); }
 
         .theme-blue .addon-box .label,
         .theme-blue .addon-box .price,
@@ -527,42 +518,38 @@
         .spec-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); font-weight: 500; }
         .spec-item i { color: var(--amber-dark); font-size: 9px; }
 
-      .addon-box {
-    background: var(--amber-light);
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-    position: relative;
-    overflow: hidden;
-    /* HAPUS: tidak perlu position absolute lagi */
-}
-
-/* Ganti ::after menjadi none */
-.addon-box::after {
-    content: none;
-}        
+        /* =============================================
+           ADDON BOX — BERSIH, SATU DEFINISI SAJA
+           Layout: icon kiri | teks tengah | harga kanan
+           ============================================= */
         .addon-box {
-    background: var(--amber-light);
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: row;          /* ubah dari column ke row */
-    align-items: center;          /* rata tengah vertikal */
-    justify-content: space-between; /* label kiri, harga kanan */
-    gap: 8px;
-    min-width: 0;
-    position: relative;
-    overflow: hidden;
-}
+            background: var(--amber-light);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            overflow: hidden;
         }
-        .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 600; }
-        .addon-box .price { font-size: 14px; font-weight: 800; color: var(--amber-dark); }
-        .addon-box .sub   { font-size: 11px; color: #92400E; opacity: 0.8; }
+        .addon-box::after { content: none; }
+        .addon-box-icon {
+            width: 32px; height: 32px;
+            background: rgba(217, 119, 6, 0.12);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            color: var(--amber-dark);
+            flex-shrink: 0;
+        }
+        .addon-box-text { flex: 1; min-width: 0; }
+        .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 700; margin-bottom: 1px; }
+        .addon-box-prices { text-align: right; flex-shrink: 0; }
+        .addon-box .price { font-size: 13px; font-weight: 800; color: var(--amber-dark); white-space: nowrap; }
+        .addon-box .sub   { font-size: 10px; color: #92400E; opacity: 0.8; white-space: nowrap; }
+
         .feature-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
         .feature-list li i { color: var(--green); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
@@ -1032,9 +1019,14 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-box-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                <div class="addon-box-text">
+                                    <div class="label">Tambah User</div>
+                                </div>
+                                <div class="addon-box-prices">
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1064,9 +1056,14 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-box-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                <div class="addon-box-text">
+                                    <div class="label">Tambah User</div>
+                                </div>
+                                <div class="addon-box-prices">
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1100,9 +1097,14 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-box-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                <div class="addon-box-text">
+                                    <div class="label">Tambah User</div>
+                                </div>
+                                <div class="addon-box-prices">
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1138,9 +1140,14 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-box-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                <div class="addon-box-text">
+                                    <div class="label">Tambah User</div>
+                                </div>
+                                <div class="addon-box-prices">
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>

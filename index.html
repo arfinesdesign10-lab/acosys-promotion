@@ -527,21 +527,24 @@
         .spec-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); font-weight: 500; }
         .spec-item i { color: var(--amber-dark); font-size: 9px; }
 
-        .addon-box {
-            background: var(--amber-light);
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            min-width: 0;
-            position: relative;
-            overflow: hidden;
-        }
-       .addon-box::after {
-    content: none;
+      .addon-box {
+    background: var(--amber-light);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    /* HAPUS: tidak perlu position absolute lagi */
 }
+
+/* Ganti ::after menjadi none */
+.addon-box::after {
+    content: none;
+}        
         .addon-box {
     background: var(--amber-light);
     border-radius: 12px;

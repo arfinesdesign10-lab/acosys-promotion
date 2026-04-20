@@ -458,6 +458,16 @@
         .theme-purple .addon-box .sub,
         .theme-amber .addon-box .sub    { color: var(--pkg-color); opacity: 0.75; }
 
+        .theme-blue .addon-box .addon-badge,
+        .theme-green .addon-box .addon-badge,
+        .theme-purple .addon-box .addon-badge,
+        .theme-amber .addon-box .addon-badge { background: var(--pkg-dark); color: #fff; }
+
+        .theme-blue .addon-box .addon-note,
+        .theme-green .addon-box .addon-note,
+        .theme-purple .addon-box .addon-note,
+        .theme-amber .addon-box .addon-note { color: var(--pkg-dark); opacity: 0.7; }
+
         .theme-blue.pricing-card,
         .theme-green.pricing-card,
         .theme-purple.pricing-card,
@@ -527,16 +537,41 @@
             padding: 10px 14px;
             margin-bottom: 16px;
             display: flex;
-            flex-direction: column;
-            gap: 2px;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
             min-width: 0;
             overflow: hidden;
         }
         .addon-box::before,
         .addon-box::after { content: none; display: none; }
+        .addon-box .addon-left { display: flex; flex-direction: column; gap: 2px; }
         .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 700; }
         .addon-box .price { font-size: 14px; font-weight: 800; color: var(--amber-dark); }
         .addon-box .sub   { font-size: 11px; color: #92400E; opacity: 0.8; }
+        .addon-box .addon-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .addon-box .addon-badge {
+            background: var(--amber-dark);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+        .addon-box .addon-note {
+            font-size: 10px;
+            color: #92400E;
+            opacity: 0.75;
+            text-align: right;
+        }
 
         .feature-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
@@ -1007,9 +1042,15 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-left">
+                                    <div class="label">Tambah User</div>
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
+                                <div class="addon-right">
+                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
+                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1039,9 +1080,15 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-left">
+                                    <div class="label">Tambah User</div>
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
+                                <div class="addon-right">
+                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
+                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1075,9 +1122,15 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-left">
+                                    <div class="label">Tambah User</div>
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
+                                <div class="addon-right">
+                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
+                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
@@ -1113,9 +1166,15 @@
                                 <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
                             </div>
                             <div class="addon-box">
-                                <div class="label">Tambah User</div>
-                                <div class="price">+Rp25.000/user/bln</div>
-                                <div class="sub">Rp300.000/user/tahun</div>
+                                <div class="addon-left">
+                                    <div class="label">Tambah User</div>
+                                    <div class="price">+Rp25.000/user/bln</div>
+                                    <div class="sub">Rp300.000/user/tahun</div>
+                                </div>
+                                <div class="addon-right">
+                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
+                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
+                                </div>
                             </div>
                             <ul class="feature-list">
                                 <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>

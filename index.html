@@ -255,10 +255,15 @@
 
         /* FEATURES SECTION */
         #fitur { padding: 96px 0; background: var(--surface); }
+
+        /* =============================================
+           PERBAIKAN UTAMA: Feature Grid — terpusat & responsive
+           ============================================= */
         .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 16px;
+            justify-content: center;
         }
         .feature-card {
             background: #fff;
@@ -270,6 +275,9 @@
             flex-direction: column;
             align-items: center;
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            /* Responsive: min 200px, max ~260px, bertambah sesuai ruang */
+            flex: 1 1 200px;
+            max-width: 260px;
         }
         .feature-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(245,158,11,.1); }
         .feature-icon {
@@ -283,6 +291,14 @@
         }
         .feature-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
         .feature-card p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+
+        /* Pada layar kecil, kartu memenuhi lebar penuh */
+        @media (max-width: 480px) {
+            .feature-card {
+                flex: 1 1 calc(50% - 8px);
+                max-width: calc(50% - 8px);
+            }
+        }
 
         /* PRICING */
         #harga { padding: 96px 0; background: #fff; }

@@ -448,6 +448,11 @@
         .theme-purple .addon-box,
         .theme-amber .addon-box  { background: var(--pkg-light); border: 1px solid var(--pkg-mid); }
 
+        .theme-blue .addon-box::after  { color: var(--pkg-color); }
+        .theme-green .addon-box::after { color: var(--pkg-color); }
+        .theme-purple .addon-box::after{ color: var(--pkg-color); }
+        .theme-amber .addon-box::after { color: var(--pkg-color); }
+
         .theme-blue .addon-box .label,
         .theme-blue .addon-box .price,
         .theme-green .addon-box .label,
@@ -531,12 +536,28 @@
             flex-direction: column;
             gap: 2px;
             min-width: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .addon-box::after {
+            content: '\f007\f007\f007';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 48px;
+            color: var(--amber-dark);
+            opacity: 0.07;
+            letter-spacing: -8px;
+            pointer-events: none;
+            line-height: 1;
         }
         .addon-box .label { font-size: 11px; color: var(--amber-dark); font-weight: 600; }
         .addon-box .price { font-size: 14px; font-weight: 800; color: var(--amber-dark); }
         .addon-box .sub   { font-size: 11px; color: #92400E; opacity: 0.8; }
-
-        .feature-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .feature-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
         .feature-list li i { color: var(--green); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
 

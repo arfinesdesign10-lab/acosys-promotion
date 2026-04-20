@@ -25,9 +25,9 @@
             --text-sub: #78716C;
             --text-muted: #A8A29E;
         }
-
+ 
         * { box-sizing: border-box; }
-
+ 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
@@ -35,17 +35,17 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
-
+ 
         .display-italic {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 900;
         }
-
+ 
         /* REVEAL */
         .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
+ 
         /* URGENCY BANNER */
         #urgency-bar {
             background: var(--navy);
@@ -62,7 +62,7 @@
             gap: 12px;
         }
         #urgency-bar strong { color: var(--amber); }
-
+ 
         /* HERO */
         #hero {
             background: var(--surface);
@@ -159,7 +159,7 @@
             letter-spacing: -0.01em;
         }
         .btn-primary:hover { background: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,158,11,.45); }
-
+ 
         /* SECTION LABELS */
         .section-label {
             font-size: 11px;
@@ -185,7 +185,7 @@
             margin: 0 auto;
             line-height: 1.7;
         }
-
+ 
         /* PROBLEM SECTION */
         #masalah { padding: 96px 0; background: #fff; }
         .problem-card {
@@ -254,10 +254,10 @@
         .cta-strip h4 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
         .cta-strip p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.65; }
         .cta-strip strong { color: #fff; }
-
+ 
         /* FEATURES SECTION */
         #fitur { padding: 96px 0; background: var(--surface); }
-
+ 
         .feature-grid {
             display: flex;
             flex-wrap: wrap;
@@ -289,26 +289,26 @@
         }
         .feature-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
         .feature-card p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
-
+ 
         @media (max-width: 480px) {
             .feature-card {
                 flex: 1 1 calc(50% - 8px);
                 max-width: calc(50% - 8px);
             }
         }
-
+ 
         /* PRICING */
         #harga { padding: 96px 0; background: #fff; }
-
+ 
         #slider-viewport { overflow: hidden; position: relative; }
-
+ 
         #carousel-track {
             display: flex;
             gap: 20px;
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
-
+ 
         .carousel-slide {
             flex-shrink: 0;
             transition: opacity 0.4s ease, transform 0.4s ease;
@@ -318,7 +318,7 @@
             transform: scale(0.95);
             pointer-events: none;
         }
-
+ 
         .slider-arrow {
             position: absolute;
             top: 50%;
@@ -345,7 +345,7 @@
         .slider-arrow:disabled { opacity: 0; pointer-events: none; }
         #carousel-prev { left: 12px; }
         #carousel-next { right: 12px; }
-
+ 
         .pricing-card {
             background: #fff;
             border: 2px solid var(--border);
@@ -358,7 +358,7 @@
         }
         .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); }
         .pricing-card.featured { border-color: var(--amber); box-shadow: 0 8px 32px rgba(245,158,11,.15); }
-
+ 
         .badge-popular-wrap {
             display: flex;
             justify-content: center;
@@ -379,7 +379,7 @@
             box-shadow: 0 4px 16px rgba(37,99,235,.35), 0 1px 4px rgba(0,0,0,.12);
         }
         .badge-spacer { height: 29px; }
-
+ 
         .pkg-header {
             display: flex;
             align-items: flex-start;
@@ -411,39 +411,39 @@
             align-self: flex-start;
             margin-top: 4px;
         }
-
+ 
         /* Per-package themes */
         .theme-blue  { --pkg-color: #2563EB; --pkg-light: #EFF6FF; --pkg-mid: #BFDBFE; --pkg-dark: #1D4ED8; }
         .theme-green { --pkg-color: #059669; --pkg-light: #ECFDF5; --pkg-mid: #A7F3D0; --pkg-dark: #047857; }
         .theme-purple{ --pkg-color: #7C3AED; --pkg-light: #F5F3FF; --pkg-mid: #DDD6FE; --pkg-dark: #6D28D9; }
         .theme-amber { --pkg-color: #D97706; --pkg-light: #FEF3C7; --pkg-mid: #FDE68A; --pkg-dark: #B45309; }
-
+ 
         .theme-blue .pkg-name,
         .theme-green .pkg-name,
         .theme-purple .pkg-name,
         .theme-amber .pkg-name  { color: var(--pkg-color); }
-
+ 
         .theme-blue .pkg-tag,
         .theme-green .pkg-tag,
         .theme-purple .pkg-tag,
         .theme-amber .pkg-tag   { background: var(--pkg-light); color: var(--pkg-dark); border: 1px solid var(--pkg-mid); }
-
+ 
         .theme-blue .price-main,
         .theme-green .price-main,
         .theme-purple .price-main,
         .theme-amber .price-main { color: var(--pkg-color); }
-
+ 
         .theme-blue .price-main sup,
         .theme-green .price-main sup,
         .theme-purple .price-main sup,
         .theme-amber .price-main sup { color: var(--pkg-color); }
-
+ 
         /* ADDON BOX THEME - hanya background & border, tanpa ::after */
         .theme-blue .addon-box,
         .theme-green .addon-box,
         .theme-purple .addon-box,
         .theme-amber .addon-box  { background: var(--pkg-light); border: 1px solid var(--pkg-mid); }
-
+ 
         .theme-blue .addon-box .label,
         .theme-blue .addon-box .price,
         .theme-green .addon-box .label,
@@ -452,27 +452,27 @@
         .theme-purple .addon-box .price,
         .theme-amber .addon-box .label,
         .theme-amber .addon-box .price  { color: var(--pkg-dark); }
-
+ 
         .theme-blue .addon-box .sub,
         .theme-green .addon-box .sub,
         .theme-purple .addon-box .sub,
         .theme-amber .addon-box .sub    { color: var(--pkg-color); opacity: 0.75; }
-
+ 
         .theme-blue.pricing-card,
         .theme-green.pricing-card,
         .theme-purple.pricing-card,
         .theme-amber.pricing-card { border-color: var(--pkg-mid); }
-
+ 
         .theme-blue.pricing-card:hover,
         .theme-green.pricing-card:hover,
         .theme-purple.pricing-card:hover,
         .theme-amber.pricing-card:hover { border-color: var(--pkg-color); box-shadow: 0 16px 40px color-mix(in srgb, var(--pkg-color) 12%, transparent); }
-
+ 
         .theme-blue.featured,
         .theme-green.featured,
         .theme-purple.featured,
         .theme-amber.featured { border-color: var(--pkg-color); box-shadow: 0 8px 32px color-mix(in srgb, var(--pkg-color) 15%, transparent); }
-
+ 
         .theme-blue .btn-pick.primary    { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
         .theme-blue .btn-pick.primary:hover { background: var(--pkg-dark); }
         .theme-green .btn-pick.primary   { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
@@ -481,7 +481,7 @@
         .theme-purple .btn-pick.primary:hover { background: var(--pkg-dark); }
         .theme-amber .btn-pick.primary   { background: var(--pkg-color); color: #fff; box-shadow: 0 4px 16px color-mix(in srgb, var(--pkg-color) 30%, transparent); }
         .theme-amber .btn-pick.primary:hover { background: var(--pkg-dark); }
-
+ 
         .theme-blue .btn-pick.secondary,
         .theme-green .btn-pick.secondary,
         .theme-purple .btn-pick.secondary,
@@ -490,22 +490,22 @@
         .theme-green .btn-pick.secondary:hover,
         .theme-purple .btn-pick.secondary:hover,
         .theme-amber .btn-pick.secondary:hover { border-color: var(--pkg-color); background: var(--pkg-light); color: var(--pkg-dark); }
-
+ 
         .theme-blue .spec-item i,
         .theme-green .spec-item i,
         .theme-purple .spec-item i,
         .theme-amber .spec-item i { color: var(--pkg-color); }
-
+ 
         .theme-blue .price-annual,
         .theme-green .price-annual,
         .theme-purple .price-annual { color: var(--pkg-color); }
         .theme-amber .price-annual  { color: var(--pkg-dark); }
-
+ 
         .price-main { font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; }
         .price-main sup { font-size: 16px; font-weight: 700; vertical-align: super; margin-right: 2px; }
         .price-main span.unit { font-size: 14px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
         .price-annual { font-size: 12px; font-weight: 600; color: var(--green); margin-top: 6px; margin-bottom: 20px; }
-
+ 
         .spec-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -517,7 +517,7 @@
         }
         .spec-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); font-weight: 500; }
         .spec-item i { color: var(--amber-dark); font-size: 9px; }
-
+ 
         /* =============================================
            ADDON BOX — BERSIH, SATU DEFINISI SAJA
            Layout: icon kiri | teks tengah | harga kanan
@@ -549,11 +549,11 @@
         .addon-box-prices { text-align: right; flex-shrink: 0; }
         .addon-box .price { font-size: 13px; font-weight: 800; color: var(--amber-dark); white-space: nowrap; }
         .addon-box .sub   { font-size: 10px; color: #92400E; opacity: 0.8; white-space: nowrap; }
-
+ 
         .feature-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #44403C; font-weight: 500; line-height: 1.4; }
         .feature-list li i { color: var(--green); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
-
+ 
         .btn-pick {
             width: 100%;
             padding: 14px;
@@ -570,7 +570,7 @@
         .btn-pick.primary:hover { background: var(--amber-dark); transform: translateY(-1px); }
         .btn-pick.secondary { background: var(--surface); color: var(--navy); border: 1.5px solid var(--border); }
         .btn-pick.secondary:hover { border-color: var(--amber); background: var(--amber-light); transform: translateY(-1px); }
-
+ 
         .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
         .carousel-dot {
             width: 8px; height: 8px;
@@ -582,7 +582,7 @@
             transition: width 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
         }
         .carousel-dot.active { width: 24px; border-radius: 4px; background: var(--amber); }
-
+ 
         .info-box {
             background: var(--surface);
             border: 1.5px solid var(--border);
@@ -597,7 +597,7 @@
         .info-box h5 i { color: var(--amber); }
         .info-box ul { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
         .info-box li { line-height: 1.6; }
-
+ 
         /* CTA FINAL */
         #cta-final {
             padding: 0;
@@ -663,11 +663,11 @@
             font-weight: 500;
         }
         .cta-trust-item i { color: var(--amber); font-size: 12px; }
-
+ 
         /* FOOTER */
         footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); padding: 48px 0; text-align: center; }
         footer p { font-size: 13px; color: #64748B; margin-top: 16px; }
-
+ 
         /* WA FLOAT */
         #wa-float {
             position: fixed;
@@ -683,7 +683,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         #wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.55); }
-
+ 
         /* MODAL */
         #order-modal {
             position: fixed; inset: 0;
@@ -698,7 +698,7 @@
             transition: opacity 0.3s;
         }
         #order-modal.open { display: flex; opacity: 1; }
-
+ 
         #modal-box {
             background: #fff;
             border-radius: 24px;
@@ -713,9 +713,9 @@
             transition: transform 0.3s;
         }
         #order-modal.open #modal-box { transform: scale(1) translateY(0); }
-
+ 
         .modal-inner { display: flex; flex: 1; overflow: hidden; }
-
+ 
         .modal-left {
             width: 45%;
             background: var(--surface);
@@ -734,7 +734,7 @@
         .reviewer-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
         .reviewer-name { font-size: 12px; font-weight: 700; color: var(--navy); }
         .reviewer-role { font-size: 11px; color: var(--text-muted); }
-
+ 
         .modal-right {
             flex: 1;
             padding: 32px;
@@ -743,7 +743,7 @@
             flex-direction: column;
             position: relative;
         }
-
+ 
         /* STEPPER */
         .stepper { display: flex; align-items: center; margin-bottom: 32px; position: relative; }
         .stepper-line { position: absolute; left: 18px; right: 18px; top: 18px; height: 2px; background: var(--border); z-index: 0; }
@@ -764,7 +764,7 @@
         .step-circle.done { border-color: var(--green); background: var(--green); color: #fff; }
         .step-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: center; }
         .step-label.active { color: var(--green); }
-
+ 
         /* FORM */
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
@@ -783,7 +783,7 @@
         }
         .form-input:focus { border-color: var(--green); background: #fff; box-shadow: 0 0 0 3px rgba(5,150,105,.1); }
         .form-input::placeholder { color: var(--text-muted); }
-
+ 
         /* SUMMARY */
         .summary-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
         .summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 10px; }
@@ -793,7 +793,7 @@
         .summary-row.total .label { font-weight: 700; color: var(--navy); font-size: 15px; }
         .summary-row.total .value { font-size: 20px; font-weight: 800; color: var(--green); }
         .summary-row.discount .value { color: #EF4444; }
-
+ 
         /* VOUCHER */
         .voucher-box { background: #ECFDF5; border: 1.5px dashed #6EE7B7; border-radius: 14px; padding: 16px; margin-bottom: 20px; }
         .voucher-box label { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 8px; display: flex; align-items: center; }
@@ -803,7 +803,7 @@
         .voucher-input-row input:focus { border-color: var(--green); }
         .btn-voucher { padding: 10px 18px; background: var(--green); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
         .btn-voucher:hover { background: #047857; }
-
+ 
         /* PAYMENT */
         .payment-method { border: 2px solid var(--green); border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 14px; background: #fff; margin-bottom: 24px; }
         .pm-icon { width: 42px; height: 42px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--green); }
@@ -811,7 +811,7 @@
         .pm-sub { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
         .pm-check { margin-left: auto; width: 22px; height: 22px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .pm-check i { font-size: 10px; color: #fff; }
-
+ 
         /* BTNS */
         .btn-step { padding: 14px; border-radius: 14px; border: none; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-step.cta { background: var(--green); color: #fff; box-shadow: 0 4px 16px rgba(5,150,105,.3); }
@@ -820,7 +820,7 @@
         .btn-step.back:hover { border-color: var(--text-muted); color: var(--navy); }
         .btn-step.amber { background: var(--amber); color: var(--navy); box-shadow: 0 4px 16px rgba(245,158,11,.3); }
         .btn-step.amber:hover { background: var(--amber-dark); transform: translateY(-1px); }
-
+ 
         /* QRIS */
         .qris-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; justify-content: center; }
         .qris-wrap h4 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
@@ -831,26 +831,26 @@
         .qris-download:hover { background: var(--green-light); }
         .qris-total-label { font-size: 13px; color: var(--text-sub); margin-bottom: 6px; }
         .qris-total-value { font-size: 24px; font-weight: 800; color: var(--green); background: var(--green-light); padding: 10px 28px; border-radius: 100px; margin-bottom: 28px; }
-
+ 
         .modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-sub); font-size: 13px; transition: background 0.2s, color 0.2s; }
         .modal-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; }
-
+ 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
-
+ 
         @media (max-width: 640px) {
             #hero { padding: 64px 0 56px; }
             #masalah, #fitur, #harga, #cta-final { padding: 64px 0; }
             .cta-strip { flex-direction: column; padding: 28px 24px; gap: 20px; }
         }
-
+ 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .text-center { text-align: center; }
     </style>
 </head>
 <body>
-
+ 
 <!-- URGENCY BANNER -->
 <div id="urgency-bar">
     <img src="acosys.png" alt="Acosys" style="height: 22px; width: auto; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" onerror="this.style.display='none'">
@@ -859,7 +859,7 @@
         <strong>Promo Terbatas:</strong> Diskon 20% untuk Langganan Tahunan — Berlaku Hari Ini
     </span>
 </div>
-
+ 
 <!-- HERO -->
 <section id="hero">
     <div class="container text-center reveal active">
@@ -887,7 +887,7 @@
         </button>
     </div>
 </section>
-
+ 
 <!-- PROBLEM SECTION -->
 <section id="masalah">
     <div class="container">
@@ -924,7 +924,7 @@
         </div>
     </div>
 </section>
-
+ 
 <!-- FEATURES SECTION -->
 <section id="fitur">
     <div class="container">
@@ -977,7 +977,7 @@
         </div>
     </div>
 </section>
-
+ 
 <!-- PRICING SECTION -->
 <section id="harga">
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
@@ -986,7 +986,7 @@
             <h2 class="section-title">Pilih Sesuai<br>Kebutuhan Anda</h2>
             <p class="section-sub">Solusi akuntansi untuk segala jenis bisnis dengan harga yang transparan dan tanpa biaya tersembunyi.</p>
         </div>
-
+ 
         <div id="pricing-carousel-wrapper" style="position: relative;" class="reveal">
             <button id="carousel-prev" class="slider-arrow" onclick="carouselPrev()" disabled aria-label="Sebelumnya">
                 <i class="fa-solid fa-chevron-left" style="font-size: 13px;"></i>
@@ -994,10 +994,10 @@
             <button id="carousel-next" class="slider-arrow" onclick="carouselNext()" aria-label="Berikutnya">
                 <i class="fa-solid fa-chevron-right" style="font-size: 13px;"></i>
             </button>
-
+ 
             <div id="slider-viewport" style="padding: 12px 0 28px;">
                 <div id="carousel-track">
-
+ 
                     <!-- LITE -->
                     <div class="carousel-slide">
                         <div class="badge-popular-wrap">
@@ -1036,7 +1036,7 @@
                             <button class="btn-pick primary" onclick="openModal('LITE')">Pilih Paket LITE</button>
                         </div>
                     </div>
-
+ 
                     <!-- BASIC -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
@@ -1077,7 +1077,7 @@
                             <button class="btn-pick secondary" onclick="openModal('BASIC')">Pilih Paket BASIC</button>
                         </div>
                     </div>
-
+ 
                     <!-- PRO -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
@@ -1120,7 +1120,7 @@
                             <button class="btn-pick secondary" onclick="openModal('PRO')">Pilih Paket PRO</button>
                         </div>
                     </div>
-
+ 
                     <!-- EXPERT -->
                     <div class="carousel-slide inactive">
                         <div class="badge-spacer"></div>
@@ -1164,10 +1164,10 @@
                             <button class="btn-pick secondary" onclick="openModal('EXPERT')">Pilih Paket EXPERT</button>
                         </div>
                     </div>
-
+ 
                 </div>
             </div>
-
+ 
             <div class="slider-dots">
                 <button class="carousel-dot active" onclick="carouselGoTo(0)" aria-label="LITE"></button>
                 <button class="carousel-dot" onclick="carouselGoTo(1)" aria-label="BASIC"></button>
@@ -1175,7 +1175,7 @@
                 <button class="carousel-dot" onclick="carouselGoTo(3)" aria-label="EXPERT"></button>
             </div>
         </div>
-
+ 
         <div class="info-box reveal">
             <h5><i class="fa-solid fa-circle-info"></i> Informasi Penting</h5>
             <ul>
@@ -1186,7 +1186,7 @@
         </div>
     </div>
 </section>
-
+ 
 <!-- CTA FINAL -->
 <section id="cta-final">
     <div id="cta-final-bg"></div>
@@ -1207,7 +1207,7 @@
         </div>
     </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
     <div class="container">
@@ -1216,24 +1216,24 @@
         <p>&copy; 2026 Acosys V8 Online. Hak Cipta Dilindungi.</p>
     </div>
 </footer>
-
+ 
 <!-- WA FLOAT -->
 <a id="wa-float" href="https://wa.me/62811791078?text=Halo%20Tim%20Acosys,%20saya%20ingin%20konsultasi" target="_blank">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
-
+ 
 <!-- ORDER MODAL -->
 <div id="order-modal">
     <div id="modal-box">
         <div class="modal-inner">
-
+ 
             <!-- LEFT PANEL -->
             <div class="modal-left">
                 <h3>Akses <span>Acosys V8 Online</span> Sekarang</h3>
                 <p>Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.</p>
-
+ 
                 <h4 style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">Apa Kata Mereka?</h4>
-
+ 
                 <div class="review-card">
                     <p>"Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya. Sangat rekomen!"</p>
                     <div class="reviewer">
@@ -1244,7 +1244,7 @@
                         </div>
                     </div>
                 </div>
-
+ 
                 <div class="review-card">
                     <p>"Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time. Laporan akhir bulan jadi dalam hitungan detik."</p>
                     <div class="reviewer">
@@ -1256,11 +1256,11 @@
                     </div>
                 </div>
             </div>
-
+ 
             <!-- RIGHT PANEL -->
             <div class="modal-right">
                 <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
-
+ 
                 <div class="stepper">
                     <div class="stepper-line"><div class="stepper-line-fill" id="step-line-fill"></div></div>
                     <div class="stepper-step">
@@ -1272,7 +1272,7 @@
                         <div class="step-label" id="s2-label">Pembayaran</div>
                     </div>
                 </div>
-
+ 
                 <!-- STEP 1 -->
                 <div id="step-1" style="display: flex; flex-direction: column; flex: 1;">
                     <h4 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Detail Pemesan</h4>
@@ -1298,7 +1298,7 @@
                         Lanjutkan ke Pembayaran <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
-
+ 
                 <!-- STEP 2 -->
                 <div id="step-2" style="display: none; flex-direction: column; flex: 1;">
                     <h4 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Pembayaran</h4>
@@ -1342,7 +1342,7 @@
                         </button>
                     </div>
                 </div>
-
+ 
                 <!-- STEP 3 -->
                 <div id="step-3" style="display: none; flex-direction: column; flex: 1;">
                     <div class="qris-wrap">
@@ -1361,12 +1361,12 @@
                         </button>
                     </div>
                 </div>
-
+ 
             </div>
         </div>
     </div>
 </div>
-
+ 
 <script>
 /* CAROUSEL */
 (function() {
@@ -1379,19 +1379,19 @@
     var total    = slides.length;
     var current  = 0;
     var GAP      = 20;
-
+ 
     function cardWidth() {
         var vw = window.innerWidth;
         if (vw >= 1024) return Math.min(400, vw * 0.30);
         if (vw >= 640)  return Math.min(380, vw * 0.55);
         return vw * 0.80;
     }
-
+ 
     function applyWidths() {
         var w = cardWidth();
         slides.forEach(function(s) { s.style.width = w + 'px'; });
     }
-
+ 
     function goTo(idx) {
         current = Math.max(0, Math.min(idx, total - 1));
         var w   = slides[0].offsetWidth;
@@ -1403,32 +1403,32 @@
         btnNext.disabled = current >= total - 1;
         dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
     }
-
+ 
     window.carouselPrev  = function() { goTo(current - 1); };
     window.carouselNext  = function() { goTo(current + 1); };
     window.carouselGoTo  = function(i) { goTo(i); };
-
+ 
     function init() { applyWidths(); goTo(0); }
-
+ 
     window.addEventListener('resize', function() { applyWidths(); goTo(current); });
-
+ 
     var tx0 = 0;
     track.addEventListener('touchstart', function(e) { tx0 = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend', function(e) {
         var diff = tx0 - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 48) { diff > 0 ? carouselNext() : carouselPrev(); }
     }, { passive: true });
-
+ 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();
 })();
-
+ 
 /* MODAL */
 var packagePrices = { LITE: 149000, BASIC: 199000, PRO: 399000, EXPERT: 599000 };
 var selectedPkg = '', basePrice = 0, discount = 0, finalTotal = 0;
-
+ 
 function fmt(n) { return 'Rp' + n.toLocaleString('id-ID'); }
-
+ 
 function openModal(pkg) {
     selectedPkg = pkg;
     basePrice = packagePrices[pkg];
@@ -1449,18 +1449,18 @@ function openModal(pkg) {
     setTimeout(function() { modal.classList.add('open'); }, 10);
     document.body.style.overflow = 'hidden';
 }
-
+ 
 function closeModal() {
     var modal = document.getElementById('order-modal');
     modal.classList.remove('open');
     setTimeout(function() { modal.style.display = 'none'; }, 300);
     document.body.style.overflow = '';
 }
-
+ 
 document.getElementById('order-modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
 });
-
+ 
 function setStep(n) {
     [1,2,3].forEach(function(i) {
         var el = document.getElementById('step-' + i);
@@ -1481,9 +1481,9 @@ function setStep(n) {
         fill.style.width = '100%';
     }
 }
-
+ 
 function goToStep1(reset) { setStep(1); }
-
+ 
 function goToStep2() {
     var name  = document.getElementById('customer-name').value.trim();
     var email = document.getElementById('customer-email').value.trim();
@@ -1494,12 +1494,12 @@ function goToStep2() {
     }
     setStep(2);
 }
-
+ 
 function goToStep3() {
     document.getElementById('qris-final-total').innerText = fmt(finalTotal);
     setStep(3);
 }
-
+ 
 function applyVoucher() {
     var code = document.getElementById('voucher-code').value.trim().toUpperCase();
     var msg  = document.getElementById('voucher-msg');
@@ -1521,7 +1521,7 @@ function applyVoucher() {
     finalTotal = basePrice - discount;
     document.getElementById('summary-final-total').innerText = fmt(finalTotal);
 }
-
+ 
 function submitFinalOrder(e) {
     e.preventDefault();
     var name  = document.getElementById('customer-name').value;
@@ -1529,7 +1529,7 @@ function submitFinalOrder(e) {
     var wa    = document.getElementById('customer-wa').value;
     var ref   = document.getElementById('customer-ref').value;
     var msg   = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPkg + '\n*Total Tagihan:* ' + fmt(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref || '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
-
+ 
     var formData = new FormData();
     formData.append('paket', selectedPkg);
     formData.append('nama', name);
@@ -1538,11 +1538,11 @@ function submitFinalOrder(e) {
     formData.append('referral', ref);
     formData.append('total', finalTotal);
     formData.append('waktu', new Date().toLocaleString('id-ID'));
-
+ 
     var btn = document.getElementById('btn-konfirmasi');
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
-
+ 
     fetch('https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec', {
         method: 'POST', body: formData, mode: 'no-cors'
     }).finally(function() {
@@ -1552,7 +1552,7 @@ function submitFinalOrder(e) {
         btn.innerHTML = '<i class="fa-brands fa-whatsapp" style="font-size:18px;"></i> Konfirmasi Pembayaran via WhatsApp';
     });
 }
-
+ 
 /* SCROLL REVEAL */
 document.addEventListener('DOMContentLoaded', function() {
     var obs = new IntersectionObserver(function(entries) {
@@ -1563,3 +1563,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+ 

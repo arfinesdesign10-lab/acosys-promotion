@@ -66,7 +66,7 @@
         /* HERO */
         #hero {
             background: var(--surface);
-            padding: 96px 0 80px;
+            padding: 64px 0 72px;
             position: relative;
             overflow: hidden;
         }
@@ -893,45 +893,192 @@
 
 <!-- HERO -->
 <section id="hero">
-    <div class="container text-center reveal active">
-        <div style="margin-bottom: 28px;">
-            <img src="acosys.png" alt="Logo Acosys V8" style="height: 48px; width: auto; object-fit: contain; display: inline-block;" onerror="this.style.display='none'">
+    <div class="container reveal active">
+
+        <!-- TOP BADGE -->
+        <div style="text-align:center; margin-bottom: 24px;">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Software Akuntansi Cloud #1 untuk UMKM & Retail
+            </div>
         </div>
-        <div class="hero-badge">
-            <span class="dot"></span>
-            Software Akuntansi Cloud #1 untuk UMKM & Retail
+
+        <!-- HEADLINE -->
+        <div style="text-align:center; margin-bottom: 20px;">
+            <h1 class="hero-title">
+                Kelola Bisnis Anda<br>
+                <span class="accent" style="position:relative; display:inline-block;">
+                    Tanpa Pusing
+                    <svg viewBox="0 0 360 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="position:absolute; left:-28px; top:-20px; width:calc(100% + 56px); height:calc(100% + 44px); pointer-events:none; overflow:visible;">
+                        <path d="M 180,10 C 258,6 336,18 344,44 C 352,68 282,84 180,82 C 78,80 10,66 14,42 C 18,18 102,8 180,10"
+                            stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"
+                            style="stroke-dasharray:1150; stroke-dashoffset:1150; animation: draw-loop 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;"/>
+                        <path d="M 165,16 C 246,11 338,26 342,48 C 346,68 278,86 168,84 C 58,82 4,68 6,46 C 8,24 88,14 165,16"
+                            stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"
+                            style="stroke-dasharray:1160; stroke-dashoffset:1160; animation: draw-loop 1.1s cubic-bezier(0.4,0,0.2,1) 0.45s forwards;"/>
+                    </svg>
+                </span> Lagi
+            </h1>
+            <style>@keyframes draw-loop { to { stroke-dashoffset: 0; } }</style>
         </div>
-        <h1 class="hero-title">
-            Kelola Bisnis Anda<br>
-            <span class="accent" style="position:relative; display:inline-block;">
-                Tanpa Pusing
-                <svg viewBox="0 0 360 100" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    style="position:absolute; left:-28px; top:-20px; width:calc(100% + 56px); height:calc(100% + 44px); pointer-events:none; overflow:visible;">
-                    <path d="M 180,10 C 258,6 336,18 344,44 C 352,68 282,84 180,82 C 78,80 10,66 14,42 C 18,18 102,8 180,10"
-                        stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"
-                        style="stroke-dasharray:1150; stroke-dashoffset:1150; animation: draw-loop 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;"/>
-                    <path d="M 165,16 C 246,11 338,26 342,48 C 346,68 278,86 168,84 C 58,82 4,68 6,46 C 8,24 88,14 165,16"
-                        stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"
-                        style="stroke-dasharray:1160; stroke-dashoffset:1160; animation: draw-loop 1.1s cubic-bezier(0.4,0,0.2,1) 0.45s forwards;"/>
-                </svg>
-            </span> Lagi
-        </h1>
-        <style>
-        @keyframes draw-loop {
-            to { stroke-dashoffset: 0; }
-        }
-        </style>
-        <p class="hero-sub">
+
+        <!-- SUBTEXT -->
+        <p class="hero-sub" style="text-align:center;">
             Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja dari mana saja.
         </p>
-        <div class="pill-group">
-            <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Gratis Setup</span>
-            <span class="pill"><i class="fa-solid fa-check"></i> Support Langsung</span>
+
+        <!-- CTA + PILLS -->
+        <div style="text-align:center; margin-bottom: 32px;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom: 16px;">
+                <button class="btn-primary" onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-rocket"></i> Coba Gratis 7 Hari
+                </button>
+                <a href="https://wa.me/62811791078" target="_blank" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:var(--navy); text-decoration:none; padding:16px 24px; border:1.5px solid var(--border); border-radius:100px; background:#fff; transition:border-color 0.2s;">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366; font-size:18px;"></i> Konsultasi Dulu
+                </a>
+            </div>
+            <div class="pill-group" style="margin-bottom:0;">
+                <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
+                <span class="pill"><i class="fa-solid fa-check"></i> Gratis Setup</span>
+                <span class="pill"><i class="fa-solid fa-check"></i> Support Langsung</span>
+                <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Kontrak</span>
+            </div>
         </div>
-        <button class="btn-primary" onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})">
-            Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
-        </button>
+
+        <!-- SOCIAL PROOF -->
+        <div style="text-align:center; margin-bottom: 40px;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="display:flex;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:#DBEAFE;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1D4ED8;margin-left:-8px;">BS</div>
+                        <div style="width:32px;height:32px;border-radius:50%;background:#FCE7F3;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#BE185D;margin-left:-8px;">SA</div>
+                        <div style="width:32px;height:32px;border-radius:50%;background:#D1FAE5;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#065F46;margin-left:-8px;">RH</div>
+                        <div style="width:32px;height:32px;border-radius:50%;background:#FEF3C7;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#92400E;margin-left:-8px;">+</div>
+                    </div>
+                    <div style="text-align:left;">
+                        <div style="display:flex; gap:2px; margin-bottom:2px;">
+                            <i class="fa-solid fa-star" style="color:#F59E0B;font-size:11px;"></i>
+                            <i class="fa-solid fa-star" style="color:#F59E0B;font-size:11px;"></i>
+                            <i class="fa-solid fa-star" style="color:#F59E0B;font-size:11px;"></i>
+                            <i class="fa-solid fa-star" style="color:#F59E0B;font-size:11px;"></i>
+                            <i class="fa-solid fa-star" style="color:#F59E0B;font-size:11px;"></i>
+                        </div>
+                        <div style="font-size:12px;font-weight:700;color:var(--navy);">85.000+ bisnis aktif</div>
+                    </div>
+                </div>
+                <div style="width:1px;height:32px;background:var(--border);"></div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:36px;height:36px;background:var(--green-light);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--green);font-size:15px;"></i>
+                    </div>
+                    <div style="text-align:left;">
+                        <div style="font-size:12px;font-weight:700;color:var(--navy);">Data 100% Aman</div>
+                        <div style="font-size:11px;color:var(--text-sub);">Enkripsi & backup harian</div>
+                    </div>
+                </div>
+                <div style="width:1px;height:32px;background:var(--border);"></div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:36px;height:36px;background:#EFF6FF;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-headset" style="color:#2563EB;font-size:15px;"></i>
+                    </div>
+                    <div style="text-align:left;">
+                        <div style="font-size:12px;font-weight:700;color:var(--navy);">Support Responsif</div>
+                        <div style="font-size:11px;color:var(--text-sub);">Senin – Sabtu, 08–17 WIB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD MOCKUP -->
+        <div style="position:relative; max-width:860px; margin:0 auto;">
+            <!-- glow -->
+            <div style="position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(5,150,105,0.1));border-radius:20px;filter:blur(20px);z-index:0;"></div>
+            <div style="position:relative;z-index:1;background:#fff;border:1.5px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.1);">
+                <!-- browser bar -->
+                <div style="background:#F8F7F6;border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px;">
+                    <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                    <div style="width:10px;height:10px;border-radius:50%;background:#F59E0B;"></div>
+                    <div style="width:10px;height:10px;border-radius:50%;background:#22C55E;"></div>
+                    <div style="flex:1;background:#E7E5E4;border-radius:6px;height:22px;margin:0 12px;display:flex;align-items:center;padding:0 10px;">
+                        <span style="font-size:11px;color:#A8A29E;">app.acosys.id/dashboard</span>
+                    </div>
+                </div>
+                <!-- dashboard content -->
+                <div style="display:flex;min-height:280px;">
+                    <!-- sidebar -->
+                    <div style="width:52px;background:#0F172A;padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:20px;">
+                        <div style="width:28px;height:28px;background:var(--amber);border-radius:8px;"></div>
+                        <i class="fa-solid fa-chart-line" style="color:#94A3B8;font-size:14px;"></i>
+                        <i class="fa-solid fa-cash-register" style="color:#fff;font-size:14px;"></i>
+                        <i class="fa-solid fa-boxes-stacked" style="color:#94A3B8;font-size:14px;"></i>
+                        <i class="fa-solid fa-file-invoice-dollar" style="color:#94A3B8;font-size:14px;"></i>
+                        <i class="fa-solid fa-users" style="color:#94A3B8;font-size:14px;"></i>
+                    </div>
+                    <!-- main -->
+                    <div style="flex:1;padding:20px;background:#FAFAF9;">
+                        <!-- stat cards -->
+                        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+                            <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;">
+                                <div style="font-size:10px;color:var(--text-sub);font-weight:600;margin-bottom:6px;">PENJUALAN HARI INI</div>
+                                <div style="font-size:16px;font-weight:800;color:var(--navy);">Rp4,2 Jt</div>
+                                <div style="font-size:10px;color:var(--green);font-weight:600;margin-top:4px;">↑ 12% vs kemarin</div>
+                            </div>
+                            <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;">
+                                <div style="font-size:10px;color:var(--text-sub);font-weight:600;margin-bottom:6px;">TRANSAKSI</div>
+                                <div style="font-size:16px;font-weight:800;color:var(--navy);">38</div>
+                                <div style="font-size:10px;color:var(--green);font-weight:600;margin-top:4px;">↑ 5 transaksi baru</div>
+                            </div>
+                            <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;">
+                                <div style="font-size:10px;color:var(--text-sub);font-weight:600;margin-bottom:6px;">STOK HAMPIR HABIS</div>
+                                <div style="font-size:16px;font-weight:800;color:#EF4444;">3 item</div>
+                                <div style="font-size:10px;color:#EF4444;font-weight:600;margin-top:4px;">⚠ Perlu restock</div>
+                            </div>
+                            <div style="background:var(--amber);border-radius:12px;padding:14px;">
+                                <div style="font-size:10px;color:rgba(15,23,42,0.65);font-weight:600;margin-bottom:6px;">LABA BERSIH</div>
+                                <div style="font-size:16px;font-weight:800;color:var(--navy);">Rp1,8 Jt</div>
+                                <div style="font-size:10px;color:var(--navy);font-weight:600;opacity:0.7;margin-top:4px;">Bulan ini</div>
+                            </div>
+                        </div>
+                        <!-- chart bar mini -->
+                        <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;">
+                            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:12px;">Penjualan Mingguan</div>
+                            <div style="display:flex;align-items:flex-end;gap:8px;height:60px;">
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:#E7E5E4;border-radius:4px 4px 0 0;height:35px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Sen</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:#E7E5E4;border-radius:4px 4px 0 0;height:50px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Sel</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:#E7E5E4;border-radius:4px 4px 0 0;height:28px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Rab</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:var(--amber);border-radius:4px 4px 0 0;height:55px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Kam</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:#E7E5E4;border-radius:4px 4px 0 0;height:42px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Jum</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:var(--amber);border-radius:4px 4px 0 0;height:60px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Sab</span>
+                                </div>
+                                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                    <div style="width:100%;background:#E7E5E4;border-radius:4px 4px 0 0;height:20px;"></div>
+                                    <span style="font-size:9px;color:var(--text-muted);">Min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 

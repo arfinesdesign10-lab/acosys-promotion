@@ -1801,24 +1801,23 @@
     window.scPrev = function()  { current = (current - 1 + TOTAL) % TOTAL; scUpdate(); };
 
     /* ── lightbox ── */
-    function lbRender(idx) {
-        var img   = document.getElementById('sc-lb-img');
-        var frame = document.getElementById('sc-lb-frame');
-        document.getElementById('sc-lb-counter').innerText = (idx + 1) + ' / ' + TOTAL;
-        document.getElementById('sc-lb-prev').style.opacity = idx === 0          ? '0.3' : '1';
-        document.getElementById('sc-lb-next').style.opacity = idx === TOTAL - 1  ? '0.3' : '1';
+var SC_IMAGES = [
+    'slide-dashboard.png',
+    'slide-kasir.png',
+    'slide-laporan.png',
+    'slide-stok.png'
+];
 
-        if (idx === 0) {
-            img.src             = 'slide-dashboard.png';
-            img.style.display   = 'block';
-            frame.style.display = 'none';
-        } else {
-            img.style.display   = 'none';
-            frame.style.display = 'block';
-            var slides = document.getElementById('sc-track').querySelectorAll('.sc-slide');
-            frame.innerHTML = slides[idx] ? slides[idx].innerHTML : '';
-        }
-    }
+function lbRender(idx) {
+    var img   = document.getElementById('sc-lb-img');
+    var frame = document.getElementById('sc-lb-frame');
+    document.getElementById('sc-lb-counter').innerText = (idx + 1) + ' / ' + TOTAL;
+    document.getElementById('sc-lb-prev').style.opacity = idx === 0         ? '0.3' : '1';
+    document.getElementById('sc-lb-next').style.opacity = idx === TOTAL - 1 ? '0.3' : '1';
+    frame.style.display = 'none';
+    img.src             = SC_IMAGES[idx];
+    img.style.display   = 'block';
+}
 
     function lbShow(idx) {
         lbOpen  = true;

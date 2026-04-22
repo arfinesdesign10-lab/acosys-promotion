@@ -947,16 +947,10 @@
         <div style="position:relative; max-width:860px; margin:0 auto;">
 
             <!-- VIDEO PLACEHOLDER -->
-            <div style="position:relative; border-radius:18px; overflow:hidden; margin-bottom:16px; box-shadow:0 20px 60px rgba(0,0,0,0.12); background:#0F172A; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="this.querySelector('.play-overlay').style.opacity='0'">
-                <!-- thumbnail bg gradient -->
-                <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0F172A 0%,#1E293B 50%,#0F172A 100%);"></div>
-                <!-- grid lines -->
-                <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
-                <!-- label -->
-                <div style="position:absolute;top:16px;left:20px;display:flex;align-items:center;gap:8px;z-index:2;">
-                    <div style="width:8px;height:8px;border-radius:50%;background:#EF4444;animation:pulse-dot 2s infinite;"></div>
-                    <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.06em;">IKLAN PRODUK ACOSYS V8</span>
-                </div>
+            <video style="width:100%; border-radius:18px; display:block; box-shadow:0 20px 60px rgba(0,0,0,0.12);"
+    controls poster="thumbnail.jpg">
+    <source src="video-iklan-acosys.mp4" type="video/mp4">
+</video>
                 <!-- center play button -->
                 <div class="play-overlay" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;transition:opacity 0.3s;">
                     <div style="width:72px;height:72px;background:var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(245,158,11,0.15);">

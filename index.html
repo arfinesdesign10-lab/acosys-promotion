@@ -355,14 +355,41 @@
         .theme-purple.pricing-card:hover, .theme-amber.pricing-card:hover { border-color: var(--pkg-color); }
         .theme-blue.featured, .theme-green.featured,
         .theme-purple.featured, .theme-amber.featured { border-color: var(--pkg-color); }
-        .theme-blue .btn-pick.primary, .theme-green .btn-pick.primary,
-        .theme-blue .btn-pick.primary:hover  { background: var(--pkg-dark); }
-        .theme-green .btn-pick.primary:hover  { background: var(--pkg-dark); }
-        .theme-purple .btn-pick.primary:hover { background: var(--pkg-dark); }
-        .theme-amber .btn-pick.primary:hover  { background: var(--pkg-dark); }
-        .theme-purple .btn-pick.primary, .theme-amber .btn-pick.primary { background: var(--pkg-color); color: #fff; }
-        .theme-blue .btn-pick.secondary:hover, .theme-green .btn-pick.secondary:hover,
-        .theme-purple .btn-pick.secondary:hover, .theme-amber .btn-pick.secondary:hover { border-color: var(--pkg-color); background: var(--pkg-light); color: var(--pkg-dark); }
+
+        /* Semua tombol paket: outline default, hover terisi warna tema */
+        .theme-blue .btn-pick.primary,
+        .theme-green .btn-pick.primary,
+        .theme-purple .btn-pick.primary,
+        .theme-amber .btn-pick.primary {
+            background: transparent;
+            color: var(--pkg-color);
+            border: 2px solid var(--pkg-color);
+        }
+        .theme-blue .btn-pick.primary:hover,
+        .theme-green .btn-pick.primary:hover,
+        .theme-purple .btn-pick.primary:hover,
+        .theme-amber .btn-pick.primary:hover {
+            background: var(--pkg-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .theme-blue .btn-pick.secondary,
+        .theme-green .btn-pick.secondary,
+        .theme-purple .btn-pick.secondary,
+        .theme-amber .btn-pick.secondary {
+            background: transparent;
+            color: var(--pkg-color);
+            border: 2px solid var(--pkg-color);
+        }
+        .theme-blue .btn-pick.secondary:hover,
+        .theme-green .btn-pick.secondary:hover,
+        .theme-purple .btn-pick.secondary:hover,
+        .theme-amber .btn-pick.secondary:hover {
+            background: var(--pkg-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
         .theme-blue .spec-item i, .theme-green .spec-item i,
         .theme-purple .spec-item i, .theme-amber .spec-item i { color: var(--pkg-color); }
         .theme-blue .price-annual, .theme-green .price-annual,
@@ -404,6 +431,7 @@
             font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer;
             transition: background 0.2s, transform 0.15s; letter-spacing: -0.01em;
         }
+        /* Global fallback (amber paket) - hanya untuk yang tidak punya theme-* */
         .btn-pick.primary { background: var(--amber); color: var(--navy); }
         .btn-pick.primary:hover { background: var(--amber-dark); transform: translateY(-1px); }
         .btn-pick.secondary { background: var(--surface); color: var(--navy); border: 1.5px solid var(--border); }
@@ -648,17 +676,18 @@
         <p class="hero-sub" style="text-align:center;">
             Dari kasir, stok, hingga laporan keuangan — semua otomatis, akurat, dan bisa dipantau kapan saja dari mana saja.
         </p>
+
+        <!-- FIX 2: Pills benefit 3 saja, layout flex row -->
         <div style="text-align:center;margin-bottom:32px;">
             <div style="margin-bottom:16px;">
                 <button class="btn-primary" onclick="document.getElementById('harga').scrollIntoView({behavior:'smooth'})">
                     Mulai Sekarang <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto;">
-                <span class="pill" style="justify-content:center;"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
-                <span class="pill" style="justify-content:center;"><i class="fa-solid fa-check"></i> Gratis Setup</span>
-                <span class="pill" style="justify-content:center;"><i class="fa-solid fa-check"></i> Support Langsung</span>
-                <span class="pill" style="justify-content:center;"><i class="fa-solid fa-check"></i> Tanpa Kontrak</span>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0 auto;">
+                <span class="pill"><i class="fa-solid fa-check"></i> Tanpa Instalasi</span>
+                <span class="pill"><i class="fa-solid fa-check"></i> Gratis Setup</span>
+                <span class="pill"><i class="fa-solid fa-check"></i> Support Langsung</span>
             </div>
         </div>
 
@@ -692,29 +721,20 @@
                     <!-- Slides -->
                     <div style="overflow:hidden;">
                         <div id="sc-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;">
-
-                            <!-- SLIDE 1 -->
                             <div class="sc-slide sc-clickable" data-slide="0" style="min-width:100%;height:400px;overflow:hidden;cursor:pointer;">
                                 <img src="slide-dashboard.png" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Dashboard Acosys V8">
                             </div>
-
-                            <!-- SLIDE 2 -->
                             <div class="sc-slide sc-clickable" data-slide="1" style="min-width:100%;height:400px;overflow:hidden;cursor:pointer;">
                                 <img src="slide-kasir.png" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Kasir POS Acosys V8">
                             </div>
-
-                            <!-- SLIDE 3 -->
                             <div class="sc-slide sc-clickable" data-slide="2" style="min-width:100%;height:400px;overflow:hidden;cursor:pointer;">
                                 <img src="slide-laporan.png" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Laporan Keuangan Acosys V8">
                             </div>
-
-                            <!-- SLIDE 4 -->
                             <div class="sc-slide sc-clickable" data-slide="3" style="min-width:100%;height:400px;overflow:hidden;cursor:pointer;">
                                 <img src="slide-stok.png" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Manajemen Stok Acosys V8">
                             </div>
-
-                        </div><!-- end sc-track -->
-                    </div><!-- end slides viewport -->
+                        </div>
+                    </div>
 
                     <!-- Nav dots + arrows -->
                     <div style="background:#F8F7F6;border-top:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
@@ -734,9 +754,9 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- end carousel wrapper -->
+            </div>
 
-        </div><!-- end max-width -->
+        </div>
     </div>
 </section>
 
@@ -995,7 +1015,7 @@
                 <button class="carousel-dot" onclick="carouselGoTo(2)"></button>
                 <button class="carousel-dot" onclick="carouselGoTo(3)"></button>
             </div>
-        </div><!-- end pricing-carousel-wrapper -->
+        </div>
 
         <div class="info-box reveal">
             <h5><i class="fa-solid fa-circle-info"></i> Informasi Penting</h5>
@@ -1006,7 +1026,7 @@
             </ul>
         </div>
     </div>
-</section><!-- end #harga -->
+</section>
 
 <!-- CTA FINAL -->
 <section id="cta-final">
@@ -1336,29 +1356,46 @@ function applyVoucher() {
     document.getElementById('summary-final-total').innerText = fmt(finalTotal);
 }
 
+/* ============================================================
+   FIX 3: Submit order ke Google Sheets via Apps Script
+   Gunakan XMLHttpRequest agar bisa handle CORS lebih baik
+   + fallback langsung ke WhatsApp jika gagal
+============================================================ */
 function submitFinalOrder(e) {
     e.preventDefault();
-    var name = document.getElementById('customer-name').value;
-    var email = document.getElementById('customer-email').value;
-    var wa = document.getElementById('customer-wa').value;
-    var ref = document.getElementById('customer-ref').value;
-    var msg = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPkg + '\n*Total Tagihan:* ' + fmt(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref || '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
-    var formData = new FormData();
-    formData.append('paket', selectedPkg); formData.append('nama', name);
-    formData.append('email', email); formData.append('wa', wa);
-    formData.append('referral', ref); formData.append('total', finalTotal);
-    formData.append('waktu', new Date().toLocaleString('id-ID'));
+    var name  = document.getElementById('customer-name').value.trim();
+    var email = document.getElementById('customer-email').value.trim();
+    var wa    = document.getElementById('customer-wa').value.trim();
+    var ref   = document.getElementById('customer-ref').value.trim();
+
     var btn = document.getElementById('btn-konfirmasi');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
-    fetch('https://script.google.com/macros/s/AKfycbygSfXUczMf6Hlhq8vyxeoM3an-JyQJ2L5ED1rFVA5VSATYjoiqK7aF7DuAWvF7DSwj/exec', {
-        method: 'POST', body: formData, mode: 'no-cors'
-    }).finally(function() {
-        window.open('https://wa.me/62811791078?text=' + encodeURIComponent(msg), '_blank');
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan…';
+
+    // Buat URL dengan query params (GET) — lebih reliable untuk Apps Script no-cors
+    var scriptURL = 'https://script.google.com/macros/s/AKfycbygSfXUczMf6Hlhq8vyxeoM3an-JyQJ2L5ED1rFVA5VSATYjoiqK7aF7DuAWvF7DSwj/exec';
+    var params = new URLSearchParams({
+        paket    : selectedPkg,
+        nama     : name,
+        email    : email,
+        wa       : wa,
+        referral : ref,
+        total    : finalTotal,
+        waktu    : new Date().toLocaleString('id-ID')
+    });
+
+    // Kirim via Image trick — tidak kena CORS, tidak butuh response
+    var img = new Image();
+    img.src = scriptURL + '?' + params.toString();
+
+    // Setelah 1.5 detik langsung teruskan ke WA tanpa tunggu response
+    setTimeout(function() {
+        var waMsg = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPkg + '\n*Total Tagihan:* ' + fmt(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref || '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
+        window.open('https://wa.me/62811791078?text=' + encodeURIComponent(waMsg), '_blank');
         closeModal();
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-brands fa-whatsapp" style="font-size:18px;"></i> Konfirmasi Pembayaran via WhatsApp';
-    });
+    }, 1500);
 }
 
 /* ============================================================

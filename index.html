@@ -1347,7 +1347,7 @@ function submitFinalOrder(e) {
     var btn = document.getElementById('btn-konfirmasi');
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
-    fetch('https://script.google.com/macros/s/AKfycbzWI7i45Fn6gYuD8B4k8PMcgrNbfpZYiMJ-3HGFjWZO794ynlZ6jnmmFjcr0ABizGI/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbygSfXUczMf6Hlhq8vyxeoM3an-JyQJ2L5ED1rFVA5VSATYjoiqK7aF7DuAWvF7DSwj/exec', {
         method: 'POST', body: formData, mode: 'no-cors'
     }).finally(function() {
         window.open('https://wa.me/62811791078?text=' + encodeURIComponent(msg), '_blank');

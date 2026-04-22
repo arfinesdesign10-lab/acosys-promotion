@@ -987,11 +987,10 @@
                             </div>
                             <!-- LIGHTBOX -->
                             <div id="lightbox" onclick="closeLightbox()" 
-                                 style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:999;align-items:center;justify-content:center;cursor:zoom-out;">
+                                 style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999;align-items:center;justify-content:center;cursor:zoom-out;">
                               <img id="lightbox-img" src="" 
-                                   style="max-width:95vw;max-height:95vh;object-fit:contain;border-radius:12px;">
+                                   style="max-width:95vw;max-height:95vh;object-fit:contain;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,0.5);">
                             </div>
-                            
                             <script>
                             function openLightbox(src) {
                               document.getElementById('lightbox-img').src = src;
@@ -1003,6 +1002,7 @@
                               document.body.style.overflow = '';
                             }
                             </script>
+                            
                             <!-- SLIDE 2: Kasir / POS -->
                             <div class="sc-slide" style="min-width:100%;display:flex;min-height:300px;position:relative;">
                                 <!-- badge harga -->

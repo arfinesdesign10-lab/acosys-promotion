@@ -86,20 +86,33 @@
             background: #fff;
             border: 1.5px solid var(--border);
             border-radius: 100px;
-            padding: 6px 14px;
-            font-size: 12px;
+            padding: 6px 16px 6px 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--amber-dark);
             letter-spacing: 0.04em;
             text-transform: uppercase;
             margin-bottom: 28px;
             box-shadow: 0 1px 4px rgba(0,0,0,.06);
+            max-width: 90vw;
+            white-space: nowrap;
         }
         .hero-badge .dot {
             width: 7px; height: 7px;
+            min-width: 7px;
             border-radius: 50%;
             background: var(--amber);
             animation: pulse-dot 2s infinite;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        @media (max-width: 480px) {
+            .hero-badge {
+                font-size: 10px;
+                padding: 5px 14px 5px 10px;
+                letter-spacing: 0.03em;
+                gap: 7px;
+            }
         }
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; transform: scale(1); }
@@ -862,7 +875,34 @@
         .modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-sub); font-size: 13px; transition: background 0.2s, color 0.2s; }
         .modal-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; }
 
-        /* SC LIGHTBOX */
+        /* SC SLIDE HEIGHT — responsive */
+        .sc-slide-img {
+            min-width: 100%;
+            height: 320px;
+            overflow: hidden;
+        }
+        .sc-slide-img img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+        }
+        .sc-slide-mock {
+            min-width: 100%;
+            display: flex;
+            min-height: 260px;
+            position: relative;
+        }
+        @media (max-width: 640px) {
+            .sc-slide-img,
+            .sc-slide-img img {
+                height: 200px;
+            }
+            .sc-slide-mock {
+                min-height: 180px;
+            }
+        }
         #sc-lightbox {
             position: fixed; inset: 0; z-index: 9999;
             display: none;
@@ -972,7 +1012,7 @@
         <div style="text-align:center; margin-bottom: 24px;">
             <div class="hero-badge">
                 <span class="dot"></span>
-                Software Akuntansi Cloud #1 untuk UMKM & Retail
+                Software Akuntansi Cloud #1 — UMKM & Retail
             </div>
         </div>
 
@@ -1052,14 +1092,13 @@
                         <div id="sc-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;">
 
                             <!-- SLIDE 1: Dashboard Utama -->
-                            <div class="sc-slide sc-clickable" data-slide="0" style="min-width:100%;height:400px;overflow:hidden;">
+                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
                                 <img src="slide-dashboard.png"
-                                     style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;"
                                      alt="Dashboard Acosys V8">
                             </div>
 
                             <!-- SLIDE 2: Kasir / POS -->
-                            <div class="sc-slide sc-clickable" data-slide="1" style="min-width:100%;display:flex;min-height:300px;position:relative;">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="1">
                                 <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
                                     <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR KASIR (POS)</div>
                                     <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>
@@ -1108,7 +1147,7 @@
                             </div>
 
                             <!-- SLIDE 3: Laporan Keuangan -->
-                            <div class="sc-slide sc-clickable" data-slide="2" style="min-width:100%;display:flex;min-height:300px;position:relative;">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="2">
                                 <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
                                     <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR LAPORAN</div>
                                     <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>
@@ -1150,7 +1189,7 @@
                             </div>
 
                             <!-- SLIDE 4: Manajemen Stok -->
-                            <div class="sc-slide sc-clickable" data-slide="3" style="min-width:100%;display:flex;min-height:300px;position:relative;">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="3">
                                 <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
                                     <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR STOK</div>
                                     <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>

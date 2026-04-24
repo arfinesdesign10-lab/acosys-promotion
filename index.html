@@ -891,7 +891,8 @@
         .sc-slide-mock {
             min-width: 100%;
             display: flex;
-            min-height: 260px;
+            height: 320px;
+            overflow: hidden;
             position: relative;
         }
         @media (max-width: 640px) {
@@ -900,7 +901,8 @@
                 height: 200px;
             }
             .sc-slide-mock {
-                min-height: 180px;
+                height: 200px;
+                min-height: unset;
             }
         }
         #sc-lightbox {
@@ -1088,8 +1090,8 @@
                     </div>
 
                     <!-- slides viewport -->
-                    <div style="overflow:hidden;">
-                        <div id="sc-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;">
+                    <div style="overflow:hidden; line-height:0;">
+                        <div id="sc-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;align-items:stretch;">
 
                             <!-- SLIDE 1: Dashboard Utama -->
                             <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">

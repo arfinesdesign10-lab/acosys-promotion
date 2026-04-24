@@ -878,12 +878,12 @@
         /* SC SLIDE HEIGHT — responsive */
         .sc-slide-img {
             min-width: 100%;
-            height: 320px;
+            height: 420px;
             overflow: hidden;
         }
         .sc-slide-img img {
             width: 100%;
-            height: 320px;
+            height: 420px;
             object-fit: cover;
             object-position: top;
             display: block;
@@ -891,17 +891,17 @@
         .sc-slide-mock {
             min-width: 100%;
             display: flex;
-            height: 320px;
+            height: 420px;
             overflow: hidden;
             position: relative;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .sc-slide-img,
             .sc-slide-img img {
-                height: 200px;
+                height: 220px;
             }
             .sc-slide-mock {
-                height: 200px;
+                height: 220px;
                 min-height: unset;
             }
         }
@@ -1100,22 +1100,146 @@
                             </div>
 
                             <!-- SLIDE 2: Kasir / POS -->
-                           <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-kasir.png"
-                                     alt="Kasir Acosys V8">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="1">
+                                <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                    <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR KASIR (POS)</div>
+                                    <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>
+                                </div>
+                                <div style="width:52px;background:#0F172A;padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:20px;flex-shrink:0;">
+                                    <div style="width:28px;height:28px;background:var(--amber);border-radius:8px;"></div>
+                                    <i class="fa-solid fa-chart-line" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-cash-register" style="color:#fff;font-size:14px;"></i>
+                                    <i class="fa-solid fa-boxes-stacked" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-file-invoice-dollar" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-users" style="color:#94A3B8;font-size:14px;"></i>
+                                </div>
+                                <div style="flex:1;display:flex;gap:0;background:#FAFAF9;">
+                                    <div style="flex:1;padding:20px;border-right:1px solid var(--border);">
+                                        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:14px;">Kasir / POS</div>
+                                        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                                            <div style="width:32px;height:32px;background:#FEF3C7;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-box" style="color:var(--amber-dark);font-size:12px;"></i></div>
+                                            <div style="flex:1;"><div style="font-size:11px;font-weight:700;color:var(--navy);">Mie Goreng Spesial</div><div style="font-size:10px;color:var(--text-sub);">Rp15.000</div></div>
+                                            <div style="background:var(--amber);color:var(--navy);font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;">+ Tambah</div>
+                                        </div>
+                                        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                                            <div style="width:32px;height:32px;background:#ECFDF5;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-box" style="color:var(--green);font-size:12px;"></i></div>
+                                            <div style="flex:1;"><div style="font-size:11px;font-weight:700;color:var(--navy);">Es Teh Manis</div><div style="font-size:10px;color:var(--text-sub);">Rp8.000</div></div>
+                                            <div style="background:var(--amber);color:var(--navy);font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;">+ Tambah</div>
+                                        </div>
+                                        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                                            <div style="width:32px;height:32px;background:#EFF6FF;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-box" style="color:#2563EB;font-size:12px;"></i></div>
+                                            <div style="flex:1;"><div style="font-size:11px;font-weight:700;color:var(--navy);">Nasi Putih</div><div style="font-size:10px;color:var(--text-sub);">Rp5.000</div></div>
+                                            <div style="background:var(--amber);color:var(--navy);font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;">+ Tambah</div>
+                                        </div>
+                                    </div>
+                                    <div style="width:180px;padding:16px;background:#fff;flex-shrink:0;">
+                                        <div style="font-size:11px;font-weight:800;color:var(--navy);margin-bottom:12px;">Keranjang <span style="background:#EF4444;color:#fff;border-radius:100px;padding:1px 6px;font-size:9px;">2</span></div>
+                                        <div style="border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:8px;">
+                                            <div style="font-size:10px;color:var(--navy);font-weight:600;">Mie Goreng Spesial</div>
+                                            <div style="display:flex;justify-content:space-between;margin-top:4px;"><span style="font-size:9px;color:var(--text-sub);">1x Rp15.000</span><span style="font-size:9px;font-weight:700;color:var(--navy);">Rp15.000</span></div>
+                                        </div>
+                                        <div style="border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">
+                                            <div style="font-size:10px;color:var(--navy);font-weight:600;">Es Teh Manis</div>
+                                            <div style="display:flex;justify-content:space-between;margin-top:4px;"><span style="font-size:9px;color:var(--text-sub);">2x Rp8.000</span><span style="font-size:9px;font-weight:700;color:var(--navy);">Rp16.000</span></div>
+                                        </div>
+                                        <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:10px;font-weight:700;color:var(--navy);">Total</span><span style="font-size:12px;font-weight:800;color:var(--green);">Rp31.000</span></div>
+                                        <div style="background:var(--green);color:#fff;text-align:center;font-size:11px;font-weight:800;padding:8px;border-radius:8px;">Bayar Sekarang</div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- SLIDE 3: Laporan Keuangan -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-laporan.png"
-                                     alt="Laporan Acosys V8">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="2">
+                                <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                    <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR LAPORAN</div>
+                                    <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>
+                                </div>
+                                <div style="width:52px;background:#0F172A;padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:20px;flex-shrink:0;">
+                                    <div style="width:28px;height:28px;background:var(--amber);border-radius:8px;"></div>
+                                    <i class="fa-solid fa-chart-line" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-cash-register" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-boxes-stacked" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-file-invoice-dollar" style="color:#fff;font-size:14px;"></i>
+                                    <i class="fa-solid fa-users" style="color:#94A3B8;font-size:14px;"></i>
+                                </div>
+                                <div style="flex:1;padding:20px;background:#FAFAF9;">
+                                    <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:14px;">Laporan Keuangan</div>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+                                        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;">
+                                            <div style="font-size:9px;color:var(--text-sub);font-weight:600;margin-bottom:5px;">PENDAPATAN</div>
+                                            <div style="font-size:14px;font-weight:800;color:var(--green);">Rp42,5 Jt</div>
+                                            <div style="font-size:9px;color:var(--green);font-weight:600;margin-top:3px;">↑ 8% vs bulan lalu</div>
+                                        </div>
+                                        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;">
+                                            <div style="font-size:9px;color:var(--text-sub);font-weight:600;margin-bottom:5px;">PENGELUARAN</div>
+                                            <div style="font-size:14px;font-weight:800;color:#EF4444;">Rp28,1 Jt</div>
+                                            <div style="font-size:9px;color:#EF4444;font-weight:600;margin-top:3px;">↓ 3% vs bulan lalu</div>
+                                        </div>
+                                        <div style="background:var(--amber);border-radius:10px;padding:12px;">
+                                            <div style="font-size:9px;color:rgba(15,23,42,0.6);font-weight:600;margin-bottom:5px;">LABA BERSIH</div>
+                                            <div style="font-size:14px;font-weight:800;color:var(--navy);">Rp14,4 Jt</div>
+                                            <div style="font-size:9px;color:var(--navy);opacity:0.6;font-weight:600;margin-top:3px;">Margin 33,9%</div>
+                                        </div>
+                                    </div>
+                                    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+                                        <div style="padding:10px 14px;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--navy);">Rincian Laporan</div>
+                                        <div style="padding:8px 14px;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);"><span style="font-size:10px;color:var(--text-sub);">Penjualan Produk</span><span style="font-size:10px;font-weight:700;color:var(--navy);">Rp38.200.000</span></div>
+                                        <div style="padding:8px 14px;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);"><span style="font-size:10px;color:var(--text-sub);">Jasa Layanan</span><span style="font-size:10px;font-weight:700;color:var(--navy);">Rp4.300.000</span></div>
+                                        <div style="padding:8px 14px;display:flex;justify-content:space-between;"><span style="font-size:10px;color:var(--text-sub);">HPP & Operasional</span><span style="font-size:10px;font-weight:700;color:#EF4444;">-Rp28.100.000</span></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- SLIDE 4: Manajemen Stok -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-stok.png"
-                                     alt="Stok Acosys V8">
+                            <div class="sc-slide sc-clickable sc-slide-mock" data-slide="3">
+                                <div style="position:absolute;top:12px;right:12px;z-index:10;background:var(--navy);border-radius:12px;padding:10px 14px;text-align:right;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                    <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:2px;">FITUR STOK</div>
+                                    <div style="font-size:15px;font-weight:800;color:var(--amber);line-height:1;">Semua Paket<span style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.5);"> ✓</span></div>
+                                </div>
+                                <div style="width:52px;background:#0F172A;padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:20px;flex-shrink:0;">
+                                    <div style="width:28px;height:28px;background:var(--amber);border-radius:8px;"></div>
+                                    <i class="fa-solid fa-chart-line" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-cash-register" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-boxes-stacked" style="color:#fff;font-size:14px;"></i>
+                                    <i class="fa-solid fa-file-invoice-dollar" style="color:#94A3B8;font-size:14px;"></i>
+                                    <i class="fa-solid fa-users" style="color:#94A3B8;font-size:14px;"></i>
+                                </div>
+                                <div style="flex:1;padding:20px;background:#FAFAF9;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                        <div style="font-size:13px;font-weight:800;color:var(--navy);">Manajemen Stok</div>
+                                        <div style="background:var(--amber);color:var(--navy);font-size:10px;font-weight:800;padding:5px 12px;border-radius:8px;">+ Tambah Barang</div>
+                                    </div>
+                                    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+                                        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:8px 12px;background:#F8F7F6;border-bottom:1px solid var(--border);gap:8px;">
+                                            <span style="font-size:9px;font-weight:700;color:var(--text-sub);">NAMA BARANG</span>
+                                            <span style="font-size:9px;font-weight:700;color:var(--text-sub);">STOK</span>
+                                            <span style="font-size:9px;font-weight:700;color:var(--text-sub);">HARGA</span>
+                                            <span style="font-size:9px;font-weight:700;color:var(--text-sub);">STATUS</span>
+                                        </div>
+                                        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:9px 12px;border-bottom:1px solid var(--border);gap:8px;align-items:center;">
+                                            <span style="font-size:10px;font-weight:600;color:var(--navy);">Mie Goreng Spesial</span>
+                                            <span style="font-size:10px;color:var(--navy);">142 pcs</span>
+                                            <span style="font-size:10px;color:var(--navy);">Rp15.000</span>
+                                            <span style="font-size:9px;font-weight:700;color:var(--green);background:var(--green-light);padding:2px 7px;border-radius:100px;">Aman</span>
+                                        </div>
+                                        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:9px 12px;border-bottom:1px solid var(--border);gap:8px;align-items:center;">
+                                            <span style="font-size:10px;font-weight:600;color:var(--navy);">Es Teh Manis</span>
+                                            <span style="font-size:10px;color:var(--navy);">8 pcs</span>
+                                            <span style="font-size:10px;color:var(--navy);">Rp8.000</span>
+                                            <span style="font-size:9px;font-weight:700;color:#F59E0B;background:#FEF3C7;padding:2px 7px;border-radius:100px;">Menipis</span>
+                                        </div>
+                                        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:9px 12px;gap:8px;align-items:center;">
+                                            <span style="font-size:10px;font-weight:600;color:var(--navy);">Nasi Putih</span>
+                                            <span style="font-size:10px;color:#EF4444;font-weight:700;">2 pcs</span>
+                                            <span style="font-size:10px;color:var(--navy);">Rp5.000</span>
+                                            <span style="font-size:9px;font-weight:700;color:#EF4444;background:#FEE2E2;padding:2px 7px;border-radius:100px;">Kritis</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                        </div><!-- end sc-track -->
+                    </div>
 
                     <!-- nav dots + arrows -->
                     <div style="background:#F8F7F6;border-top:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
@@ -1875,10 +1999,10 @@
    ============================================================ */
 (function() {
     var SC_URLS = [
-        'acosys.co.id/dashboard',
-        'acosys.co.id/penjualan',
-        'acosys.co.id/laporan-persediaan-barang',
-        'acosys.co.id/point-of-sale'
+        'app.acosys.id/dashboard',
+        'app.acosys.id/kasir',
+        'app.acosys.id/laporan',
+        'app.acosys.id/stok'
     ];
     var TOTAL   = 4;
     var current = 0;

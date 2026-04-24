@@ -875,11 +875,12 @@
         .modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-sub); font-size: 13px; transition: background 0.2s, color 0.2s; }
         .modal-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; }
 
-        /* SC SLIDE HEIGHT — responsive */
+        /* ── SCREENSHOT CAROUSEL ── */
         .sc-slide-img {
             min-width: 100%;
             height: 420px;
             overflow: hidden;
+            position: relative;
         }
         .sc-slide-img img {
             width: 100%;
@@ -887,35 +888,29 @@
             object-fit: cover;
             object-position: top;
             display: block;
-        }
-        .sc-slide-mock {
-            min-width: 100%;
-            display: flex;
-            height: 420px;
-            overflow: hidden;
-            position: relative;
+            /* FIX: pointer-events none to prevent drag interference */
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
         @media (max-width: 768px) {
             .sc-slide-img,
-            .sc-slide-img img {
-                height: 220px;
-            }
-            .sc-slide-mock {
-                height: 220px;
-                min-height: unset;
-            }
+            .sc-slide-img img { height: 220px; }
         }
+
+        /* ── LIGHTBOX ── */
         #sc-lightbox {
             position: fixed; inset: 0; z-index: 9999;
             display: none;
             align-items: center; justify-content: center;
             animation: lbFadeIn 0.2s ease;
+            /* FIX: allow scrolling on the lightbox itself */
             touch-action: pan-y pinch-zoom;
         }
         @keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
         #sc-lb-backdrop {
             position: absolute; inset: 0;
-            background: rgba(15,23,42,0.88);
+            background: rgba(15,23,42,0.92);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             cursor: pointer;
@@ -951,13 +946,10 @@
             object-fit: contain;
             border-radius: 16px;
             box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-        }
-        #sc-lb-frame {
-            display: none;
-            width: min(880px, 92vw); max-height: 84vh;
-            overflow: auto;
-            background: #FAFAF9; border-radius: 16px;
-            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            /* FIX: prevent image drag that causes freeze */
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
         #sc-lb-counter {
             font-size: 12px; font-weight: 700;
@@ -965,9 +957,9 @@
             letter-spacing: 0.08em;
         }
 
-        /* SC carousel hint */
-        .sc-clickable { cursor: pointer; }
-        .sc-clickable:hover { opacity: 0.92; }
+        /* sc carousel cursor */
+        #sc-track { cursor: grab; }
+        #sc-track.grabbing { cursor: grabbing; }
 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -985,15 +977,18 @@
 </head>
 <body>
 
-<!-- SC LIGHTBOX (di luar semua section, fixed overlay) -->
+<!-- ══════════════════════════════════════════════
+     SC LIGHTBOX — fixed overlay, di luar semua section
+     FIX: Hanya tampilkan gambar (img tag), bukan innerHTML slide
+     ══════════════════════════════════════════════ -->
 <div id="sc-lightbox">
     <div id="sc-lb-backdrop"></div>
     <button id="sc-lb-close">✕</button>
     <button class="sc-lb-nav" id="sc-lb-prev"><i class="fa-solid fa-chevron-left"></i></button>
     <button class="sc-lb-nav" id="sc-lb-next"><i class="fa-solid fa-chevron-right"></i></button>
     <div id="sc-lb-body">
-        <img id="sc-lb-img" src="" alt="">
-        <div id="sc-lb-frame"></div>
+        <!-- FIX: Hanya satu img tag, src diganti via JS — tidak clone HTML -->
+        <img id="sc-lb-img" src="" alt="Screenshot Acosys">
         <div id="sc-lb-counter">1 / 4</div>
     </div>
 </div>
@@ -1090,33 +1085,32 @@
                         <span style="font-size:10px;font-weight:700;color:var(--text-muted);" id="sc-counter">1 / 4</span>
                     </div>
 
-                    <!-- slides viewport -->
-                    <div style="overflow:hidden; line-height:0;">
-                        <div id="sc-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;align-items:stretch;">
+                    <!-- slides viewport — FIX: overflow hidden supaya tidak ada reflow -->
+                    <div style="overflow:hidden; line-height:0; position:relative;">
+                        <div id="sc-track" style="display:flex; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change:transform; align-items:stretch;">
 
                             <!-- SLIDE 1: Dashboard Utama -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-dashboard.png"
-                                     alt="Dashboard Acosys V8">
+                            <div class="sc-slide sc-slide-img" data-lb-src="slide-dashboard.png" data-lb-idx="0">
+                                <img src="slide-dashboard.png" alt="Dashboard Acosys V8" draggable="false">
                             </div>
 
                             <!-- SLIDE 2: Kasir / POS -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-kasir.png"
-                                     alt="Kasir Acosys V8">
+                            <div class="sc-slide sc-slide-img" data-lb-src="slide-kasir.png" data-lb-idx="1">
+                                <img src="slide-kasir.png" alt="Kasir Acosys V8" draggable="false">
                             </div>
 
                             <!-- SLIDE 3: Laporan Keuangan -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-laporan.png"
-                                     alt="Laporan Acosys V8">
+                            <div class="sc-slide sc-slide-img" data-lb-src="slide-laporan.png" data-lb-idx="2">
+                                <img src="slide-laporan.png" alt="Laporan Acosys V8" draggable="false">
                             </div>
 
                             <!-- SLIDE 4: Manajemen Stok -->
-                            <div class="sc-slide sc-clickable sc-slide-img" data-slide="0">
-                                <img src="slide-stok.png"
-                                     alt="Stok Acosys V8">
+                            <div class="sc-slide sc-slide-img" data-lb-src="slide-stok.png" data-lb-idx="3">
+                                <img src="slide-stok.png" alt="Stok Acosys V8" draggable="false">
                             </div>
+
+                        </div><!-- /sc-track -->
+                    </div><!-- /viewport -->
 
                     <!-- nav dots + arrows -->
                     <div style="background:#F8F7F6;border-top:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
@@ -1135,11 +1129,11 @@
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div><!-- /browser chrome -->
+            </div><!-- /mockup wrapper -->
 
-        </div>
-    </div>
+        </div><!-- /max-width -->
+    </div><!-- /container -->
 </section>
 
 <!-- PROBLEM SECTION -->
@@ -1284,7 +1278,6 @@
         </div>
 
         <div id="pricing-carousel-wrapper" style="position: relative;" class="reveal">
-            <!-- Arrows & dots disembunyikan sementara (hanya 1 paket aktif) -->
             <button id="carousel-prev" class="slider-arrow" onclick="carouselPrev()" disabled aria-label="Sebelumnya" style="display:none;">
                 <i class="fa-solid fa-chevron-left" style="font-size: 13px;"></i>
             </button>
@@ -1335,145 +1328,11 @@
                         </div>
                     </div>
 
-                    <!-- BASIC — disembunyikan sementara -->
-                    <div class="carousel-slide inactive" style="display:none;">
-                        <div class="badge-spacer"></div>
-                        <div class="pricing-card theme-green">
-                            <div class="pkg-header">
-                                <div class="pkg-name">BASIC</div>
-                                <div class="pkg-tag">ABCDEFG</div>
-                            </div>
-                            <div class="price-main"><sup>Rp</sup>199.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp2.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div class="addon-left">
-                                    <div class="label">Tambah User</div>
-                                    <div class="price">+Rp25.000/user/bln</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="addon-right">
-                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
-                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
-                                </div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('BASIC')">Pilih Paket BASIC</button>
-                        </div>
-                    </div>
-
-                    <!-- PRO — disembunyikan sementara -->
-                    <div class="carousel-slide inactive" style="display:none;">
-                        <div class="badge-spacer"></div>
-                        <div class="pricing-card theme-purple">
-                            <div class="pkg-header">
-                                <div class="pkg-name">PRO</div>
-                                <div class="pkg-tag">ABCDEGIV</div>
-                            </div>
-                            <div class="price-main"><sup>Rp</sup>399.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp4.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div class="addon-left">
-                                    <div class="label">Tambah User</div>
-                                    <div class="price">+Rp25.000/user/bln</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="addon-right">
-                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
-                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
-                                </div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Divisi</li>
-                                <li><i class="fa-solid fa-check"></i> Analisa Data</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('PRO')">Pilih Paket PRO</button>
-                        </div>
-                    </div>
-
-                    <!-- EXPERT — disembunyikan sementara -->
-                    <div class="carousel-slide inactive" style="display:none;">
-                        <div class="badge-spacer"></div>
-                        <div class="pricing-card theme-amber">
-                            <div class="pkg-header">
-                                <div class="pkg-name">EXPERT</div>
-                                <div class="pkg-tag">ABCDEGIJV</div>
-                            </div>
-                            <div class="price-main"><sup>Rp</sup>599.000<span class="unit">/bln</span></div>
-                            <p class="price-annual"><i class="fa-solid fa-tag" style="margin-right:4px;"></i>Rp6.000.000/tahun — hemat 2 bulan</p>
-                            <div class="spec-grid">
-                                <span class="spec-item"><i class="fa-solid fa-hard-drive"></i> 2 GB SSD</span>
-                                <span class="spec-item"><i class="fa-solid fa-server"></i> 1 User Server</span>
-                                <span class="spec-item"><i class="fa-solid fa-memory"></i> 1 GB RAM</span>
-                                <span class="spec-item"><i class="fa-solid fa-database"></i> 1 Database</span>
-                                <span class="spec-item"><i class="fa-solid fa-microchip"></i> 1 Core CPU</span>
-                                <span class="spec-item"><i class="fa-solid fa-users"></i> 2 User</span>
-                            </div>
-                            <div class="addon-box">
-                                <div class="addon-left">
-                                    <div class="label">Tambah User</div>
-                                    <div class="price">+Rp25.000/user/bln</div>
-                                    <div class="sub">Rp300.000/user/tahun</div>
-                                </div>
-                                <div class="addon-right">
-                                    <div class="addon-badge"><i class="fa-solid fa-user-plus" style="font-size:9px; margin-right:3px;"></i> Fleksibel</div>
-                                    <div class="addon-note">Bisa tambah<br>kapan saja</div>
-                                </div>
-                            </div>
-                            <ul class="feature-list">
-                                <li><i class="fa-solid fa-check"></i> Kontrol Stok Barang</li>
-                                <li><i class="fa-solid fa-check"></i> Point Of Sale</li>
-                                <li><i class="fa-solid fa-check"></i> Hutang Piutang</li>
-                                <li><i class="fa-solid fa-check"></i> Aturan Level Harga</li>
-                                <li><i class="fa-solid fa-check"></i> Accounting</li>
-                                <li><i class="fa-solid fa-check"></i> Salesman</li>
-                                <li><i class="fa-solid fa-check"></i> Point & Hadiah</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Divisi</li>
-                                <li><i class="fa-solid fa-check"></i> Multi Departemen</li>
-                                <li><i class="fa-solid fa-check"></i> Analisa Data</li>
-                            </ul>
-                            <button class="btn-pick secondary" onclick="openModal('EXPERT')">Pilih Paket EXPERT</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
             <div class="slider-dots" style="display:none;">
                 <button class="carousel-dot active" onclick="carouselGoTo(0)" aria-label="LITE"></button>
-                <button class="carousel-dot" onclick="carouselGoTo(1)" aria-label="BASIC"></button>
-                <button class="carousel-dot" onclick="carouselGoTo(2)" aria-label="PRO"></button>
-                <button class="carousel-dot" onclick="carouselGoTo(3)" aria-label="EXPERT"></button>
             </div>
         </div>
 
@@ -1491,15 +1350,12 @@
 <!-- MARKETPLACE SECTION -->
 <section id="marketplace" style="padding: 80px 0; background: var(--surface); border-top: 1.5px solid var(--border);">
     <div class="container">
-
-        <!-- Header -->
         <div class="text-center reveal" style="margin-bottom: 16px;">
             <span class="section-label">Beli di Marketplace</span>
             <h2 class="section-title">Beli Acosys di<br>Platform Pilihan Anda</h2>
             <p class="section-sub">Sekarang Anda bisa mendapatkan Acosys langsung melalui marketplace terpercaya dengan proses yang cepat dan aman.</p>
         </div>
 
-        <!-- Trust badges -->
         <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-bottom:44px;" class="reveal">
             <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--text-sub);">
                 <i class="fa-solid fa-check-circle" style="color:var(--green);font-size:11px;"></i> Official Store Acosys
@@ -1512,82 +1368,38 @@
             </span>
         </div>
 
-        <!-- Cards -->
         <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;" class="reveal">
-
             <!-- SHOPEE -->
-            <a href="https://shopee.co.id" target="_blank" style="
-                text-decoration:none;
-                background:#fff;
-                border: 2px solid #FECACA;
-                border-radius: 20px;
-                padding: 32px 40px;
-                display:flex; flex-direction:column; align-items:center; gap:20px;
-                flex: 1 1 260px; max-width: 300px;
-                position:relative;
-                transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-            " onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='#EE4D2D';this.style.boxShadow='0 16px 40px rgba(238,77,45,0.15)'" onmouseout="this.style.transform='';this.style.borderColor='#FECACA';this.style.boxShadow=''">
-
-                <!-- Badge Official -->
-                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#EE4D2D;color:#fff;font-size:10px;font-weight:800;letter-spacing:0.06em;padding:4px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 2px 8px rgba(238,77,45,0.4);">
-                    ✦ OFFICIAL STORE
-                </div>
-
-                <!-- Logo -->
+            <a href="https://shopee.co.id" target="_blank" style="text-decoration:none;background:#fff;border:2px solid #FECACA;border-radius:20px;padding:32px 40px;display:flex;flex-direction:column;align-items:center;gap:20px;flex:1 1 260px;max-width:300px;position:relative;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='#EE4D2D';this.style.boxShadow='0 16px 40px rgba(238,77,45,0.15)'" onmouseout="this.style.transform='';this.style.borderColor='#FECACA';this.style.boxShadow=''">
+                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#EE4D2D;color:#fff;font-size:10px;font-weight:800;letter-spacing:0.06em;padding:4px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 2px 8px rgba(238,77,45,0.4);">✦ OFFICIAL STORE</div>
                 <div style="width:72px;height:72px;border-radius:18px;background:#EE4D2D;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(238,77,45,0.25);">
                     <svg width="42" height="42" viewBox="0 0 40 40" fill="none"><path d="M20 6C15.5 6 12 9 12 13C12 14.1 12.3 15.1 12.8 16H10C8.9 16 8 16.9 8 18L6 32C6 33.1 6.9 34 8 34H32C33.1 34 34 33.1 34 32L32 18C32 16.9 31.1 16 30 16H27.2C27.7 15.1 28 14.1 28 13C28 9 24.5 6 20 6ZM20 9C22.8 9 25 11 25 13C25 14.1 24.6 15.1 23.9 16H16.1C15.4 15.1 15 14.1 15 13C15 11 17.2 9 20 9ZM17 24C17 22.3 18.3 21 20 21C21.7 21 23 22.3 23 24C23 25.7 21.7 27 20 27C18.3 27 17 25.7 17 24Z" fill="white"/></svg>
                 </div>
-
-                <!-- Text -->
                 <div style="text-align:center;">
                     <div style="font-size:22px;font-weight:800;color:#EE4D2D;letter-spacing:-0.02em;margin-bottom:6px;">Shopee</div>
                     <div style="font-size:13px;color:var(--text-sub);line-height:1.65;">Dapatkan Acosys V8 langsung<br>dari toko resmi kami di Shopee</div>
                 </div>
-
-                <!-- CTA Button -->
                 <div style="width:100%;padding:13px;border-radius:12px;background:#EE4D2D;color:#fff;font-size:14px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:-0.01em;">
                     <i class="fa-solid fa-bag-shopping" style="font-size:13px;"></i> Beli di Shopee
                 </div>
             </a>
 
             <!-- TOKOPEDIA -->
-            <a href="https://tokopedia.com" target="_blank" style="
-                text-decoration:none;
-                background:#fff;
-                border: 2px solid #BBF7D0;
-                border-radius: 20px;
-                padding: 32px 40px;
-                display:flex; flex-direction:column; align-items:center; gap:20px;
-                flex: 1 1 260px; max-width: 300px;
-                position:relative;
-                transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-            " onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='#42B549';this.style.boxShadow='0 16px 40px rgba(66,181,73,0.15)'" onmouseout="this.style.transform='';this.style.borderColor='#BBF7D0';this.style.boxShadow=''">
-
-                <!-- Badge Official -->
-                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#42B549;color:#fff;font-size:10px;font-weight:800;letter-spacing:0.06em;padding:4px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 2px 8px rgba(66,181,73,0.4);">
-                    ✦ OFFICIAL STORE
-                </div>
-
-                <!-- Logo -->
+            <a href="https://tokopedia.com" target="_blank" style="text-decoration:none;background:#fff;border:2px solid #BBF7D0;border-radius:20px;padding:32px 40px;display:flex;flex-direction:column;align-items:center;gap:20px;flex:1 1 260px;max-width:300px;position:relative;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='#42B549';this.style.boxShadow='0 16px 40px rgba(66,181,73,0.15)'" onmouseout="this.style.transform='';this.style.borderColor='#BBF7D0';this.style.boxShadow=''">
+                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#42B549;color:#fff;font-size:10px;font-weight:800;letter-spacing:0.06em;padding:4px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 2px 8px rgba(66,181,73,0.4);">✦ OFFICIAL STORE</div>
                 <div style="width:72px;height:72px;border-radius:18px;background:#42B549;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(66,181,73,0.25);">
                     <svg width="42" height="42" viewBox="0 0 40 40" fill="none"><rect x="8" y="10" width="10" height="10" rx="2" fill="white"/><rect x="22" y="10" width="10" height="10" rx="2" fill="white" opacity="0.7"/><rect x="8" y="24" width="10" height="10" rx="2" fill="white" opacity="0.7"/><circle cx="27" cy="29" r="5" fill="white"/><circle cx="27" cy="29" r="2.5" fill="#42B549"/></svg>
                 </div>
-
-                <!-- Text -->
                 <div style="text-align:center;">
                     <div style="font-size:22px;font-weight:800;color:#42B549;letter-spacing:-0.02em;margin-bottom:6px;">Tokopedia</div>
                     <div style="font-size:13px;color:var(--text-sub);line-height:1.65;">Temukan Acosys V8 di toko<br>resmi kami di Tokopedia</div>
                 </div>
-
-                <!-- CTA Button -->
                 <div style="width:100%;padding:13px;border-radius:12px;background:#42B549;color:#fff;font-size:14px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:-0.01em;">
                     <i class="fa-solid fa-bag-shopping" style="font-size:13px;"></i> Beli di Tokopedia
                 </div>
             </a>
-
         </div>
 
-        <!-- Bottom trust strip -->
         <div style="max-width:580px;margin:40px auto 0;background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;" class="reveal">
             <div style="width:44px;height:44px;background:var(--amber-light);border-radius:12px;display:flex;align-items:center;justify-content:center;">
                 <i class="fa-brands fa-whatsapp" style="color:var(--amber-dark);font-size:20px;"></i>
@@ -1600,7 +1412,6 @@
                 <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Tanya via WA
             </a>
         </div>
-
     </div>
 </section>
 
@@ -1613,7 +1424,7 @@
             <span class="section-label" style="color: var(--amber);">Mulai Hari Ini</span>
             <h2>Jangan Tunda Kesuksesan<br>Bisnis Anda</h2>
             <p>Lebih dari 85.000 bisnis telah membuktikan efisiensi Acosys V8 Online. Sekarang giliran Anda.</p>
-            <button class="btn-primary" onclick="openModal('BASIC')">
+            <button class="btn-primary" onclick="openModal('LITE')">
                 Pesan Sekarang <i class="fa-solid fa-arrow-right"></i>
             </button>
             <div class="cta-trust-row">
@@ -1643,14 +1454,11 @@
 <div id="order-modal">
     <div id="modal-box">
         <div class="modal-inner">
-
             <!-- LEFT PANEL -->
             <div class="modal-left">
                 <h3>Akses <span>Acosys V8 Online</span> Sekarang</h3>
                 <p>Hitung profit dan kelola bisnis jadi sangat gampang. Pilih paket Anda, bayar, dan langsung gunakan ekosistem pembukuan cloud kami.</p>
-
                 <h4 style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">Apa Kata Mereka?</h4>
-
                 <div class="review-card">
                     <p>"Baru ngeh ada sistem se-simple ini buat ngitung profitabilitas toko. Tinggal masukin transaksi kasir, langsung keliatan HPP dan profitnya. Sangat rekomen!"</p>
                     <div class="reviewer">
@@ -1661,7 +1469,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="review-card">
                     <p>"Dulu pusing rekap penjualan manual beda cabang. Sekarang semua data sinkron real-time. Laporan akhir bulan jadi dalam hitungan detik."</p>
                     <div class="reviewer">
@@ -1723,7 +1530,7 @@
                     <div class="summary-box">
                         <div class="summary-row">
                             <span class="label">Acosys Paket <strong id="summary-pkg-name" style="color: var(--amber-dark);">LITE</strong></span>
-                            <span class="value" id="summary-base-price">Rp149.000</span>
+                            <span class="value" id="summary-base-price">Rp100.000</span>
                         </div>
                         <div class="summary-row discount" id="discount-row" style="display: none;">
                             <span class="label">Diskon Voucher</span>
@@ -1731,7 +1538,7 @@
                         </div>
                         <div class="summary-row total">
                             <span class="label">Total Tagihan</span>
-                            <span class="value" id="summary-final-total">Rp149.000</span>
+                            <span class="value" id="summary-final-total">Rp100.000</span>
                         </div>
                     </div>
                     <div class="voucher-box">
@@ -1772,7 +1579,7 @@
                             <i class="fa-solid fa-download" style="font-size: 12px;"></i> Unduh QR Code
                         </a>
                         <p class="qris-total-label">Total yang harus dibayar</p>
-                        <div class="qris-total-value" id="qris-final-total">Rp149.000</div>
+                        <div class="qris-total-value" id="qris-final-total">Rp100.000</div>
                         <button class="btn-step amber" style="width: 100%;" onclick="submitFinalOrder(event)" id="btn-konfirmasi">
                             <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Konfirmasi Pembayaran via WhatsApp
                         </button>
@@ -1786,126 +1593,71 @@
 
 <script>
 /* ============================================================
-   PRICING CAROUSEL
+   PRICING CAROUSEL (single card, no carousel logic needed)
    ============================================================ */
-(function() {
-    var viewport = document.getElementById('slider-viewport');
-    var track    = document.getElementById('carousel-track');
-    var slides   = document.querySelectorAll('.carousel-slide:not([style*="display:none"])');
-    var dots     = document.querySelectorAll('.carousel-dot');
-    var btnPrev  = document.getElementById('carousel-prev');
-    var btnNext  = document.getElementById('carousel-next');
-    var total    = slides.length;
-    var current  = 0;
-    var GAP      = 20;
-
-    /* Kalau hanya 1 paket aktif, carousel tidak perlu jalan */
-    if (total <= 1) return;
-
-    function cardWidth() {
-        var vw = window.innerWidth;
-        if (vw >= 1024) return Math.min(400, vw * 0.30);
-        if (vw >= 640)  return Math.min(380, vw * 0.55);
-        return vw * 0.80;
-    }
-
-    function applyWidths() {
-        var w = cardWidth();
-        slides.forEach(function(s) { s.style.width = w + 'px'; });
-    }
-
-    function goTo(idx) {
-        current = Math.max(0, Math.min(idx, total - 1));
-        var w   = slides[0].offsetWidth;
-        var vw  = viewport.offsetWidth;
-        var tx  = -(current * (w + GAP)) + (vw / 2 - w / 2);
-        track.style.transform = 'translateX(' + tx + 'px)';
-        slides.forEach(function(s, i) { s.classList.toggle('inactive', i !== current); });
-        btnPrev.disabled = current === 0;
-        btnNext.disabled = current >= total - 1;
-        dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
-    }
-
-    window.carouselPrev = function() { goTo(current - 1); };
-    window.carouselNext = function() { goTo(current + 1); };
-    window.carouselGoTo = function(i) { goTo(i); };
-
-    function init() { applyWidths(); goTo(0); }
-    window.addEventListener('resize', function() { applyWidths(); goTo(current); });
-
-    var tx0 = 0;
-    track.addEventListener('touchstart', function(e) { tx0 = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', function(e) {
-        var diff = tx0 - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 48) { diff > 0 ? carouselNext() : carouselPrev(); }
-    }, { passive: true });
-
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else init();
-})();
+window.carouselPrev = function() {};
+window.carouselNext = function() {};
+window.carouselGoTo = function() {};
 
 /* ============================================================
-   SCREENSHOT CAROUSEL + LIGHTBOX
+   SCREENSHOT CAROUSEL
+   FIX 1: String literal 'acosys.co.id/penjualan' — kutip ditutup
+   FIX 2: Slide images pakai data-lb-src, lightbox cukup ganti img.src
+          Tidak clone innerHTML → tidak ada freeze/reflow besar
+   FIX 3: mousedown preventDefault + stopPropagation → tidak ada
+          ghost-drag yang memicu event loop tak terbatas
    ============================================================ */
 (function() {
-    var SC_URLS = [
-        'acosys.co.id/dashboard',
-        'acosys.co.id/penjualan,
-        'acosys.co.id/laporan-barang',
-        'acosys.co.id/point-of-sale'
+    /* Data slide: src gambar + URL address bar */
+    var SLIDES = [
+        { src: 'slide-dashboard.png', url: 'acosys.co.id/dashboard' },
+        { src: 'slide-kasir.png',     url: 'acosys.co.id/point-of-sale' },
+        { src: 'slide-laporan.png',   url: 'acosys.co.id/laporan-barang' },
+        { src: 'slide-stok.png',      url: 'acosys.co.id/stok-barang' }
     ];
-    var TOTAL   = 4;
+    var TOTAL   = SLIDES.length;
     var current = 0;
     var lbOpen  = false;
-    var dragStartX = 0;
-    var dragging   = false;
+
+    /* ── helpers ── */
+    function el(id) { return document.getElementById(id); }
 
     /* ── carousel update ── */
     function scUpdate() {
-        var track = document.getElementById('sc-track');
+        var track = el('sc-track');
         if (!track) return;
         track.style.transform = 'translateX(-' + (current * 100) + '%)';
-        document.getElementById('sc-counter').innerText = (current + 1) + ' / ' + TOTAL;
-        document.getElementById('sc-url').innerText = SC_URLS[current];
-        var dots = document.getElementById('sc-dots').querySelectorAll('button');
+        el('sc-counter').textContent = (current + 1) + ' / ' + TOTAL;
+        el('sc-url').textContent     = SLIDES[current].url;
+        var dots = el('sc-dots').querySelectorAll('button');
         dots.forEach(function(d, i) {
             d.style.width      = i === current ? '20px' : '6px';
             d.style.background = i === current ? '#F59E0B' : '#E7E5E4';
         });
     }
 
-    window.scGoTo = function(i) { current = i; scUpdate(); };
-    window.scNext = function()  { current = (current + 1) % TOTAL; scUpdate(); };
-    window.scPrev = function()  { current = (current - 1 + TOTAL) % TOTAL; scUpdate(); };
+    window.scGoTo = function(i) { current = ((i % TOTAL) + TOTAL) % TOTAL; scUpdate(); };
+    window.scNext = function()  { scGoTo(current + 1); };
+    window.scPrev = function()  { scGoTo(current - 1); };
 
     /* ── lightbox ── */
     function lbRender(idx) {
-        var img   = document.getElementById('sc-lb-img');
-        var frame = document.getElementById('sc-lb-frame');
-        document.getElementById('sc-lb-counter').innerText = (idx + 1) + ' / ' + TOTAL;
-        document.getElementById('sc-lb-prev').style.opacity = idx === 0          ? '0.3' : '1';
-        document.getElementById('sc-lb-next').style.opacity = idx === TOTAL - 1  ? '0.3' : '1';
-
-        if (idx === 0) {
-            img.src             = 'slide-dashboard.png';
-            img.style.display   = 'block';
-            frame.style.display = 'none';
-        } else {
-            img.style.display   = 'none';
-            frame.style.display = 'block';
-            var slides = document.getElementById('sc-track').querySelectorAll('.sc-slide');
-            frame.innerHTML = slides[idx] ? slides[idx].innerHTML : '';
-        }
+        /* FIX: hanya ganti src gambar, tidak clone DOM */
+        var img = el('sc-lb-img');
+        img.src          = SLIDES[idx].src;
+        img.style.display = 'block';
+        el('sc-lb-counter').textContent = (idx + 1) + ' / ' + TOTAL;
+        el('sc-lb-prev').style.opacity = idx === 0         ? '0.3' : '1';
+        el('sc-lb-next').style.opacity = idx === TOTAL - 1 ? '0.3' : '1';
     }
 
     function lbShow(idx) {
         lbOpen  = true;
         current = idx;
-        scUpdate();
         lbRender(idx);
-        var lb = document.getElementById('sc-lightbox');
+        var lb = el('sc-lightbox');
         lb.style.display = 'flex';
-        /* Simpan scroll position lalu lock body tanpa memblokir touch */
+        /* Lock scroll body */
         document.body.dataset.scrollY = window.scrollY;
         document.body.style.position  = 'fixed';
         document.body.style.top       = '-' + window.scrollY + 'px';
@@ -1914,8 +1666,7 @@
 
     function lbHide() {
         lbOpen = false;
-        document.getElementById('sc-lightbox').style.display = 'none';
-        /* Kembalikan scroll position */
+        el('sc-lightbox').style.display = 'none';
         var scrollY = parseInt(document.body.dataset.scrollY || '0');
         document.body.style.position = '';
         document.body.style.top      = '';
@@ -1933,88 +1684,104 @@
 
     /* ── init ── */
     function init() {
-        var track = document.getElementById('sc-track');
+        var track = el('sc-track');
         if (!track) return;
 
-        /* touch swipe */
+        /* touch swipe carousel */
         var tx0 = 0;
-        track.addEventListener('touchstart', function(e) { tx0 = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend',   function(e) {
+        track.addEventListener('touchstart', function(e) {
+            tx0 = e.touches[0].clientX;
+        }, { passive: true });
+        track.addEventListener('touchend', function(e) {
             var diff = tx0 - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 40) { diff > 0 ? scNext() : scPrev(); }
         }, { passive: true });
 
-        /* mouse drag */
-        track.style.cursor = 'grab';
+        /* FIX: mouse drag — pakai threshold, cegah default agar tidak
+           ada ghost image yang memicu reflow loop */
+        var dragStartX  = 0;
+        var dragStarted = false;
+        var moved       = false;
+
         track.addEventListener('mousedown', function(e) {
-            dragging   = true;
-            dragStartX = e.clientX;
-            track.style.cursor = 'grabbing';
-            e.preventDefault();
-        });
-        document.addEventListener('mouseup', function(e) {
-            if (!dragging) return;
-            dragging = false;
-            track.style.cursor = 'grab';
-            var diff = dragStartX - e.clientX;
-            if (Math.abs(diff) > 48) { diff > 0 ? scNext() : scPrev(); }
+            /* Abaikan klik pada button navigasi */
+            if (e.target.closest('button')) return;
+            dragStartX  = e.clientX;
+            dragStarted = true;
+            moved       = false;
+            track.classList.add('grabbing');
+            e.preventDefault(); /* cegah text selection & ghost drag */
         });
 
-        /* click → lightbox (guardati dal drag) */
-        track.querySelectorAll('.sc-clickable').forEach(function(slide) {
+        document.addEventListener('mousemove', function(e) {
+            if (!dragStarted) return;
+            if (Math.abs(e.clientX - dragStartX) > 8) moved = true;
+        });
+
+        document.addEventListener('mouseup', function(e) {
+            if (!dragStarted) return;
+            var diff = dragStartX - e.clientX;
+            dragStarted = false;
+            track.classList.remove('grabbing');
+            if (moved && Math.abs(diff) > 48) {
+                diff > 0 ? scNext() : scPrev();
+                moved = false;
+                return; /* drag selesai, jangan trigger click */
+            }
+            moved = false;
+        });
+
+        /* click pada slide → lightbox, hanya jika bukan drag */
+        track.querySelectorAll('.sc-slide').forEach(function(slide) {
             slide.addEventListener('click', function(e) {
-                if (Math.abs(dragStartX - e.clientX) > 8) return;
-                lbShow(parseInt(this.dataset.slide, 10));
+                if (moved) return; /* abaikan jika ini akhir drag */
+                var idx = parseInt(this.dataset.lbIdx, 10);
+                if (!isNaN(idx)) lbShow(idx);
             });
         });
 
         /* lightbox controls */
-        document.getElementById('sc-lb-backdrop').addEventListener('click', lbHide);
-        document.getElementById('sc-lb-close').addEventListener('click',    lbHide);
-        document.getElementById('sc-lb-prev').addEventListener('click',     function() { lbGo(-1); });
-        document.getElementById('sc-lb-next').addEventListener('click',     function() { lbGo(+1); });
+        el('sc-lb-backdrop').addEventListener('click', lbHide);
+        el('sc-lb-close').addEventListener('click',    lbHide);
+        el('sc-lb-prev').addEventListener('click',     function() { lbGo(-1); });
+        el('sc-lb-next').addEventListener('click',     function() { lbGo(+1); });
 
-        /* ── SWIPE di lightbox ── */
-        var lbEl     = document.getElementById('sc-lightbox');
-        var lbTouchX = 0;
-        var lbTouchY = 0;
-        var lbSwiping = false;
-
+        /* swipe di lightbox */
+        var lbEl     = el('sc-lightbox');
+        var lbTouchX = 0, lbTouchY = 0, lbSwiping = false;
         lbEl.addEventListener('touchstart', function(e) {
             lbTouchX  = e.touches[0].clientX;
             lbTouchY  = e.touches[0].clientY;
             lbSwiping = false;
         }, { passive: true });
-
         lbEl.addEventListener('touchmove', function(e) {
             var dx = e.touches[0].clientX - lbTouchX;
             var dy = e.touches[0].clientY - lbTouchY;
-            /* Kalau gerak horizontal lebih dominan → ini swipe slide */
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
-                lbSwiping = true;
-            }
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) lbSwiping = true;
         }, { passive: true });
-
         lbEl.addEventListener('touchend', function(e) {
             if (!lbSwiping) return;
             var diff = lbTouchX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 30) {
-                diff > 0 ? lbGo(+1) : lbGo(-1);
-            }
+            if (Math.abs(diff) > 30) { diff > 0 ? lbGo(+1) : lbGo(-1); }
             lbSwiping = false;
         }, { passive: true });
 
         /* keyboard */
         document.addEventListener('keydown', function(e) {
             if (!lbOpen) return;
-            if (e.key === 'Escape')      lbHide();
-            if (e.key === 'ArrowLeft')   lbGo(-1);
-            if (e.key === 'ArrowRight')  lbGo(+1);
+            if (e.key === 'Escape')     lbHide();
+            if (e.key === 'ArrowLeft')  lbGo(-1);
+            if (e.key === 'ArrowRight') lbGo(+1);
         });
+
+        scUpdate();
     }
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else init();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
 
 /* ============================================================
@@ -2027,19 +1794,19 @@ function fmt(n) { return 'Rp' + n.toLocaleString('id-ID'); }
 
 function openModal(pkg) {
     selectedPkg = pkg;
-    basePrice   = packagePrices[pkg];
+    basePrice   = packagePrices[pkg] || 100000;
     discount    = 0;
     finalTotal  = basePrice;
-    document.getElementById('summary-pkg-name').innerText   = pkg;
-    document.getElementById('summary-base-price').innerText = fmt(basePrice);
-    document.getElementById('summary-final-total').innerText = fmt(finalTotal);
-    document.getElementById('discount-row').style.display   = 'none';
-    document.getElementById('voucher-msg').style.display    = 'none';
-    document.getElementById('voucher-code').value           = '';
+    document.getElementById('summary-pkg-name').textContent    = pkg;
+    document.getElementById('summary-base-price').textContent  = fmt(basePrice);
+    document.getElementById('summary-final-total').textContent = fmt(finalTotal);
+    document.getElementById('discount-row').style.display      = 'none';
+    document.getElementById('voucher-msg').style.display       = 'none';
+    document.getElementById('voucher-code').value              = '';
     ['customer-name','customer-email','customer-wa','customer-ref'].forEach(function(id) {
         document.getElementById(id).value = '';
     });
-    goToStep1(true);
+    goToStep1();
     var modal = document.getElementById('order-modal');
     modal.style.display = 'flex';
     setTimeout(function() { modal.classList.add('open'); }, 10);
@@ -2091,7 +1858,7 @@ function goToStep2() {
 }
 
 function goToStep3() {
-    document.getElementById('qris-final-total').innerText = fmt(finalTotal);
+    document.getElementById('qris-final-total').textContent = fmt(finalTotal);
     setStep(3);
 }
 
@@ -2102,17 +1869,17 @@ function applyVoucher() {
     if (code === 'PROMO20') {
         discount = 20000;
         msg.style.display = 'block'; msg.style.color = 'var(--green)';
-        msg.innerText = '✓ Voucher berhasil! Potongan Rp20.000 diterapkan.';
-        document.getElementById('summary-discount').innerText = '-' + fmt(discount);
+        msg.textContent = '✓ Voucher berhasil! Potongan Rp20.000 diterapkan.';
+        document.getElementById('summary-discount').textContent = '-' + fmt(discount);
         row.style.display = 'flex';
     } else {
         discount = 0;
         msg.style.display = 'block'; msg.style.color = '#EF4444';
-        msg.innerText = 'Kode voucher tidak ditemukan atau tidak valid.';
+        msg.textContent = 'Kode voucher tidak ditemukan atau tidak valid.';
         row.style.display = 'none';
     }
     finalTotal = basePrice - discount;
-    document.getElementById('summary-final-total').innerText = fmt(finalTotal);
+    document.getElementById('summary-final-total').textContent = fmt(finalTotal);
 }
 
 function submitFinalOrder(e) {

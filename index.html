@@ -1903,7 +1903,7 @@ function submitFinalOrder(e) {
     btn.disabled  = true;
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
 
-    fetch('https://script.google.com/macros/s/AKfycbzSKtLBLVUIu5hJliXgVMWl7GNDxnWvyGYu5CV20cKUfl6BHt4i6lJ2GUL5JduOR8_E/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbw5awh0sUc2DsSHH9eeviVFVVcMIHcBc_PHrJ7aKcRMhII4G4XFkX8juPzyqpYwXUDH/exec', {
         method: 'POST', body: formData, mode: 'no-cors'
     }).finally(function() {
         window.open('https://wa.me/62811791078?text=' + encodeURIComponent(msg), '_blank');

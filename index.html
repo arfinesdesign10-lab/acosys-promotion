@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acosys V8 Online | Kelola Bisnis Lebih Mudah</title>
     <meta name="description" content="Software akuntansi berbasis cloud untuk berbagai jenis bisnis yang membantu mengelola keuangan, stok, dan operasional bisnis secara efisien.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.apis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700;1,900&family=Fraunces:ital,opsz,wght@1,9..144,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.apis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700;1,900&family=Fraunces:ital,opsz,wght@1,9..144,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -1884,30 +1884,59 @@ function applyVoucher() {
 
 function submitFinalOrder(e) {
     e.preventDefault();
-    var name  = document.getElementById('customer-name').value;
-    var email = document.getElementById('customer-email').value;
-    var wa    = document.getElementById('customer-wa').value;
-    var ref   = document.getElementById('customer-ref').value;
-    var msg   = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n*Paket:* ' + selectedPkg + '\n*Total Tagihan:* ' + fmt(finalTotal) + '\n\n*Data Pemesan:*\n- Nama: ' + name + '\n- Email: ' + email + '\n- WA: ' + wa + '\n- Referral: ' + (ref || '-') + '\n\nBerikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
 
-    var formData = new FormData();
-    formData.append('paket',    selectedPkg);
-    formData.append('nama',     name);
-    formData.append('email',    email);
-    formData.append('wa',       wa);
-    formData.append('referral', ref);
-    formData.append('total',    finalTotal);
-    formData.append('waktu',    new Date().toLocaleString('id-ID'));
+    var name  = document.getElementById('customer-name').value.trim();
+    var email = document.getElementById('customer-email').value.trim();
+    var wa    = document.getElementById('customer-wa').value.trim();
+    var ref   = document.getElementById('customer-ref').value.trim();
+
+    // Validasi sederhana
+    if (!name || !email || !wa) {
+        alert('Mohon lengkapi data nama, email, dan nomor WhatsApp.');
+        return;
+    }
+
+    var msg = 'Halo Tim Acosys,\n\nSaya telah melakukan pemesanan via *QRIS* untuk:\n\n'
+            + '*Paket:* ' + selectedPkg + '\n'
+            + '*Total Tagihan:* ' + fmt(finalTotal) + '\n\n'
+            + '*Data Pemesan:*\n'
+            + '- Nama: ' + name + '\n'
+            + '- Email: ' + email + '\n'
+            + '- WA: ' + wa + '\n'
+            + '- Referral: ' + (ref || '-') + '\n\n'
+            + 'Berikut saya lampirkan bukti transfer pembayaran QRIS. Mohon segera diproses.';
+
+    // Gunakan URLSearchParams agar kompatibel dengan mode no-cors
+    var params = new URLSearchParams();
+    params.append('paket',    selectedPkg);
+    params.append('nama',     name);
+    params.append('email',    email);
+    params.append('wa',       wa);
+    params.append('referral', ref || '-');
+    params.append('total',    finalTotal);
+    params.append('waktu',    new Date().toLocaleString('id-ID'));
 
     var btn = document.getElementById('btn-konfirmasi');
     btn.disabled  = true;
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Meneruskan ke WhatsApp…';
 
-    fetch('https://script.google.com/macros/s/AKfycbza6FPsBawF5Dnp6rXuVFGor1-ufPNDbEvKLlH303sddXUfzvLVJboNssBY_UFFk4Js/exec', {
-        method: 'POST', body: formData, mode: 'no-cors'
-    }).finally(function() {
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/DEPLOYMENT_ID_KAMU/exec';
+
+    fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body:   params,   // URLSearchParams, bukan FormData — lebih stabil dengan no-cors
+        mode:   'no-cors'
+    })
+    .then(function() {
+        // Buka WhatsApp setelah data terkirim
         window.open('https://wa.me/62811791078?text=' + encodeURIComponent(msg), '_blank');
         closeModal();
+    })
+    .catch(function(err) {
+        console.error('Gagal mengirim data:', err);
+        alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
+    })
+    .finally(function() {
         btn.disabled  = false;
         btn.innerHTML = '<i class="fa-brands fa-whatsapp" style="font-size:18px;"></i> Konfirmasi Pembayaran via WhatsApp';
     });
